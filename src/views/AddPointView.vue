@@ -1,0 +1,17 @@
+<script setup>
+  import AddPoint from '../components/addPoint.vue'
+</script>
+
+<template>
+  <AddPoint />
+</template>
+
+<style>
+  @media (min-width: 1024px) {
+    .about {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+  }
+</style>
