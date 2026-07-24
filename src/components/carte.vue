@@ -83,10 +83,5 @@ onMounted(async () => {
 <template>
   <div>
     <div id="carte" style="height: 70dvh; width: 100%"></div>
-    <div class="d-grid gap-2 col-11 mx-auto mb-2 fixed-bottom">
-      <button class="btn btn-primary" type="button" @click="$router.push('/addPoint')">
-        Ajouter un point
-      </button>
-    </div>
   </div>
 </template>
