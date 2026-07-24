@@ -3,9 +3,15 @@ import { onMounted, watch } from 'vue'
 import { etagesConfig } from '../store/etages.js'
 import { fetchPoints } from '../store/points.js'
 
-let map = null
-let controle = null
-const groupes = {}
+const props = defineProps({
+    carteId: String,
+    carteWidth: String,
+    carteHeight: String,
+});
+
+let map = null;
+let controle = null;
+const groupes = {};
 
 function construireGroupeEtage(cle, etage) {
   const calque = L.imageOverlay(etage.image, etage.bounds)
@@ -81,7 +87,10 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div>
-    <div id="carte" style="height: 70dvh; width: 100%"></div>
-  </div>
+    <div>
+        <div
+            :id="carteId"
+            :style="{ height: carteHeight, width: carteWidth }"
+        ></div>
+    </div>
 </template>
