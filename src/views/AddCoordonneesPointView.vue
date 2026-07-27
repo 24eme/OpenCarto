@@ -10,12 +10,6 @@ const router = useRouter();
 const enregistrement = ref(false);
 const erreur = ref(null);
 
-onMounted(() => {
-    const etage =
-        etagesConfig[pointData.etage] ?? Object.values(etagesConfig)[0];
-    const calque = L.imageOverlay(etage.image, etage.bounds);
-});
-
 function valider() {
     enregistrement.value = true;
     erreur.value = null;
@@ -48,6 +42,7 @@ function updatePointCoordinate(coordinates) {
                 carteHeight="70dvh"
                 carteWidth="100%"
                 hasCoordinatesSelector="true"
+                :layer="pointData.etage"
                 @move="updatePointCoordinate"
             ></Carte>
         </div>

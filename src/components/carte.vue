@@ -8,6 +8,7 @@ const props = defineProps({
     carteWidth: String,
     carteHeight: String,
     hasCoordinatesSelector: Boolean,
+    layer: String,
 });
 
 const emit = defineEmits(["move"]);
@@ -72,11 +73,12 @@ onMounted(() => {
     });
     controle = L.control.layers(controleCalques).addTo(map);
 
-    const premiereEntree = Object.values(groupes)[0];
-    if (premiereEntree) {
-        premiereEntree.groupe.addTo(map);
-        map.fitBounds(premiereEntree.groupe.bounds);
-    }
+    const initialLayer = Object.keys(groupes).includes(props.layer)
+        ? groupes[props.layer]
+        : Object.values(groupes)[0];
+
+    initialLayer.groupe.addTo(map);
+    map.fitBounds(initialLayer.groupe.bounds);
 
     chargerPoints();
     mettreAJourCoordonnees();
