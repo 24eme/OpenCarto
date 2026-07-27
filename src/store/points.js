@@ -15,11 +15,11 @@ export function ecrireStorage(points) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(points))
 }
 
-export async function fetchPoints() {
+export function fetchPoints() {
   return lireStorage()
 }
 
-export async function createPoint(point) {
+export function createPoint(point) {
   const points = lireStorage()
 
   const nouveauPoint = {

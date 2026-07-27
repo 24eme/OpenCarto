@@ -1,10 +1,10 @@
 <script setup>
-  import Carte from '../components/carte.vue';
-  import UploadPlan from '../components/uploadPlan.vue';
-  import { ref } from 'vue';
+import Carte from "../components/carte.vue";
+import UploadPlan from "../components/uploadPlan.vue";
+import { ref } from "vue";
 
-  const clientName = ref('Potel & Chabot');
-  const modaleOuverte = ref(false);
+const clientName = ref("Potel & Chabot");
+const modaleOuverte = ref(false);
 </script>
 
 <template>
