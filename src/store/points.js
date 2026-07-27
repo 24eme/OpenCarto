@@ -33,3 +33,14 @@ export function createPoint(point) {
 
   return nouveauPoint
 }
+
+export function toLeafletMarker(point) {
+  return L.marker([point.coordonnees.lat, point.coordonnees.lng], {
+      icon: new L.DivIcon({
+          iconSize: [25, 25],
+          className: "leaflet-marker-poste",
+          html: `<div style="background: #06e5; border: 2px solid #00e; border-radius: 50%; text-align: center">${point.idPiege}</div>`,
+      }),
+  })
+  .bindPopup(`<strong>${point.secteur}</strong>`)
+}

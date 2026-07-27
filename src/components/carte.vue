@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, watch } from "vue";
 import { etagesConfig } from "../store/etages.js";
-import { fetchPoints } from "../store/points.js";
+import { fetchPoints, toLeafletMarker } from "../store/points.js";
 
 const props = defineProps({
     carteId: String,
@@ -35,9 +35,7 @@ function chargerPoints() {
             const groupe = groupes[point.etage];
             if (!groupe || !point.coordonnees) return;
 
-            L.marker([point.coordonnees.lat, point.coordonnees.lng])
-                .bindPopup(`<strong>${point.secteur}</strong>`)
-                .addTo(groupe.groupe.marqueurs);
+            toLeafletMarker(point).addTo(groupe.groupe.marqueurs);
         });
     } catch (e) {
         console.error("Impossible de charger les points :", e);
