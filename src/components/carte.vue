@@ -81,21 +81,21 @@ onMounted(() => {
     chargerPoints();
     mettreAJourCoordonnees();
     map.on("move", mettreAJourCoordonnees);
-
-    // watcher qui se declenche lorsque lutilisateur ajoute un nouveau plan parce que la length de l'objet
-    // etagesConfig change. Ensuite, on va comparer l'entrée avec ce quon a deja dans les groupes
-    watch(
-        () => Object.keys(etagesConfig).length,
-        () => {
-            Object.entries(etagesConfig).forEach(([cle, etage]) => {
-                if (groupes[cle]) return;
-
-                const { groupe, label } = construireGroupeEtage(cle, etage);
-                controle.addOverlay(groupe, label);
-            });
-        },
-    );
 });
+
+// watcher qui se declenche lorsque l'utilisateur ajoute un nouveau plan parce que la length de l'objet
+// etagesConfig change. Ensuite, on va comparer l'entrée avec ce qu'on a deja dans les groupes
+watch(
+    () => Object.keys(etagesConfig).length,
+    () => {
+        Object.entries(etagesConfig).forEach(([cle, etage]) => {
+            if (groupes[cle]) return;
+
+            const { groupe, label } = construireGroupeEtage(cle, etage);
+            controle.addOverlay(groupe, label);
+        });
+    },
+);
 </script>
 
 <template>
