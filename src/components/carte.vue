@@ -13,7 +13,6 @@ const props = defineProps({
 
 const emit = defineEmits(["move"]);
 
-let map = null;
 let controle = null;
 let centerCoordinates = { lat: 0.0, lng: 0.0 };
 const groupes = {};
@@ -47,7 +46,7 @@ onMounted(() => {
         construireGroupeEtage(cle, etage),
     );
 
-    map = L.map(props.carteId, {
+    const map = L.map(props.carteId, {
         contextmenu: true,
         zoomControl: true,
         minZoom: -3,
