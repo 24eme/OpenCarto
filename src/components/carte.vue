@@ -92,7 +92,7 @@ watch(
             if (groupes[cle]) return;
 
             const { groupe, label } = construireGroupeEtage(cle, etage);
-            controle.addOverlay(groupe, label);
+            controle.addBaseLayer(groupe, label);
         });
     },
 );
