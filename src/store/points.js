@@ -39,7 +39,7 @@ export function toLeafletMarker(point) {
       icon: new L.DivIcon({
           iconSize: [25, 25],
           className: "leaflet-marker-poste",
-          html: `<div style="background: #06e5; border: 2px solid #00e; border-radius: 50%; text-align: center">${point.idPiege}</div>`,
+          html: `<div>${point.idPiege}</div>`,
       }),
   })
   .bindPopup(`<strong>${point.secteur}</strong>`)

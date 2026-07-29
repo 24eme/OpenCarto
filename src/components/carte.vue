@@ -106,3 +106,12 @@ watch(
         <div v-if="hasCoordinatesSelector" class="viseur">＋</div>
     </div>
 </template>
+
+<style>
+.leaflet-marker-poste > div {
+    background: #06e8;
+    border: 2px solid #00e;
+    border-radius: 50%;
+    text-align: center;
+}
+</style>
