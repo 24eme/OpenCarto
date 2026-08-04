@@ -3,7 +3,6 @@ import { onMounted, useTemplateRef, ref } from "vue";
 import { useRouter } from "vue-router";
 import { pointData, reinitialiserPointData } from "../store/pointData.js";
 import { createPoint } from "../store/points.js";
-import { etagesConfig } from "../store/etages.js";
 import Carte from "../components/carte.vue";
 
 const router = useRouter();

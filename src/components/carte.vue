@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, watch } from "vue";
-import { etagesConfig } from "../store/etages.js";
+import { etagesConfig } from "@/store/etages.js";
 import { fetchPoints, toLeafletMarker } from "../store/points.js";
 
 const props = defineProps({
@@ -15,26 +15,28 @@ const emit = defineEmits(["move"]);
 
 let controle = null;
 let centerCoordinates = { lat: 0.0, lng: 0.0 };
-const groupes = {};
+const groupes = [];
 
-function construireGroupeEtage(cle, etage) {
+function construireGroupeEtage(etage) {
     const calque = L.imageOverlay(etage.image, etage.bounds);
     const marqueurs = L.layerGroup();
-    const groupe = L.layerGroup([calque, marqueurs]);
-    groupe.marqueurs = marqueurs;
-    groupe.bounds = etage.bounds;
-    groupes[cle] = { groupe, label: etage.label };
-    return groupes[cle];
+    const layerGroupe = L.layerGroup([calque, marqueurs]);
+    layerGroupe.bounds = etage.bounds;
+    groupes.push({ layerGroupe, label: etage.label });
+    return groupes.at(-1);
 }
 
 function chargerPoints() {
     try {
         const points = fetchPoints();
         points.forEach((point) => {
-            const groupe = groupes[point.etage];
+            const etage = etagesConfig.find((e) => e.id === point.etage);
+            if (!etage) return;
+
+            const groupe = groupes.find((g) => g.label === etage.label);
             if (!groupe || !point.coordonnees) return;
 
-            toLeafletMarker(point).addTo(groupe.groupe.marqueurs);
+            toLeafletMarker(point).addTo(groupe.layerGroupe);
         });
     } catch (e) {
         console.error("Impossible de charger les points :", e);
@@ -42,9 +44,7 @@ function chargerPoints() {
 }
 
 onMounted(() => {
-    Object.entries(etagesConfig).forEach(([cle, etage]) =>
-        construireGroupeEtage(cle, etage),
-    );
+    etagesConfig.forEach((etage) => construireGroupeEtage(etage));
 
     const map = L.map(props.carteId, {
         contextmenu: true,
@@ -65,17 +65,19 @@ onMounted(() => {
     }
 
     const controleCalques = {};
-    Object.values(groupes).forEach(({ groupe, label }) => {
-        controleCalques[label] = groupe;
+    groupes.forEach((groupe) => {
+        controleCalques[groupe.label] = groupe.layerGroupe;
     });
     controle = L.control.layers(controleCalques).addTo(map);
 
-    const initialLayer = Object.keys(groupes).includes(props.layer)
-        ? groupes[props.layer]
-        : Object.values(groupes)[0];
+    const initialLayerIndex = etagesConfig.findIndex(
+        (etage) => etage.id === props.layer,
+    );
+    const initialLayer =
+        initialLayerIndex !== -1 ? groupes[initialLayerIndex] : groupes.at(0);
 
-    initialLayer.groupe.addTo(map);
-    map.fitBounds(initialLayer.groupe.bounds);
+    initialLayer.layerGroupe.addTo(map);
+    map.fitBounds(initialLayer.layerGroupe.bounds);
 
     chargerPoints();
     mettreAJourCoordonnees();
@@ -85,13 +87,13 @@ onMounted(() => {
 // watcher qui se declenche lorsque l'utilisateur ajoute un nouveau plan parce que la length de l'objet
 // etagesConfig change. Ensuite, on va comparer l'entrée avec ce qu'on a deja dans les groupes
 watch(
-    () => Object.keys(etagesConfig).length,
+    () => etagesConfig.length,
     () => {
-        Object.entries(etagesConfig).forEach(([cle, etage]) => {
-            if (groupes[cle]) return;
+        etagesConfig.forEach((etage) => {
+            if (groupes.find((g) => g.label === etage.label)) return;
 
-            const { groupe, label } = construireGroupeEtage(cle, etage);
-            controle.addBaseLayer(groupe, label);
+            const newEtage = construireGroupeEtage(etage);
+            controle.addBaseLayer(newEtage.layerGroupe, newEtage.label);
         });
     },
 );
