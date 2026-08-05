@@ -1,0 +1,101 @@
+<script setup>
+import { etagesConfig } from "@/store/etages";
+
+const props = defineProps({
+    point: Object,
+});
+
+defineEmits(["close"]);
+
+function etageid2label(etageid) {
+    return etagesConfig.find((etage) => etage.id === etageid).label;
+}
+
+function formatDate(datestring) {
+    const date = new Date(datestring);
+    return date.toLocaleDateString();
+}
+</script>
+
+<template>
+    <div class="fixed-bottom card">
+        <h5 class="card-header">
+            Point n° {{ point.idPiege }}
+            <span class="fs-6 cursor-not-allowed bi bi-pencil"></span>
+            <span class="float-end cursor-pointer" @click="$emit('close')"
+                >×</span
+            >
+        </h5>
+        <div class="row overflow-auto">
+            <div class="col-sm-3 mx-auto align-self-stretch" v-if="point.photo">
+                <svg
+                    aria-label="Placeholder"
+                    height="100%"
+                    preserveAspectRatio="xMidYMid slice"
+                    role="img"
+                    width="100%"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="img"
+                >
+                    <title>Placeholder</title>
+                    <rect width="100%" height="100%" fill="#868e96"></rect>
+                    <text x="50%" y="50%" text-anchor="middle" fill="#dee2e6">
+                        Placeholder
+                    </text>
+                </svg>
+            </div>
+            <div class="col">
+                <div class="table-responsive">
+                    <table class="table table-stripped">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Valeur</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                            <tr>
+                                <td>Étage</td>
+                                <td>{{ etageid2label(point.etage) }}</td>
+                            </tr>
+                            <tr>
+                                <td>Secteur</td>
+                                <td>{{ point.secteur }}</td>
+                            </tr>
+                            <tr>
+                                <td>Type de piège</td>
+                                <td>{{ point.typePiege }}</td>
+                            </tr>
+                            <tr>
+                                <td>Photo</td>
+                                <td v-if="!point.photo">
+                                    <i class="bi bi-camera"></i> Ajouter
+                                </td>
+                                <td v-else>Modifier</td>
+                            </tr>
+                            <tr>
+                                <td>Créé le</td>
+                                <td>{{ formatDate(point.creeLe) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-secondary text-center">
+                        <small>{{ point.id }}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<style scoped>
+.card {
+    max-height: 50dvh;
+}
+.cursor-pointer {
+    cursor: pointer;
+}
+.cursor-not-allowed {
+    cursor: not-allowed;
+}
+</style>

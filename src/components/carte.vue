@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, watch } from "vue";
 import { etagesConfig } from "@/store/etages.js";
+import { pointData } from "@/store/pointData.js";
 import { fetchPoints, toLeafletMarker } from "../store/points.js";
 
 const props = defineProps({
@@ -11,7 +12,7 @@ const props = defineProps({
     layer: String,
 });
 
-const emit = defineEmits(["move"]);
+const emit = defineEmits(["move", "pointSelected"]);
 
 let controle = null;
 let centerCoordinates = { lat: 0.0, lng: 0.0 };
@@ -33,7 +34,9 @@ function chargerPoints() {
             const groupe = groupes.find((g) => g.id === point.etage);
             if (!groupe || !point.coordonnees) return;
 
-            toLeafletMarker(point).addTo(groupe.layerGroupe);
+            toLeafletMarker(point)
+                .on("click", () => emit("pointSelected", point))
+                .addTo(groupe.layerGroupe);
         });
     } catch (e) {
         console.error("Impossible de charger les points :", e);
