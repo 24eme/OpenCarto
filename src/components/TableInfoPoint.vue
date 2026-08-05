@@ -28,21 +28,9 @@ function formatDate(datestring) {
         </h5>
         <div class="row overflow-auto">
             <div class="col-sm-3 mx-auto align-self-stretch" v-if="point.photo">
-                <svg
-                    aria-label="Placeholder"
-                    height="100%"
-                    preserveAspectRatio="xMidYMid slice"
-                    role="img"
-                    width="100%"
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="img"
-                >
-                    <title>Placeholder</title>
-                    <rect width="100%" height="100%" fill="#868e96"></rect>
-                    <text x="50%" y="50%" text-anchor="middle" fill="#dee2e6">
-                        Placeholder
-                    </text>
-                </svg>
+                <figure class="figure">
+                    <img class="figure-img img-fluid d-block mx-auto" :src="point.photo" alt="Photo du piège"></img>
+                </figure>
             </div>
             <div class="col">
                 <div class="table-responsive">
