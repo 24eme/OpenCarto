@@ -22,7 +22,7 @@ function construireGroupeEtage(etage) {
     const marqueurs = L.layerGroup();
     const layerGroupe = L.layerGroup([calque, marqueurs]);
     layerGroupe.bounds = etage.bounds;
-    groupes.push({ layerGroupe, label: etage.label });
+    groupes.push({ layerGroupe, label: etage.label, id: etage.id });
     return groupes.at(-1);
 }
 
@@ -30,10 +30,7 @@ function chargerPoints() {
     try {
         const points = fetchPoints();
         points.forEach((point) => {
-            const etage = etagesConfig.find((e) => e.id === point.etage);
-            if (!etage) return;
-
-            const groupe = groupes.find((g) => g.label === etage.label);
+            const groupe = groupes.find((g) => g.id === point.etage);
             if (!groupe || !point.coordonnees) return;
 
             toLeafletMarker(point).addTo(groupe.layerGroupe);
@@ -70,8 +67,8 @@ onMounted(() => {
     });
     controle = L.control.layers(controleCalques).addTo(map);
 
-    const initialLayerIndex = etagesConfig.findIndex(
-        (etage) => etage.id === props.layer,
+    const initialLayerIndex = groupes.findIndex(
+        (groupe) => groupe.id === props.layer,
     );
     const initialLayer =
         initialLayerIndex !== -1 ? groupes[initialLayerIndex] : groupes.at(0);
