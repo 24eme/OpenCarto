@@ -15,7 +15,6 @@ const props = defineProps({
 const emit = defineEmits(["move", "pointSelected"]);
 
 let controle = null;
-let centerCoordinates = { lat: 0.0, lng: 0.0 };
 const groupes = [];
 
 function construireGroupeEtage(etage) {
@@ -60,8 +59,7 @@ onMounted(() => {
 
     function mettreAJourCoordonnees() {
         const centre = map.getCenter();
-        centerCoordinates = { lat: centre.lat, lng: centre.lng };
-        emit("move", centerCoordinates);
+        emit("move", { lat: centre.lat, lng: centre.lng });
     }
 
     const controleCalques = {};
