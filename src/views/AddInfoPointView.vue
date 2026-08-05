@@ -49,7 +49,7 @@ if (!pointData.idPiege || pointData.idPiege === "0") {
         </span>
 
         <div class="d-grid gap-2 col-11 mx-auto mb-2 fixed-bottom">
-            <RouterLink to="/prisePhoto" class="btn btn-primary">
+            <RouterLink :to="{ name: 'prisePhoto' }" class="btn btn-primary">
                 Valider les informations
             </RouterLink>
         </div>

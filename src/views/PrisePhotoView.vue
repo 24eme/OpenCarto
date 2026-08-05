@@ -30,16 +30,30 @@
 
     <img v-if="pointData.photo" :src="pointData.photo" class="mt-3" style="max-width: 100%;" />
 
-    <div class="d-grid gap-2 col-11 mx-auto mt-2">
-        <button v-if="! pointData.photo" class="btn btn-primary" type="button" @click="ouvrirCamera">
-            Prendre une photo
-        </button>
-        <RouterLink v-else to="/addCoordonneesPoint" class="btn btn-primary">
-            Valider
-        </RouterLink>
-        <RouterLink v-if="! pointData.photo" to="/addCoordonneesPoint" class="btn btn-light">
-            Valider sans photo
-        </RouterLink>
+        <div class="d-grid gap-2 col-11 mx-auto mt-2">
+            <button
+                v-if="!pointData.photo"
+                class="btn btn-primary"
+                type="button"
+                @click="ouvrirCamera"
+            >
+                Prendre une photo
+            </button>
+            <RouterLink
+                v-else
+                :to="{ name: 'addCoordonneesPoint' }"
+                class="btn btn-primary"
+            >
+                Valider
+            </RouterLink>
+            <RouterLink
+                v-if="!pointData.photo"
+                :to="{ name: 'addCoordonneesPoint' }"
+                class="btn btn-light"
+            >
+                Valider sans photo
+            </RouterLink>
+        </div>
     </div>
 </div>
 </template>

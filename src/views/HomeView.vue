@@ -24,7 +24,7 @@ const modaleOuverte = ref(false);
         </div>
         <Carte carteId="carte" carteHeight="70dvh" carteWidth="100%" />
         <div class="d-grid gap-2 col-11 mx-auto mb-2 fixed-bottom">
-            <RouterLink to="/addInfoPoint" class="btn btn-primary">
+            <RouterLink :to="{ name: 'addInfoPoint' }" class="btn btn-primary">
                 Ajouter un point
             </RouterLink>
         </div>
