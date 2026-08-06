@@ -10,31 +10,46 @@ const selectedPoint = ref(null);
 </script>
 
 <template>
-    <main class="container g-0">
-        <div class="text-center">
-            <h1><strong>SUIVI DE L'INFESTATION</strong></h1>
-            <div class="row">
-                <h2 class="col-10">{{ clientName }}</h2>
-                <button
-                    class="col-2 mb-1 btn btn-secondary"
-                    @click="modaleOuverte = true"
-                >
-                    +
-                </button>
+    <main class="container g-0 d-flex flex-column h-100">
+        <nav class="navbar bg-body-tertiary">
+            <div class="container-fluid justify-content-start">
+                <div class="col-auto d-flex me-3">
+                    <i
+                        class="bi bi-arrow-left-square fs-1 align-self-center"
+                    ></i>
+                </div>
+                <div class="col-auto flex-grow-1">
+                    <h1 class="m-0">Suivi de l'infestation</h1>
+                    <small>{{ clientName }}</small>
+                </div>
             </div>
-            <UploadPlan
-                v-if="modaleOuverte"
-                @fermer="modaleOuverte = false"
-            ></UploadPlan>
-        </div>
+        </nav>
+
+        <UploadPlan
+            v-if="modaleOuverte"
+            @fermer="modaleOuverte = false"
+        ></UploadPlan>
+
         <Carte
+            class="flex-grow-1"
             carteId="carte"
-            carteHeight="70dvh"
+            carteHeight="100%"
             carteWidth="100%"
             @pointSelected="(point) => (selectedPoint = point)"
         />
-        <div class="d-grid gap-2 col-11 mx-auto mb-2 fixed-bottom">
-            <RouterLink :to="{ name: 'addInfoPoint' }" class="btn btn-primary">
+
+        <div class="m-1 row column-gap-1">
+            <button
+                class="col-2 btn btn-secondary"
+                @click="modaleOuverte = true"
+            >
+                +
+            </button>
+
+            <RouterLink
+                :to="{ name: 'addInfoPoint' }"
+                class="col btn btn-primary"
+            >
                 Ajouter un point
             </RouterLink>
         </div>
