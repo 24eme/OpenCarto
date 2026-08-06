@@ -32,7 +32,7 @@ function formatDate(datestring) {
                     <img class="figure-img img-fluid d-block mx-auto" :src="point.photo" alt="Photo du piège"></img>
                 </figure>
             </div>
-            <div class="col">
+            <div class="col px-3">
                 <div class="table-responsive">
                     <table class="table table-stripped">
                         <thead>
