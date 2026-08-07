@@ -10,9 +10,9 @@ const selectedPoint = ref(null);
 </script>
 
 <template>
-    <main class="container g-0 d-flex flex-column h-100">
+    <main class="container g-0 vstack h-100">
         <nav class="navbar bg-body-tertiary">
-            <div class="container-fluid justify-content-start">
+            <div class="container justify-content-start">
                 <div class="col-auto d-flex me-3">
                     <i
                         class="bi bi-arrow-left-square fs-1 align-self-center"
