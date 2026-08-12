@@ -4,6 +4,7 @@ import { useRouter } from "vue-router";
 import { pointData, reinitialiserPointData } from "../store/pointData.js";
 import { createPoint } from "../store/points.js";
 import Carte from "../components/carte.vue";
+import Notification from "@/components/Notification.vue";
 
 const router = useRouter();
 const enregistrement = ref(false);
@@ -46,7 +47,12 @@ function updatePointCoordinate(coordinates) {
             ></Carte>
         </div>
 
-        <p v-if="erreur" class="text-danger mt-2">{{ erreur }}</p>
+        <Notification
+            v-if="erreur"
+            level="danger"
+            :message="erreur"
+            @close="erreur = null"
+        />
 
         <div class="d-grid gap-2 col-11 mx-auto mt-3">
             <button
