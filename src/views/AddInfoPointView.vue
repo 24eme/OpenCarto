@@ -13,10 +13,7 @@ if (!pointData.idPiege || pointData.idPiege === "0") {
             <div class="container justify-content-start">
                 <div class="col-auto d-flex me-3">
                     <RouterLink :to="{ name: 'home' }">
-                        <i
-                            class="bi bi-arrow-left-square fs-1 align-self-center"
-                        ></i
-                    ></RouterLink>
+                        <i class="bi bi-arrow-left-square fs-1 align-self-center" style="color: black;"></i></RouterLink>
                 </div>
                 <div class="col-auto flex-grow-1">
                     <h1 class="m-0">Ajouter un point</h1>
