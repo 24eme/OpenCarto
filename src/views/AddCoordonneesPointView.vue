@@ -30,12 +30,21 @@ function updatePointCoordinate(coordinates) {
 </script>
 
 <template>
+  <nav class="navbar bg-body-tertiary">
+      <div class="container justify-content-start">
+          <div class="col-auto d-flex me-3">
+              <RouterLink :to="{ name: 'prisePhoto' }">
+                  <i class="bi bi-arrow-left-square fs-1 align-self-center" style="color: black;"></i></RouterLink>
+          </div>
+          <div class="col-auto flex-grow-1">
+              <h1 class="m-0">Positionner le point</h1>
+          </div>
+          <p class="text-muted align-center">
+              Fais défiler la carte pour placer le viseur au bon endroit
+          </p>
+      </div>
+  </nav>
     <div class="text-center">
-        <h1 class="mb-3">Positionner le point</h1>
-        <p class="text-muted">
-            Fais défiler la carte pour placer le viseur au bon endroit
-        </p>
-
         <div class="carte-wrapper">
             <Carte
                 carteId="carte"
