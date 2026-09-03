@@ -21,8 +21,9 @@ if (!pointData.idPiege || pointData.idPiege === "0") {
             </div>
         </nav>
 
-        <div class="container vstack justify-content-center">
+        <div class="container vstack justify-content-start">
             <div class="my-2">
+                <!-- mettre par défaut l'étage sur lequel il est -->
                 <label for="etageSelect" class="h4 form-label"
                     >Choix de l'étage</label
                 >
@@ -49,7 +50,7 @@ if (!pointData.idPiege || pointData.idPiege === "0") {
                 />
             </div>
 
-            <div class="my-2">
+            <div class="my-2 mb-auto">
                 <label for="typeSelect" class="h4 form-label"
                     >Type de piège</label
                 >
@@ -65,22 +66,19 @@ if (!pointData.idPiege || pointData.idPiege === "0") {
                 </select>
             </div>
 
-            <div class="my-2">
-                <label for="idPiegeInput" class="h4 form-label"
-                    >Numéro du piège</label
-                >
-                <br />
-                <small>à reporter sur l'installation</small>
+            <hr />
 
-                <input
-                    type="text"
-                    class="form-control disabled"
-                    disabled
-                    v-model="pointData.idPiege"
-                />
+            <div class="my-2 text-center">
+                <p class="fs-3">
+                    Numéro du piège<br />
+                    <small>à reporter sur l'installation</small>
+                </p>
+
+                <p class="display-1 bg-secondary-subtle py-4">
+                    {{ pointData.idPiege }}
+                </p>
             </div>
         </div>
-        <!-- mettre par défaut l'étage sur lequel il est -->
 
         <div class="m-1 row">
             <RouterLink :to="{ name: 'prisePhoto' }" class="btn btn-primary">
