@@ -10,7 +10,7 @@ const selectedPoint = ref(null);
 </script>
 
 <template>
-    <main class="container g-0 vstack h-100">
+    <main class="container g-0 vstack fullscreen">
         <nav class="navbar bg-body-tertiary">
             <div class="container justify-content-start">
                 <div class="col-auto d-flex me-3">

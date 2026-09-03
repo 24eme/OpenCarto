@@ -8,7 +8,7 @@ if (!pointData.idPiege || pointData.idPiege === "0") {
 </script>
 
 <template>
-    <div class="vstack h-100">
+    <div class="vstack fullscreen">
         <nav class="navbar bg-body-tertiary">
             <div class="container justify-content-start">
                 <div class="col-auto d-flex me-3">
@@ -72,7 +72,6 @@ if (!pointData.idPiege || pointData.idPiege === "0") {
                 <br />
                 <small>à reporter sur l'installation</small>
 
-                <!-- ; -->
                 <input
                     type="text"
                     class="form-control disabled"
