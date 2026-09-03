@@ -50,7 +50,7 @@ function updatePointCoordinate(coordinates) {
                 carteId="carte"
                 carteHeight="70dvh"
                 carteWidth="100%"
-                hasCoordinatesSelector="true"
+                hasCoordinatesSelector
                 :layer="pointData.etage"
                 @move="updatePointCoordinate"
             ></Carte>
