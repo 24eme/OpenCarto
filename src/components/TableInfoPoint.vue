@@ -47,8 +47,8 @@ function formatDate(datestring) {
                                 <td>{{ etageid2label(point.etage) }}</td>
                             </tr>
                             <tr>
-                                <td>Secteur</td>
-                                <td>{{ point.secteur }}</td>
+                                <td>Zone</td>
+                                <td>{{ point.zone }}</td>
                             </tr>
                             <tr>
                                 <td>Type de piège</td>

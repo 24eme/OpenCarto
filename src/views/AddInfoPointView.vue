@@ -39,14 +39,14 @@ if (!pointData.idPiege || pointData.idPiege === "0") {
             </div>
 
             <div class="my-2">
-                <label for="secteurText" class="h4 form-label">Secteur</label>
+                <label for="zoneText" class="h4 form-label">Zone</label>
 
                 <input
-                    id="secteurText"
+                    id="zoneText"
                     class="form-control"
                     type="text"
                     placeholder="ex. : Faux plafond, ..."
-                    v-model="pointData.secteur"
+                    v-model="pointData.zone"
                 />
             </div>
 

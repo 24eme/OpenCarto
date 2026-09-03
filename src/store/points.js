@@ -41,6 +41,5 @@ export function toLeafletMarker(point) {
           className: "leaflet-marker-poste",
           html: `<div>${point.idPiege}</div>`,
       }),
-  })
-  .bindPopup(`<strong>${point.secteur}</strong>`)
+  }).bindPopup(`<strong>${point.zone}</strong>`);
 }

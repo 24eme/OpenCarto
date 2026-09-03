@@ -2,7 +2,7 @@ import { reactive } from 'vue'
 
 export const pointData = reactive({
   etage: null,
-  secteur: '',
+  zone: "",
   typePiege: '1',
   idPiege: '0',
   photo: null,
@@ -11,7 +11,7 @@ export const pointData = reactive({
 
 export function reinitialiserPointData() {
   pointData.etage = null
-  pointData.secteur = ''
+  pointData.zone = "";
   pointData.typePiege = '1'
   pointData.idPiege = '0'
   pointData.photo = null
