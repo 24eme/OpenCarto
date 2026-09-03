@@ -85,7 +85,7 @@ if (!pointData.idPiege || pointData.idPiege === "0") {
 
         <div class="m-1 row">
             <RouterLink :to="{ name: 'prisePhoto' }" class="btn btn-primary">
-                Valider les informations
+                Continuer
             </RouterLink>
         </div>
     </div>
