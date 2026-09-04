@@ -109,7 +109,8 @@ watch(
 
 <style>
 .leaflet-marker-poste > div {
-    background: #06e8;
+    background: #06e;
+    color: #fff;
     border: 2px solid #00e;
     border-radius: 50%;
     text-align: center;
