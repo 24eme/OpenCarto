@@ -38,19 +38,17 @@ const selectedPoint = ref(null);
             @pointSelected="(point) => (selectedPoint = point)"
         />
 
-        <div class="m-1 row column-gap-1">
-            <button
-                class="col-2 btn btn-secondary"
-                @click="modaleOuverte = true"
-            >
-                +
-            </button>
 
+        <div class="fabs" role="group" aria-label="Floating action buttons">
             <RouterLink
                 :to="{ name: 'addInfoPoint' }"
-                class="col btn btn-primary"
+                class="fab"
+                title="Ajoute un poste"
+                aria-label="Ajoute un poste"
             >
-                Ajouter un point
+                <i class="d-flex bi bi-geo-alt lh-1">
+                    <i class="bi bi-plus stack stack-be"></i>
+                </i>
             </RouterLink>
         </div>
 
@@ -61,3 +59,67 @@ const selectedPoint = ref(null);
         ></TableInfoPoint>
     </main>
 </template>
+
+<style>
+.fabs {
+    --_viewport-margin: 5vmin;
+
+    position: fixed;
+    z-index: 1000;
+
+    inset-block: auto var(--_viewport-margin);
+    inset-inline: auto var(--_viewport-margin);
+
+    display: flex;
+    flex-direction: column-reverse;
+    place-items: center;
+    gap: var(--_viewport-margin);
+}
+
+.fab {
+    --_size: 2rem;
+
+    padding: calc(var(--_size) / 2);
+    border-radius: 50%;
+    aspect-ratio: 1;
+
+    box-shadow:
+        rgba(0, 0, 0, 0.15) 0px 15px 25px,
+        rgba(0, 0, 0, 0.5) 0px 5px 10px;
+
+    background: var(--bs-primary);
+    color: var(--bs-light);
+    text-align: center;
+
+    &:is(:active, :hover, :focus-visible) {
+        background: var(--bs-link-hover-color);
+    }
+
+    &:active {
+        @media (prefers-reduced-motion: no-preference) {
+            transform: translateY(5%);
+        }
+    }
+
+    & > i {
+        font-size: calc(var(--_size) / 1.2);
+    }
+
+    & .bi {
+        &.stack {
+            position: absolute;
+            text-shadow:
+                -2px -2px 0 var(--bs-primary),
+                2px -2px 0 var(--bs-primary),
+                -2px 2px 0 var(--bs-primary),
+                2px 2px 0 var(--bs-primary);
+        }
+
+        &.stack-be {
+            /* bottom-end */
+            bottom: 0.5rem;
+            right: 0.5rem;
+        }
+    }
+}
+</style>
