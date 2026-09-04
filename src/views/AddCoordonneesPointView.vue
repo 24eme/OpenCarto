@@ -83,12 +83,17 @@ function updatePointCoordinate(coordinates) {
 
 .viseur {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 2rem;
-    line-height: 1;
-    color: #dc3545;
+    place-self: center;
+    inset: 0;
+
+    background: var(--bs-warning-bg-subtle);
+    font-size: 12px;
+
+    border: 2px solid var(--bs-warning);
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+
     pointer-events: none;
     z-index: 1000;
     user-select: none;

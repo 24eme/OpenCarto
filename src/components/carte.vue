@@ -103,7 +103,7 @@ watch(
             :id="carteId"
             :style="{ height: carteHeight, width: carteWidth }"
         ></div>
-        <div v-if="hasCoordinatesSelector" class="viseur">＋</div>
+        <div v-if="hasCoordinatesSelector" class="viseur"></div>
     </div>
 </template>
 
