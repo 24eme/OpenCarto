@@ -50,6 +50,12 @@ const selectedPoint = ref(null);
                     <i class="bi bi-plus stack stack-be"></i>
                 </i>
             </RouterLink>
+
+            <div class="fab mini" @click="modaleOuverte = true">
+                <i class="d-flex position-relative bi bi-map lh-1">
+                    <i class="bi bi-plus stack stack-be"></i>
+                </i>
+            </div>
         </div>
 
         <TableInfoPoint
@@ -62,7 +68,7 @@ const selectedPoint = ref(null);
 
 <style>
 .fabs {
-    --_viewport-margin: 5vmin;
+    --_viewport-margin: 3vmin;
 
     position: fixed;
     z-index: 1000;
@@ -76,11 +82,15 @@ const selectedPoint = ref(null);
     gap: var(--_viewport-margin);
 }
 
+.fab.mini {
+    --_size: 1.2rem;
+}
+
 .fab {
     --_size: 2rem;
 
     padding: calc(var(--_size) / 2);
-    border-radius: 50%;
+    border-radius: var(--bs-border-radius-lg);
     aspect-ratio: 1;
 
     box-shadow:
@@ -109,10 +119,10 @@ const selectedPoint = ref(null);
         &.stack {
             position: absolute;
             text-shadow:
-                -2px -2px 0 var(--bs-primary),
-                2px -2px 0 var(--bs-primary),
-                -2px 2px 0 var(--bs-primary),
-                2px 2px 0 var(--bs-primary);
+                -2px -2px 0 inherit,
+                2px -2px 0 inherit,
+                -2px 2px 0 inherit,
+                2px 2px 0 inherit;
         }
 
         &.stack-be {
