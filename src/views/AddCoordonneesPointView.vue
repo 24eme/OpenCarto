@@ -16,7 +16,7 @@ function valider() {
     try {
         createPoint({ ...pointData });
         reinitialiserPointData();
-        router.push({ name: "home" });
+        router.push({ name: "etage" });
     } catch (e) {
         erreur.value = "Impossible d'enregistrer le point. Réessaie.";
     } finally {

@@ -12,7 +12,7 @@ if (!pointData.idPiege || pointData.idPiege === "0") {
         <nav class="navbar bg-body-tertiary">
             <div class="container justify-content-start">
                 <div class="col-auto d-flex me-3">
-                    <RouterLink :to="{ name: 'home' }">
+                    <RouterLink :to="{ name: 'etage' }">
                         <i class="bi bi-arrow-left-square fs-1 align-self-center" style="color: black;"></i></RouterLink>
                 </div>
                 <div class="col-auto flex-grow-1">
