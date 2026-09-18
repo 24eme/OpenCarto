@@ -1,10 +1,21 @@
 <script setup>
 import { pointData } from "@/store/pointData.js";
-import { etagesConfig } from "@/store/etages.js";
+import { etagesConfig, etageid2label } from "@/store/etages.js";
+import { useRoute } from "vue-router";
+import { computed } from "vue";
+
+const route = useRoute();
 
 if (!pointData.idPiege || pointData.idPiege === "0") {
     pointData.idPiege = String(Math.floor(Math.random() * 101));
 }
+
+pointData.etage = route.params.etage;
+
+const etageLabel = computed(() => {
+    const label = etageid2label(pointData.etage);
+    return label.match(/^[aeéiouh]/i) ? "à l'" + label : "au " + label;
+})
 </script>
 
 <template>
@@ -12,7 +23,12 @@ if (!pointData.idPiege || pointData.idPiege === "0") {
         <nav class="navbar bg-body-tertiary">
             <div class="container justify-content-start">
                 <div class="col-auto d-flex me-3">
-                    <RouterLink :to="{ name: 'etage' }">
+                    <RouterLink
+                        :to="{
+                            name: 'etage',
+                            params: { etage: pointData.etage },
+                        }"
+                    >
                         <i class="bi bi-arrow-left-square fs-1 align-self-center" style="color: black;"></i></RouterLink>
                 </div>
                 <div class="col-auto flex-grow-1">
@@ -24,18 +40,7 @@ if (!pointData.idPiege || pointData.idPiege === "0") {
         <div class="container vstack justify-content-start">
             <div class="my-2">
                 <!-- mettre par défaut l'étage sur lequel il est -->
-                <label for="etageSelect" class="h4 form-label"
-                    >Choix de l'étage</label
-                >
-                <select
-                    id="etageSelect"
-                    class="form-select"
-                    v-model="pointData.etage"
-                >
-                    <option v-for="etage in etagesConfig" :value="etage.id">
-                        {{ etage.label }}
-                    </option>
-                </select>
+                <h3>Le point sera placé {{ etageLabel }}</h3>
             </div>
 
             <div class="my-2">

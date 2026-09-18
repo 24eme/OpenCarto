@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from "@/views/HomeView.vue";
 import EtageView from "@/views/EtageView.vue";
-import AddInfoPointView from '../views/AddInfoPointView.vue'
-import PrisePhotoView from '../views/PrisePhotoView.vue'
-import AddCoordonneesPoint from '../views/AddCoordonneesPointView.vue'
+import AddInfoPointView from "@/views/AddInfoPointView.vue";
+import PrisePhotoView from "@/views/PrisePhotoView.vue";
+import AddCoordonneesPoint from "@/views/AddCoordonneesPointView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,17 +19,17 @@ const router = createRouter({
       component: EtageView,
     },
     {
-      path: '/addInfoPoint',
+      path: "/:etage/point/add",
       name: 'addInfoPoint',
       component: AddInfoPointView,
     },
     {
-      path: '/prisePhoto',
+      path: "/:etage/point/prisePhoto",
       name: 'prisePhoto',
       component: PrisePhotoView,
     },
     {
-      path: '/addCoordonneesPoint',
+      path: "/:etage/point/addCoordonneesPoint",
       name: 'addCoordonneesPoint',
       component: AddCoordonneesPoint,
     },

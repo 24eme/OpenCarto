@@ -16,6 +16,10 @@ export const etagesConfig = reactive([
   },
 ])
 
+export function etageid2label(etageid) {
+  return etagesConfig.find((etage) => etage.id === etageid).label;
+}
+
 function normalizeLabel(label) {
   return label
     .toLowerCase()
