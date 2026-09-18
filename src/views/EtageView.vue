@@ -2,21 +2,38 @@
 import Carte from "../components/carte.vue";
 import UploadPlan from "../components/uploadPlan.vue";
 import TableInfoPoint from "@/components/TableInfoPoint.vue";
-import { ref } from "vue";
+import { etagesConfig } from "@/store/etages";
+import { ref, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
+
+const route = useRoute();
+const router = useRouter();
 
 const clientName = ref("Potel & Chabot");
 const modaleOuverte = ref(false);
 const selectedPoint = ref(null);
+const loadedEtage = ref();
+
+watch(() => route.params.etage, checkEtage, { immediate: true });
+
+function checkEtage(etage) {
+    if (etagesConfig.find(({ id }) => id === etage) === undefined) {
+        router.push({ name: "home" }); // pseudo 404
+    }
+    loadedEtage.value = etage;
+}
 </script>
 
 <template>
-    <main class="container g-0 vstack fullscreen">
+    <main class="container-fluid g-0 vstack fullscreen">
         <nav class="navbar bg-body-tertiary">
             <div class="container justify-content-start">
                 <div class="col-auto d-flex me-3">
-                    <i
-                        class="bi bi-arrow-left-square fs-1 align-self-center"
-                    ></i>
+                    <RouterLink :to="{ name: 'home' }">
+                        <i
+                            class="bi bi-arrow-left-square fs-1 align-self-center"
+                        ></i
+                    ></RouterLink>
                 </div>
                 <div class="col-auto flex-grow-1">
                     <h1 class="m-0">Suivi de l'infestation</h1>
@@ -35,6 +52,7 @@ const selectedPoint = ref(null);
             carteId="carte"
             carteHeight="100%"
             carteWidth="100%"
+            :layer="loadedEtage"
             @pointSelected="(point) => (selectedPoint = point)"
         />
 
