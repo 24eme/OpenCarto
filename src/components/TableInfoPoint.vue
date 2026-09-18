@@ -1,15 +1,11 @@
 <script setup>
-import { etagesConfig } from "@/store/etages";
+import { etagesConfig, etageid2label } from "@/store/etages";
 
 const props = defineProps({
     point: Object,
 });
 
 defineEmits(["close"]);
-
-function etageid2label(etageid) {
-    return etagesConfig.find((etage) => etage.id === etageid).label;
-}
 
 function formatDate(datestring) {
     const date = new Date(datestring);
