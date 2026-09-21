@@ -4,6 +4,7 @@ import EtageView from "@/views/EtageView.vue";
 import AddInfoPointView from "@/views/AddInfoPointView.vue";
 import PrisePhotoView from "@/views/PrisePhotoView.vue";
 import AddCoordonneesPoint from "@/views/AddCoordonneesPointView.vue";
+import TableInfoPoint from "@/components/TableInfoPoint.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,6 +18,13 @@ const router = createRouter({
       path: "/:etage",
       name: "etage",
       component: EtageView,
+      children: [
+        {
+          path: "p/:point",
+          name: "pointInfos",
+          component: TableInfoPoint,
+        },
+      ]
     },
     {
       path: "/:etage/point/add",

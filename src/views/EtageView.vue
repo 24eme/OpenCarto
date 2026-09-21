@@ -1,8 +1,8 @@
 <script setup>
 import Carte from "../components/carte.vue";
 import UploadPlan from "../components/uploadPlan.vue";
-import TableInfoPoint from "@/components/TableInfoPoint.vue";
 import { etagesConfig } from "@/store/etages";
+import { fetchPoints } from "@/store/points";
 import { ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
@@ -11,10 +11,20 @@ const router = useRouter();
 
 const clientName = ref("Potel & Chabot");
 const modaleOuverte = ref(false);
-const selectedPoint = ref(null);
+const points = fetchPoints();
+const selectedPoint = ref();
 const loadedEtage = ref();
 
 watch(() => route.params.etage, checkEtage, { immediate: true });
+watch(selectedPoint, (point) => {
+    if (point === undefined) {
+        router.push({ name: "etage" });
+    } else {
+        router.push({ name: "pointInfos", params: { point: point.id } });
+    }
+});
+
+selectedPoint.value = points.find((p) => p.id === route.params.point);
 
 function checkEtage(etage) {
     if (etagesConfig.find(({ id }) => id === etage) === undefined) {
@@ -56,7 +66,6 @@ function checkEtage(etage) {
             @pointSelected="(point) => (selectedPoint = point)"
         />
 
-
         <div class="fabs" role="group" aria-label="Floating action buttons">
             <RouterLink
                 :to="{ name: 'addInfoPoint' }"
@@ -76,11 +85,15 @@ function checkEtage(etage) {
             </div>
         </div>
 
-        <TableInfoPoint
+        <!-- <router-view> => Nested view visible dans router/index.js -->
+        <!-- correspond à /:etage/p/:point et charge TableInfoPoint -->
+        <!-- évite de reconstruire une view complète avec une nouvelle -->
+        <!-- carte juste pour afficher les infos d'un point -->
+        <router-view
             v-if="selectedPoint"
             :point="selectedPoint"
-            @close="selectedPoint = null"
-        ></TableInfoPoint>
+            @close="selectedPoint = undefined"
+        />
     </main>
 </template>
 
