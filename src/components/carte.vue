@@ -2,7 +2,8 @@
 import { onMounted, watch } from "vue";
 import { etagesConfig } from "@/store/etages.js";
 import { pointData } from "@/store/pointData.js";
-import { fetchPoints, toLeafletMarker } from "../store/points.js";
+import { fetchPoints } from "@/store/points.js";
+import { toLeafletMarker } from "@/leaflet/utils.js";
 
 const props = defineProps({
     carteId: String,
