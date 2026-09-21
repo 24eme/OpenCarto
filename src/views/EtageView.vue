@@ -150,10 +150,10 @@ function checkEtage(etage) {
         &.stack {
             position: absolute;
             text-shadow:
-                -2px -2px 0 inherit,
-                2px -2px 0 inherit,
-                -2px 2px 0 inherit,
-                2px 2px 0 inherit;
+                -2px -2px 0 var(--bs-primary),
+                2px -2px 0 var(--bs-primary),
+                -2px 2px 0 var(--bs-primary),
+                2px 2px 0 var(--bs-primary);
         }
 
         &.stack-be {
