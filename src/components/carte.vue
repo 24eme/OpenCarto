@@ -115,4 +115,10 @@ watch(
     border-radius: 50%;
     text-align: center;
 }
+
+.leaflet-marker-poste-selected > div {
+    background: var(--bs-warning-bg-subtle);
+    color: var(--bs-body-color);
+    border: 2px solid var(--bs-warning);
+}
 </style>
