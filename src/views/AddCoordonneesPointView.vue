@@ -14,9 +14,9 @@ function valider() {
     enregistrement.value = true;
     erreur.value = null;
     try {
-        createPoint({ ...pointData });
+        const newPoint = createPoint({ ...pointData });
         reinitialiserPointData();
-        router.push({ name: "etage" });
+        router.push({ name: "pointInfos", params: { point: newPoint.id } });
     } catch (e) {
         erreur.value = "Impossible d'enregistrer le point. Réessaie.";
     } finally {
