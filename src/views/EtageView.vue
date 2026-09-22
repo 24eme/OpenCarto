@@ -1,6 +1,7 @@
 <script setup>
 import Carte from "../components/carte.vue";
 import UploadPlan from "../components/uploadPlan.vue";
+import TableInfoPoint from "@/components/TableInfoPoint.vue";
 import { etagesConfig } from "@/store/etages";
 import { fetchPoints } from "@/store/points";
 import { ref, watch } from "vue";
@@ -90,9 +91,11 @@ function checkEtage(etage) {
         <!-- évite de reconstruire une view complète avec une nouvelle -->
         <!-- carte juste pour afficher les infos d'un point -->
         <router-view
-            v-if="selectedPoint"
-            :point="selectedPoint"
-            @close="selectedPoint = undefined"
+            <component is="TableInfoPoint"
+                v-if="selectedPoint"
+                :point="selectedPoint"
+                @close="selectedPoint = undefined"
+            />
         />
     </main>
 </template>
