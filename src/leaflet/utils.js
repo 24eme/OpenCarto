@@ -12,6 +12,18 @@ L.PiegeIcon = L.DivIcon.extend({
   },
 });
 
+export function selectPoint(point) {
+  const allPoints = document.querySelectorAll(".leaflet-marker-poste");
+  allPoints.forEach((p) => p.classList.remove("leaflet-marker-poste-selected"));
+
+  if (!point) {
+    return;
+  }
+
+  const marker = document.querySelector('[data-id="' + point.id + '"]');
+  L.DomUtil.addClass(marker, "leaflet-marker-poste-selected");
+}
+
 export function toLeafletMarker(point) {
   return L.marker([point.coordonnees.lat, point.coordonnees.lng], {
     icon: new L.PiegeIcon({
@@ -20,11 +32,5 @@ export function toLeafletMarker(point) {
       html: `<div>${point.idPiege}</div>`,
       data: { id: point.id },
     }),
-  }).on("click", function (e) {
-    const allPoints = document.querySelectorAll(".leaflet-marker-poste");
-    allPoints.forEach((p) =>
-      p.classList.remove("leaflet-marker-poste-selected"),
-    );
-    L.DomUtil.addClass(e.target._icon, "leaflet-marker-poste-selected");
   });
 }

@@ -1,9 +1,9 @@
 <script setup>
-import { onMounted, watch } from "vue";
+import { onMounted, watch, inject } from "vue";
 import { etagesConfig } from "@/store/etages.js";
 import { pointData } from "@/store/pointData.js";
 import { fetchPoints } from "@/store/points.js";
-import { toLeafletMarker } from "@/leaflet/utils.js";
+import { toLeafletMarker, selectPoint } from "@/leaflet/utils.js";
 
 const props = defineProps({
     carteId: String,
@@ -17,6 +17,7 @@ const emit = defineEmits(["move", "pointSelected"]);
 
 let controle = null;
 const groupes = [];
+const selectedPoint = inject("selectedPoint", undefined);
 
 function construireGroupeEtage(etage) {
     const calque = L.imageOverlay(etage.image, etage.bounds);
@@ -81,6 +82,8 @@ onMounted(() => {
     chargerPoints();
     mettreAJourCoordonnees();
     map.on("move", mettreAJourCoordonnees);
+
+    watch(selectedPoint, selectPoint, { immediate: true });
 });
 
 // watcher qui se declenche lorsque l'utilisateur ajoute un nouveau plan parce que la length de l'objet

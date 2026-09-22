@@ -4,7 +4,7 @@ import UploadPlan from "../components/uploadPlan.vue";
 import TableInfoPoint from "@/components/TableInfoPoint.vue";
 import { etagesConfig } from "@/store/etages";
 import { fetchPoints } from "@/store/points";
-import { ref, watch } from "vue";
+import { provide, readonly, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
@@ -26,6 +26,8 @@ watch(selectedPoint, (point) => {
 });
 
 selectedPoint.value = points.find((p) => p.id === route.params.point);
+
+provide("selectedPoint", readonly(selectedPoint))
 
 function checkEtage(etage) {
     if (etagesConfig.find(({ id }) => id === etage) === undefined) {
