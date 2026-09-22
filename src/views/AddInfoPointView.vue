@@ -3,6 +3,7 @@ import { pointData } from "@/store/pointData.js";
 import { etagesConfig, etageid2label } from "@/store/etages.js";
 import { useRoute } from "vue-router";
 import { computed } from "vue";
+import Autocomplete from "@/components/Autocomplete.vue";
 
 const route = useRoute();
 
@@ -51,8 +52,20 @@ const etageLabel = computed(() => {
                     class="form-control"
                     type="text"
                     placeholder="ex. : Faux plafond, ..."
-                    v-model="pointData.zone"
+                    list="zones-preexistantes"
                 />
+                <Autocomplete
+                    v-model="pointData.zone"
+                    name="autocomplete-zones"
+                    :options="[
+                        'Banane',
+                        'Pomme',
+                        'Ananas',
+                        'Grapes',
+                        'Strawberry',
+                        'Kiwi',
+                    ]"
+                ></Autocomplete>
             </div>
 
             <div class="my-2 mb-auto">
