@@ -35,9 +35,9 @@ const focused = ref(false);
 const textFilter = ref("");
 
 const filteredOptions = computed(() => {
-    return props.options
-        .filter((option) => fuzzysearch(textFilter.value, option))
-        .slice(0, props.maxItems);
+    return props.options.filter((option) =>
+        fuzzysearch(textFilter.value, option),
+    );
 });
 
 watch(textFilter, () => emit("filter", textFilter));
@@ -81,6 +81,7 @@ function fuzzysearch(needle, haystack) {
 <template>
     <div class="wrapper">
         <input
+            class="form-control"
             :name="name"
             :placeholder="placeholder"
             :disabled="disabled"
@@ -93,7 +94,8 @@ function fuzzysearch(needle, haystack) {
             <div
                 class="autocomplete-option"
                 v-for="option in filteredOptions"
-                @pointerdown="textFilter = option"
+                @pointerup="textFilter = option"
+                @mousedown="textFilter = option"
             >
                 {{ option }}
             </div>
@@ -103,15 +105,31 @@ function fuzzysearch(needle, haystack) {
 
 <style scoped>
 .wrapper {
-    background-color: #123;
+    margin: 1rem 0;
+    width: 100%;
 }
+
+.wrapper > input {
+    width: 100%;
+}
+
 .autocomplete-options {
-    width: 100px;
-    height: 100px;
-    background-color: darkorchid;
+    z-index: 9999;
+    width: 100%;
+    max-height: 35dvh;
+
+    line-height: 3;
+
+    margin-top: 5px;
+    border-radius: var(--bs-border-radius);
+    border: 1px solid gray;
+
+    overflow-y: scroll;
 }
 .autocomplete-option {
+    padding: 2px 15px;
     cursor: pointer;
+
     &:hover {
         background-color: #ddd;
     }
