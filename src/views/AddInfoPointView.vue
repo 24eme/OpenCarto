@@ -51,16 +51,11 @@ const etageLabel = computed(() => {
             <div class="my-2">
                 <label for="zoneText" class="h4 form-label">Zone</label>
 
-                <input
-                    id="zoneText"
-                    class="form-control"
-                    type="text"
-                    placeholder="ex. : Faux plafond, ..."
-                    list="zones-preexistantes"
-                />
                 <Autocomplete
+                    id="zoneText"
                     @filter="(zone) => (pointData.zone = zone)"
                     name="autocomplete-zones"
+                    placeholder="ex. : Faux plafond, …"
                     :options="existingZones"
                 ></Autocomplete>
             </div>
