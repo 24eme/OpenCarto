@@ -92,12 +92,10 @@ function checkEtage(etage) {
         <!-- correspond à /:etage/p/:point et charge TableInfoPoint -->
         <!-- évite de reconstruire une view complète avec une nouvelle -->
         <!-- carte juste pour afficher les infos d'un point -->
-        <router-view>
-            <component is="TableInfoPoint"
+        <router-view is="TableInfoPoint"
                 v-if="selectedPoint"
                 :point="selectedPoint"
                 @close="selectedPoint = undefined"
-            />
         </router-view>
     </main>
 </template>
