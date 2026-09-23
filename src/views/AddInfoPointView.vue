@@ -61,6 +61,7 @@ const etageLabel = computed(() => {
                     name="autocomplete-zones"
                     placeholder="ex. : Faux plafond, …"
                     :options="existingZones"
+                    :initial-value="pointData.zone"
                 ></Autocomplete>
             </div>
 

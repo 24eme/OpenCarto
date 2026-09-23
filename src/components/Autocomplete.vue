@@ -27,12 +27,17 @@ const props = defineProps({
         required: false,
         default: 5,
     },
+    initialValue: {
+        type: String,
+        required: false,
+        default: "",
+    },
 });
 
 const emit = defineEmits(["filter"]);
 
 const focused = ref(false);
-const textFilter = ref("");
+const textFilter = ref(props.initialValue);
 
 const filteredOptions = computed(() => {
     return props.options.filter((option) =>
