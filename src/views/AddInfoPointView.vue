@@ -2,10 +2,14 @@
 import { pointData } from "@/store/pointData.js";
 import { etagesConfig, etageid2label } from "@/store/etages.js";
 import { useRoute } from "vue-router";
-import { computed } from "vue";
+import { ref, computed } from "vue";
 import Autocomplete from "@/components/Autocomplete.vue";
+import { fetchPoints } from "@/store/points";
 
 const route = useRoute();
+const existingZones = ref([]);
+
+existingZones.value = [...new Set(fetchPoints().map((p) => p.zone))].sort()
 
 if (!pointData.idPiege || pointData.idPiege === "0") {
     pointData.idPiege = String(Math.floor(Math.random() * 101));
@@ -57,14 +61,7 @@ const etageLabel = computed(() => {
                 <Autocomplete
                     @filter="(zone) => (pointData.zone = zone)"
                     name="autocomplete-zones"
-                    :options="[
-                        'Banane',
-                        'Pomme',
-                        'Ananas',
-                        'Grapes',
-                        'Strawberry',
-                        'Kiwi',
-                    ]"
+                    :options="existingZones"
                 ></Autocomplete>
             </div>
 
