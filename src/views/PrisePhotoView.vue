@@ -87,6 +87,14 @@ function onPhotoSelected(event) {
                     class="img-fluid"
                     @click="ouvrirCamera"
                 />
+
+                <textarea
+                    id="descriptionPhotoTextArea"
+                    class="mt-2 form-control"
+                    rows="2"
+                    v-model="pointData.descriptionPhoto"
+                    placeholder="Description de l'emplacement"
+                ></textarea>
             </div>
 
             <div v-else class="flex-grow-1"></div>
