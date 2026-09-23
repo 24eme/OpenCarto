@@ -107,6 +107,7 @@ function fuzzysearch(needle, haystack) {
 .wrapper {
     margin: 1rem 0;
     width: 100%;
+    position: relative;
 }
 
 .wrapper > input {
@@ -114,6 +115,7 @@ function fuzzysearch(needle, haystack) {
 }
 
 .autocomplete-options {
+    position: absolute;
     z-index: 9999;
     width: 100%;
     max-height: 35dvh;
@@ -121,6 +123,7 @@ function fuzzysearch(needle, haystack) {
     line-height: 3;
 
     margin-top: 5px;
+    background: var(--bs-body-bg);
     border-radius: var(--bs-border-radius);
     border: 1px solid gray;
 
