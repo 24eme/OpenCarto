@@ -17,58 +17,69 @@ function onPhotoSelected(event) {
 </script>
 
 <template>
-  <nav class="navbar bg-body-tertiary">
-      <div class="container justify-content-start">
-          <div class="col-auto d-flex me-3">
-              <RouterLink :to="{ name: 'addInfoPoint' }">
-                  <i class="bi bi-arrow-left-square fs-1 align-self-center" style="color: black;"></i></RouterLink>
-          </div>
-          <div class="col-auto flex-grow-1">
-              <h1 class="m-0">Ajout du piège</h1>
-          </div>
-      </div>
-  </nav>
+    <div class="vstack fullscreen">
+        <nav class="navbar bg-body-tertiary">
+            <div class="container justify-content-start">
+                <div class="col-auto d-flex me-3">
+                    <RouterLink :to="{ name: 'addInfoPoint' }">
+                        <i
+                            class="bi bi-arrow-left-square fs-1 align-self-center"
+                            style="color: black"
+                        ></i
+                    ></RouterLink>
+                </div>
+                <div class="col-auto flex-grow-1">
+                    <h1 class="m-0">Ajout du piège</h1>
+                </div>
+            </div>
+        </nav>
 
-    <div class="text-center">
-        <input
-            ref="inputPhoto"
-            type="file"
-            accept="image/*"
-            capture="environment"
-            style="display: none"
-            @change="onPhotoSelected"
-        />
+        <div class="container vstack justify-content-start">
+            <input
+                ref="inputPhoto"
+                type="file"
+                accept="image/*"
+                capture="environment"
+                class="d-none"
+                @change="onPhotoSelected"
+            />
 
-        <img
-            v-if="pointData.photo"
-            :src="pointData.photo"
-            class="mt-3"
-            style="max-width: 100%"
-        />
+            <div class="flex-grow-1" v-if="pointData.photo">
+                <img
+                    :src="pointData.photo"
+                    class="img-fluid"
+                    @click="ouvrirCamera"
+                />
+            </div>
 
-        <div class="d-grid gap-2 col-11 mx-auto mt-2">
-            <button
-                v-if="!pointData.photo"
-                class="btn btn-primary"
-                type="button"
-                @click="ouvrirCamera"
-            >
-                Prendre une photo
-            </button>
-            <RouterLink
-                v-else
-                :to="{ name: 'addCoordonneesPoint' }"
-                class="btn btn-primary"
-            >
-                Valider
-            </RouterLink>
-            <RouterLink
-                v-if="!pointData.photo"
-                :to="{ name: 'addCoordonneesPoint' }"
-                class="btn btn-light"
-            >
-                Valider sans photo
-            </RouterLink>
+            <div v-else class="flex-grow-1"></div>
+
+            <div>
+                <div class="vstack gap-2 m-1">
+                    <button
+                        v-if="!pointData.photo"
+                        class="btn btn-primary"
+                        type="button"
+                        @click="ouvrirCamera"
+                    >
+                        Prendre une photo
+                    </button>
+                    <RouterLink
+                        v-else
+                        :to="{ name: 'addCoordonneesPoint' }"
+                        class="btn btn-primary"
+                    >
+                        Valider
+                    </RouterLink>
+                    <RouterLink
+                        v-if="!pointData.photo"
+                        :to="{ name: 'addCoordonneesPoint' }"
+                        class="btn btn-light"
+                    >
+                        Valider sans photo
+                    </RouterLink>
+                </div>
+            </div>
         </div>
     </div>
 </template>
