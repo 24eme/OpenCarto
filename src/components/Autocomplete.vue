@@ -80,9 +80,10 @@ function fuzzysearch(needle, haystack) {
             :name="name"
             :placeholder="placeholder"
             :disabled="disabled"
-            v-model="textFilter"
+            :value="textFilter"
             @focus="focused = true"
             @blur="focused = false"
+            @input="(e) => (textFilter = e.target.value)"
         />
         <div class="autocomplete-options" v-show="focused">
             <div
