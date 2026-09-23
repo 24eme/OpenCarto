@@ -11,6 +11,10 @@ const existingZones = ref([]);
 
 existingZones.value = [...new Set(fetchPoints().map((p) => p.zone))].sort()
 
+if (existingZones.value.length < 1) {
+    existingZones.value = ["Faux plafond", "Derrière la colonne"];
+}
+
 if (!pointData.idPiege || pointData.idPiege === "0") {
     pointData.idPiege = String(Math.floor(Math.random() * 101));
 }
