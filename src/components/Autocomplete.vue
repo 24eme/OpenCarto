@@ -29,6 +29,8 @@ const props = defineProps({
     },
 });
 
+const emit = defineEmits(["filter"]);
+
 const focused = ref(false);
 const textFilter = ref("");
 
@@ -37,6 +39,8 @@ const filteredOptions = computed(() => {
         .filter((option) => fuzzysearch(textFilter.value, option))
         .slice(0, props.maxItems);
 });
+
+watch(textFilter, () => emit("filter", textFilter));
 
 function fuzzysearch(needle, haystack) {
     // @see https://github.com/bevacqua/fuzzysearch/blob/9873ea0/index.js

@@ -55,7 +55,7 @@ const etageLabel = computed(() => {
                     list="zones-preexistantes"
                 />
                 <Autocomplete
-                    v-model="pointData.zone"
+                    @filter="(zone) => (pointData.zone = zone)"
                     name="autocomplete-zones"
                     :options="[
                         'Banane',
