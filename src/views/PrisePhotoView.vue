@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { pointData } from "@/store/pointData.js";
+import { etageid2label } from "@/store/etages";
 
 const inputPhoto = ref(null);
 
@@ -34,7 +35,43 @@ function onPhotoSelected(event) {
             </div>
         </nav>
 
-        <div class="container vstack justify-content-start">
+        <div class="container vstack justify-content-start gap-1">
+            <div class="border bg-light rounded-1 p-3 mt-1">
+                <h6>Information sur le piège :</h6>
+                <div class="row row-cols-2 py-2">
+                    <div class="col d-flex align-items-start">
+                        <i
+                            class="bi bi-geo-fill fs-4 me-2"
+                            aria-hidden="true"
+                        ></i>
+                        <div>
+                            <h3 class="fw-bold mb-0 fs-5">Étage</h3>
+                            <p>{{ etageid2label(pointData.etage) }}</p>
+                        </div>
+                    </div>
+                    <div class="col d-flex align-items-start">
+                        <i
+                            class="bi bi-brilliance fs-4 me-2"
+                            aria-hidden="true"
+                        ></i>
+                        <div>
+                            <h3 class="fw-bold mb-0 fs-5">Type de piège</h3>
+                            <p>{{ pointData.typePiege }}</p>
+                        </div>
+                    </div>
+                    <div class="col d-flex align-items-start">
+                        <i
+                            class="bi bi-columns fs-4 me-2"
+                            aria-hidden="true"
+                        ></i>
+                        <div>
+                            <h3 class="fw-bold mb-0 fs-5">Zone</h3>
+                            <p>{{ pointData.zone }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <input
                 ref="inputPhoto"
                 type="file"
