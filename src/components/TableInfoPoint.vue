@@ -18,9 +18,9 @@ function formatDate(datestring) {
         <h5 class="card-header">
             Point n° {{ point.idPiege }}
             <span class="fs-6 cursor-not-allowed bi bi-pencil"></span>
-            <span class="float-end cursor-pointer" @click="$emit('close')"
-                >×</span
-            >
+            <span class="float-end cursor-pointer" @click="$emit('close')">
+                ×
+            </span>
         </h5>
         <div class="d-flex justify-content-center">
             <span style="user-select: none;" class=" cursor-pointer" @click="$emit('next')">
