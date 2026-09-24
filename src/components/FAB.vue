@@ -12,9 +12,6 @@ const props = defineProps({
     type: Object,
     required: true,
   },
-  minis: {
-    type: Array
-  }
 })
 
 </script>
