@@ -15,6 +15,18 @@ const points = ref(fetchPoints());
 const selectedPoint = ref();
 const loadedEtage = ref();
 
+const nextPoint = computed(() => {
+    const etagePoints = points.value.filter((p) => p.etage === loadedEtage.value)
+    let currentPointIndex = etagePoints.findIndex((p) => p.id === selectedPoint.value.id)
+    currentPointIndex++
+
+    if (currentPointIndex >= etagePoints.length) {
+        currentPointIndex = 0;
+    }
+
+    return etagePoints.at(currentPointIndex);
+})
+
 watch(() => route.params.etage, checkEtage, { immediate: true });
 watch(selectedPoint, (point) => {
     if (point === undefined) {
@@ -27,18 +39,6 @@ watch(selectedPoint, (point) => {
 selectedPoint.value = points.value.find((p) => p.id === route.params.point);
 
 provide("selectedPoint", readonly(selectedPoint))
-
-const nextPoint = computed(() => {
-    const etagePoints = points.value.filter((p) => p.etage === loadedEtage.value)
-    let currentPointIndex = etagePoints.findIndex((p) => p.id === selectedPoint.value.id)
-    currentPointIndex++
-
-    if (currentPointIndex >= etagePoints.length) {
-        currentPointIndex = 0;
-    }
-
-    return etagePoints.at(currentPointIndex);
-})
 
 function checkEtage(etage) {
     if (etagesConfig.find(({ id }) => id === etage) === undefined) {
