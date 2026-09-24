@@ -2,6 +2,7 @@
 import Carte from "../components/carte.vue";
 import UploadPlan from "../components/uploadPlan.vue";
 import TableInfoPoint from "@/components/TableInfoPoint.vue";
+import FAB from "@/components/FAB.vue"
 import { etagesConfig } from "@/store/etages";
 import { fetchPoints } from "@/store/points";
 import { provide, readonly, ref, watch } from "vue";
@@ -68,24 +69,11 @@ function checkEtage(etage) {
             @pointSelected="(point) => (selectedPoint = point)"
         />
 
-        <div class="fabs" role="group" aria-label="Floating action buttons">
-            <RouterLink
-                :to="{ name: 'addInfoPoint' }"
-                class="fab"
-                title="Ajoute un poste"
-                aria-label="Ajoute un poste"
-            >
-                <i class="d-flex bi bi-geo-alt lh-1">
-                    <i class="bi bi-plus stack stack-be"></i>
-                </i>
-            </RouterLink>
-
-            <div class="fab mini" @click="modaleOuverte = true">
-                <i class="d-flex position-relative bi bi-map lh-1">
-                    <i class="bi bi-plus stack stack-be"></i>
-                </i>
-            </div>
-        </div>
+        <FAB
+            mainTitle="Ajoute un poste"
+            :mainLink="{ name: 'addInfoPoint' }"
+            :mainIcons="{ main: 'bi-geo-alt', stack: 'bi-plus' }"
+        ></FAB>
 
         <!-- <router-view> => Nested view visible dans router/index.js -->
         <!-- correspond à /:etage/p/:point et charge TableInfoPoint -->
@@ -100,69 +88,4 @@ function checkEtage(etage) {
 </template>
 
 <style>
-.fabs {
-    --_viewport-margin: 3vmin;
-
-    position: fixed;
-    z-index: 1000;
-
-    inset-block: auto var(--_viewport-margin);
-    inset-inline: auto var(--_viewport-margin);
-
-    display: flex;
-    flex-direction: column-reverse;
-    place-items: center;
-    gap: var(--_viewport-margin);
-}
-
-.fab.mini {
-    --_size: 1.2rem;
-}
-
-.fab {
-    --_size: 2rem;
-
-    padding: calc(var(--_size) / 2);
-    border-radius: var(--bs-border-radius-lg);
-    aspect-ratio: 1;
-
-    box-shadow:
-        rgba(0, 0, 0, 0.15) 0px 15px 25px,
-        rgba(0, 0, 0, 0.5) 0px 5px 10px;
-
-    background: var(--bs-primary);
-    color: var(--bs-light);
-    text-align: center;
-
-    &:is(:active, :hover, :focus-visible) {
-        background: var(--bs-link-hover-color);
-    }
-
-    &:active {
-        @media (prefers-reduced-motion: no-preference) {
-            transform: translateY(5%);
-        }
-    }
-
-    & > i {
-        font-size: calc(var(--_size) / 1.2);
-    }
-
-    & .bi {
-        &.stack {
-            position: absolute;
-            text-shadow:
-                -2px -2px 0 var(--bs-primary),
-                2px -2px 0 var(--bs-primary),
-                -2px 2px 0 var(--bs-primary),
-                2px 2px 0 var(--bs-primary);
-        }
-
-        &.stack-be {
-            /* bottom-end */
-            bottom: 0.5rem;
-            right: 0.5rem;
-        }
-    }
-}
 </style>
