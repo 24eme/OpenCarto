@@ -14,6 +14,9 @@ function onFichierSelectionne(event) {
 }
 
 function ajouter() {
+    if (!fichier.value || !nomPlan.value) {
+        return false;
+    }
 
   const url = URL.createObjectURL(fichier.value)
   const image = new Image()
