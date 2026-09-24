@@ -35,10 +35,10 @@ function onPhotoSelected(event) {
             </div>
         </nav>
 
-        <div class="container vstack justify-content-start gap-1">
+        <div class="vstack justify-content-start gap-1">
             <div class="border bg-light rounded-1 p-3 mt-1">
                 <h6>Information sur le piège :</h6>
-                <div class="row row-cols-2 py-2">
+                <div class="row row-cols-2 row-cols-sm-4 py-2">
                     <div class="col d-flex align-items-start">
                         <i
                             class="bi bi-geo-fill fs-4 me-2"
@@ -84,23 +84,24 @@ function onPhotoSelected(event) {
             <div class="flex-grow-1" v-if="pointData.photo">
                 <img
                     :src="pointData.photo"
-                    class="img-fluid"
+                    class="img-fluid d-block mx-auto"
+                    style="max-height: 50svh"
                     @click="ouvrirCamera"
                 />
-
-                <textarea
-                    id="descriptionPhotoTextArea"
-                    class="mt-2 form-control"
-                    rows="2"
-                    v-model="pointData.descriptionPhoto"
-                    placeholder="Description de l'emplacement"
-                ></textarea>
             </div>
 
             <div v-else class="flex-grow-1"></div>
 
             <div>
                 <div class="vstack gap-2 m-1">
+                    <textarea
+                        v-if="pointData.photo"
+                        id="descriptionPhotoTextArea"
+                        class="mt-2 form-control"
+                        rows="2"
+                        v-model="pointData.descriptionPhoto"
+                        placeholder="Description de l'emplacement (optionel)"
+                    ></textarea>
                     <button
                         v-if="!pointData.photo"
                         class="btn btn-primary"
