@@ -21,7 +21,7 @@ const props = defineProps({
 
 <template>
 <div class="fabs" role="group" aria-label="Floating action buttons">
-    <RouterLink
+    <RouterLink v-if="mainLink"
         :to="mainLink"
         class="fab"
         :title="mainTitle"
@@ -31,6 +31,16 @@ const props = defineProps({
             <i v-if="mainIcons.stack" class="bi stack stack-be" :class="[mainIcons.stack]"></i>
         </i>
     </RouterLink>
+
+    <div v-else
+        class="fab"
+        :title="mainTitle"
+        :aria-label="mainTitle"
+    >
+        <i class="d-flex bi lh-1" :class="[mainIcons.main]">
+            <i v-if="mainIcons.stack" class="bi stack stack-be" :class="[mainIcons.stack]"></i>
+        </i>
+    </div>
 </div>
 </template>
 

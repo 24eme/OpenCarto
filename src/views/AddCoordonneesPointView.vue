@@ -5,6 +5,7 @@ import { pointData, reinitialiserPointData } from "../store/pointData.js";
 import { createPoint } from "../store/points.js";
 import Carte from "../components/carte.vue";
 import Notification from "@/components/Notification.vue";
+import FAB from "@/components/FAB.vue";
 
 const router = useRouter();
 const enregistrement = ref(false);
@@ -70,16 +71,11 @@ function updatePointCoordinate(coordinates) {
             @close="erreur = null"
         />
 
-        <div class="m-1 row">
-            <button
-                class="btn btn-primary"
-                type="button"
-                @click="valider"
-                :disabled="enregistrement"
-            >
-                Valider l'emplacement
-            </button>
-        </div>
+        <FAB
+            mainTitle="Valider le placement"
+            :mainIcons="{ main: 'bi-check-lg' }"
+            @click="valider"
+        ></FAB>
     </main>
 </template>
 
