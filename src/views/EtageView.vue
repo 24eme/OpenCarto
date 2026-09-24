@@ -1,6 +1,5 @@
 <script setup>
 import Carte from "../components/carte.vue";
-import UploadPlan from "../components/uploadPlan.vue";
 import TableInfoPoint from "@/components/TableInfoPoint.vue";
 import FAB from "@/components/FAB.vue"
 import { etagesConfig } from "@/store/etages";
@@ -12,7 +11,6 @@ const route = useRoute();
 const router = useRouter();
 
 const clientName = ref("Potel & Chabot");
-const modaleOuverte = ref(false);
 const points = fetchPoints();
 const selectedPoint = ref();
 const loadedEtage = ref();
@@ -55,11 +53,6 @@ function checkEtage(etage) {
                 </div>
             </div>
         </nav>
-
-        <UploadPlan
-            v-if="modaleOuverte"
-            @fermer="modaleOuverte = false"
-        ></UploadPlan>
 
         <Carte
             carteId="carte"

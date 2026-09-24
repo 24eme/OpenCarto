@@ -1,10 +1,12 @@
 <script setup>
+import UploadPlan from "../components/uploadPlan.vue";
 import { etagesConfig } from "@/store/etages";
 import { fetchPoints } from "@/store/points";
 import { ref } from "vue";
 
 const clientName = ref("Potel & Chabot");
 const etages = ref(etagesConfig);
+const modaleOuverte = ref(false);
 const points = fetchPoints();
 
 function getNbPoints(etage) {
@@ -60,9 +62,25 @@ function getNbPoints(etage) {
                         </tr>
                     </tbody>
                 </table>
+
+                <div class="float-end">
+                    <div
+                        @click="modaleOuverte = true"
+                        class="btn btn-outline-primary fs-6"
+                    >
+                        <i class="bi bi-plus"></i>
+                        Ajouter un étage
+                    </div>
+                </div>
             </div>
         </div>
     </main>
+
+    <UploadPlan
+        v-if="modaleOuverte"
+        @fermer="modaleOuverte = false"
+    ></UploadPlan>
+
 </template>
 
 <style></style>
