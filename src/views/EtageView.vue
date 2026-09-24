@@ -61,7 +61,6 @@ function checkEtage(etage) {
         ></UploadPlan>
 
         <Carte
-            class="flex-grow-1"
             carteId="carte"
             carteHeight="100%"
             carteWidth="100%"

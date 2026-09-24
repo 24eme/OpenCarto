@@ -49,17 +49,18 @@ function updatePointCoordinate(coordinates) {
                 </div>
             </div>
         </nav>
-    </main>
-    <div class="text-center">
-        <div class="carte-wrapper">
-            <Carte
-                carteId="carte"
-                carteHeight="70dvh"
-                carteWidth="100%"
-                hasCoordinatesSelector
-                :layer="pointData.etage"
-                @move="updatePointCoordinate"
-            ></Carte>
+
+        <div class="text-center flex-grow-1">
+            <div class="carte-wrapper">
+                <Carte
+                    carteId="carte"
+                    carteHeight="100%"
+                    carteWidth="100%"
+                    hasCoordinatesSelector
+                    :layer="pointData.etage"
+                    @move="updatePointCoordinate"
+                ></Carte>
+            </div>
         </div>
 
         <Notification
@@ -69,7 +70,7 @@ function updatePointCoordinate(coordinates) {
             @close="erreur = null"
         />
 
-        <div class="d-grid gap-2 col-11 mx-auto mt-3">
+        <div class="m-1 row">
             <button
                 class="btn btn-primary"
                 type="button"
@@ -79,12 +80,13 @@ function updatePointCoordinate(coordinates) {
                 Valider l'emplacement
             </button>
         </div>
-    </div>
+    </main>
 </template>
 
 <style>
 .carte-wrapper {
     position: relative;
+    height: 100%;
 }
 
 .viseur {

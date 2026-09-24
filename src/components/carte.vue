@@ -104,12 +104,12 @@ watch(
 </script>
 
 <template>
-    <div>
-        <div
-            :id="carteId"
-            :style="{ height: carteHeight, width: carteWidth }"
-        ></div>
-        <div v-if="hasCoordinatesSelector" class="viseur"></div>
+    <div
+        :id="carteId"
+        :style="{ height: carteHeight, width: carteWidth }"
+    ></div>
+    <div v-if="hasCoordinatesSelector" class="viseur">
+        <span>{{ pointData.idPiege }}</span>
     </div>
 </template>
 
