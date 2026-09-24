@@ -5,7 +5,7 @@ const props = defineProps({
     point: Object,
 });
 
-defineEmits(["close", "next"]);
+defineEmits(["close", "next", "prev"]);
 
 function formatDate(datestring) {
     const date = new Date(datestring);
@@ -23,6 +23,10 @@ function formatDate(datestring) {
             </span>
         </h5>
         <div class="d-flex justify-content-center">
+            <span style="user-select: none;" class=" cursor-pointer" @click="$emit('prev')">
+                « Précédent
+            </span>
+            <div class="vr mx-2"></div>
             <span style="user-select: none;" class=" cursor-pointer" @click="$emit('next')">
                 Suivant »
             </span>

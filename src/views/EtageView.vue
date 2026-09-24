@@ -27,6 +27,18 @@ const nextPoint = computed(() => {
     return etagePoints.at(currentPointIndex);
 })
 
+const prevPoint = computed(() => {
+    const etagePoints = points.value.filter((p) => p.etage === loadedEtage.value)
+    let currentPointIndex = etagePoints.findIndex((p) => p.id === selectedPoint.value.id)
+    currentPointIndex--
+
+    if (currentPointIndex < 0) {
+        currentPointIndex = etagePoints.length - 1;
+    }
+
+    return etagePoints.at(currentPointIndex);
+})
+
 watch(() => route.params.etage, checkEtage, { immediate: true });
 watch(selectedPoint, (point) => {
     if (point === undefined) {
@@ -89,6 +101,7 @@ function checkEtage(etage) {
                 :point="selectedPoint"
                 @close="selectedPoint = undefined"
                 @next="selectedPoint = nextPoint"
+                @prev="selectedPoint = prevPoint"
         </router-view>
     </main>
 </template>
