@@ -7,9 +7,24 @@ import Autocomplete from "@/components/Autocomplete.vue";
 import { fetchPoints } from "@/store/points";
 
 const route = useRoute();
+const allPoints = ref(fetchPoints())
 const existingZones = ref([]);
 
-existingZones.value = [...new Set(fetchPoints().map((p) => p.zone))].sort()
+const lastZone = computed(() => {
+    if (pointData.zone) {
+        return pointData.zone;
+    }
+
+    const filtered = allPoints.value.filter((p) => p.etage === pointData.etage);
+
+    if (filtered.length) {
+        return filtered.at(-1).zone;
+    }
+
+    return "";
+});
+
+existingZones.value = [...new Set(allPoints.value.map((p) => p.zone))].sort()
 
 if (existingZones.value.length < 1) {
     existingZones.value = ["Faux plafond", "Derrière la colonne"];
@@ -61,7 +76,7 @@ const etageLabel = computed(() => {
                     name="autocomplete-zones"
                     placeholder="ex. : Faux plafond, …"
                     :options="existingZones"
-                    :initial-value="pointData.zone"
+                    :initial-value="lastZone"
                 ></Autocomplete>
             </div>
 
