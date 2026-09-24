@@ -4,14 +4,14 @@ import TableInfoPoint from "@/components/TableInfoPoint.vue";
 import FAB from "@/components/FAB.vue"
 import { etagesConfig } from "@/store/etages";
 import { fetchPoints } from "@/store/points";
-import { provide, readonly, ref, watch } from "vue";
+import { provide, readonly, ref, watch, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
 const router = useRouter();
 
 const clientName = ref("Potel & Chabot");
-const points = fetchPoints();
+const points = ref(fetchPoints());
 const selectedPoint = ref();
 const loadedEtage = ref();
 
@@ -24,9 +24,21 @@ watch(selectedPoint, (point) => {
     }
 });
 
-selectedPoint.value = points.find((p) => p.id === route.params.point);
+selectedPoint.value = points.value.find((p) => p.id === route.params.point);
 
 provide("selectedPoint", readonly(selectedPoint))
+
+const nextPoint = computed(() => {
+    const etagePoints = points.value.filter((p) => p.etage === loadedEtage.value)
+    let currentPointIndex = etagePoints.findIndex((p) => p.id === selectedPoint.value.id)
+    currentPointIndex++
+
+    if (currentPointIndex >= etagePoints.length) {
+        currentPointIndex = 0;
+    }
+
+    return etagePoints.at(currentPointIndex);
+})
 
 function checkEtage(etage) {
     if (etagesConfig.find(({ id }) => id === etage) === undefined) {
@@ -76,6 +88,7 @@ function checkEtage(etage) {
                 v-if="selectedPoint"
                 :point="selectedPoint"
                 @close="selectedPoint = undefined"
+                @next="selectedPoint = nextPoint"
         </router-view>
     </main>
 </template>

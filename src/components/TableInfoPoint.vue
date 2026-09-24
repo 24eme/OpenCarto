@@ -5,7 +5,7 @@ const props = defineProps({
     point: Object,
 });
 
-defineEmits(["close"]);
+defineEmits(["close", "next"]);
 
 function formatDate(datestring) {
     const date = new Date(datestring);
@@ -22,6 +22,11 @@ function formatDate(datestring) {
                 >×</span
             >
         </h5>
+        <div class="d-flex justify-content-center">
+            <span style="user-select: none;" class=" cursor-pointer" @click="$emit('next')">
+                Suivant »
+            </span>
+        </div>
         <div class="row overflow-auto">
             <div class="col-sm-3 mx-auto align-self-stretch" v-if="point.photo">
                 <figure class="figure">
