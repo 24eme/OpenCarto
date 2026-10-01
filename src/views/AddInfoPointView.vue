@@ -90,9 +90,9 @@ const etageLabel = computed(() => {
                     aria-label="select-type-piege"
                     v-model="pointData.typePiege"
                 >
-                    <option value="Câlin">Câlin</option>
-                    <option value="Bisous">Bisous</option>
-                    <option value="Carresse">Carresse</option>
+                    <option value="wisebox">Wisebox</option>
+                    <option value="mimetic">Mimetic </option>
+                    <option value="ekomille">Ekomille</option>
                 </select>
             </div>
 
