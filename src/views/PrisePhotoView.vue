@@ -112,17 +112,17 @@ function onPhotoSelected(event) {
                     </button>
                     <RouterLink
                         v-else
-                        :to="{ name: 'addCoordonneesPoint' }"
+                        :to="{ name: 'rapport' }"
                         class="btn btn-primary"
                     >
-                        Valider
+                        Continuer
                     </RouterLink>
                     <RouterLink
                         v-if="!pointData.photo"
-                        :to="{ name: 'addCoordonneesPoint' }"
+                        :to="{ name: 'rapport' }"
                         class="btn btn-light"
                     >
-                        Valider sans photo
+                        Continuer sans photo
                     </RouterLink>
                 </div>
             </div>
