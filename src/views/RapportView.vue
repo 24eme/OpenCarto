@@ -1,6 +1,18 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { pointData } from "@/store/pointData.js";
+
+const rangeConso = ref(null);
+
+onMounted(() => {
+    rangeConso.value.addEventListener("input", () => {
+      const min = rangeConso.value.min;
+      const max = rangeConso.value.max;
+      const currentValue = rangeConso.value.value;
+
+      rangeConso.value.style.backgroundSize = ((currentValue - min) / (max - min)) * 100 + "% 100%";
+    })
+  })
 </script>
 
 
@@ -28,7 +40,7 @@ import { pointData } from "@/store/pointData.js";
         <div class="my-2 custom-slider">
           <label for="rangeConso" class="h5 form-label fw-bold">Pourcentage de  Consommation</label>
           <div class="range">
-            <input type="range" id="rangeConso" min="0" max="100" value="0" list="range-values" step="25" class="" />
+            <input type="range" id="rangeConso" ref="rangeConso" min="0" max="100" value="0" list="range-values" step="25" class="" />
           </div>
 
           <datalist id="range-values">
@@ -61,21 +73,60 @@ import { pointData } from "@/store/pointData.js";
 
 
 <style scoped>
+
+.custom-slider {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0, 10px;
+}
+
 datalist {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /*justify-content: space-between;*/
+  gap:40px;
+  align-self: center;
   writing-mode: vertical-lr;
   width: 20rem;
 }
 
-option {
-  padding: 0;
+.range {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 15px;
+  width: 20rem;
+  align-self: center;
 }
 
 input[type="range"] {
-  width: 20rem;
-  margin: 0;
+  -webkit-appearance: none;
+  background:  #274351;
+  height: 2.5rem;
+  border-radius: 5px;
+  width: 19.5rem;
+  margin: 2px;
+  background-image: linear-gradient(#6b94be);
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background-color: #c8cf5a;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+}
+
+input[type="range"]::-moz-range-thumb {
+  -webkit-appearance: none;
+  background-color: #c8cf5a ;
+  width: 3rem;
+  height: 2.5rem;
+  border-radius: 10%;
+  border: none;
 }
 
 #rapportIntervention {
@@ -102,8 +153,8 @@ html, body, #app  {
 
 .rapport-text-area > textarea {
   border: 1.5px lightslategray dotted;
-  padding: 15px;;
-  border-radius: 5px;;
+  padding: 15px;
+  border-radius: 5px;
 }
 
 
