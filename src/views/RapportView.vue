@@ -1,20 +1,20 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, computed } from "vue";
 import { pointData } from "@/store/pointData.js";
 
-const rangeConso = ref(null);
+const VALEURS = new Array("0%", "30%", "50%", "80%", "100%");
 
-onMounted(() => {
-    rangeConso.value.addEventListener("input", () => {
-      const min = rangeConso.value.min;
-      const max = rangeConso.value.max;
-      const currentValue = rangeConso.value.value;
+const indexSlider = ref(0);
 
-      rangeConso.value.style.backgroundSize = ((currentValue - min) / (max - min)) * 100 + "% 100%";
-    })
-  })
+const updateIndex = (event) => {
+  indexSlider.value = Number(event.target.value);
+}
+const backgroundSizeStyle = computed(() => {
+  const pourcentage = (indexSlider.value / 4) * 100;
+  return `${pourcentage}% 100%`;
+});
+
 </script>
-
 
 
 <template>
@@ -40,16 +40,19 @@ onMounted(() => {
         <div class="my-2 custom-slider">
           <label for="rangeConso" class="h5 form-label fw-bold">Pourcentage de  Consommation</label>
           <div class="range">
-            <input type="range" id="rangeConso" ref="rangeConso" min="0" max="100" value="0" list="range-values" step="25" class="" />
+            <input type="range" id="rangeConso" ref="rangeConso" min="0" :max="4" value="0" list="range-values" step="1" @input="updateIndex" :style="{ backgroundSize: backgroundSizeStyle }" class="" />
           </div>
 
           <datalist id="range-values">
-            <option value="0" label="0%"></option>
-            <option value="30" label="30%"></option>
-            <option value="50" label="50%"></option>
-            <option value="80" label="80%"></option>
-            <option value="100" label="100%"></option>
+            <option
+              v-for="(val, index) in VALEURS"
+              :key="index"
+              :class="{ 'active-label': index === indexSlider }"
+              :value="index"
+              :label="val"
+            </option>
           </datalist>
+
         </div>
         <div class="vstack gap-2 m-1 rapport-text-area">
           <label for="textRapport" class="h5 form-label fw-bold">Rapport d'Intervention</label>
@@ -89,6 +92,15 @@ datalist {
   width: 17.5rem;
 }
 
+datalist option {
+  all: unset;
+}
+
+.active-label {
+  color: #274351 !important;
+    -webkit-text-stroke: 1.2px #274351;
+}
+
 .range {
   display: flex;
   flex-direction: column;
@@ -105,14 +117,14 @@ input[type="range"] {
   border-radius: 5px;
   width: 19.5rem;
   margin: 2px;
-  background-image: linear-gradient(#6b94be);
+  background-image: linear-gradient(#c8cf5a);
   background-size: 0% 100%;
   background-repeat: no-repeat;
 }
 
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  background-color: #c8cf5a;
+  background-color: #6b94be;
   width: 3.9rem;
   height: 2rem;
   border-radius: 50%;
@@ -120,7 +132,7 @@ input[type="range"]::-webkit-slider-thumb {
 
 input[type="range"]::-moz-range-thumb {
   -webkit-appearance: none;
-  background-color: #c8cf5a ;
+  background-color: #6b94be ;
   width: 3.9rem;
   height: 2.5rem;
   border-radius: 10%;
@@ -154,7 +166,5 @@ html, body, #app  {
   padding: 15px;
   border-radius: 5px;
 }
-
-
 
 </style>
