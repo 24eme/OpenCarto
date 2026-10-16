@@ -102,9 +102,11 @@ function onPhotoSelected(event) {
                         v-model="pointData.descriptionPhoto"
                         placeholder="Description de l'emplacement (optionel)"
                     ></textarea>
+                    <div class="buttons-container picture-button-container">
+
                     <button
                         v-if="!pointData.photo"
-                        class="btn btn-primary"
+                        class="btn btn-primary custom-btn-primary"
                         type="button"
                         @click="ouvrirCamera"
                     >
@@ -113,17 +115,19 @@ function onPhotoSelected(event) {
                     <RouterLink
                         v-else
                         :to="{ name: 'rapport' }"
-                        class="btn btn-primary"
+                        class="btn btn-primary custom-btn-primary"
                     >
                         Continuer
                     </RouterLink>
+
                     <RouterLink
                         v-if="!pointData.photo"
                         :to="{ name: 'rapport' }"
-                        class="btn btn-light"
+                        class="btn btn-light custom-btn-primary border-button"
                     >
                         Continuer sans photo
                     </RouterLink>
+                    </div>
                 </div>
             </div>
         </div>

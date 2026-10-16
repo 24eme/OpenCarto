@@ -108,10 +108,13 @@ const etageLabel = computed(() => {
                     {{ pointData.idPiege }}
                 </p>
             </div>
+
+          <hr />
+
         </div>
 
-        <div class="m-1 row">
-            <RouterLink :to="{ name: 'prisePhoto' }" class="btn btn-primary">
+        <div class="m-1 row buttons-container ">
+            <RouterLink :to="{ name: 'prisePhoto' }" class="btn btn-primary custom-btn-primary">
                 Continuer
             </RouterLink>
         </div>
