@@ -34,3 +34,8 @@ export function toLeafletMarker(point) {
     }),
   });
 }
+
+export function leafletAddClass(el, className) {
+  if (el === undefined) return;
+  L.DomUtil.addClass(el, className);
+}

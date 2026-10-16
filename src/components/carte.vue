@@ -1,9 +1,13 @@
 <script setup>
 import { onMounted, watch, inject } from "vue";
 import { etagesConfig } from "@/store/etages.js";
-import { pointData } from "@/store/pointData.js";
+import { pointData, PointStatuts } from "@/store/pointData.js";
 import { fetchPoints } from "@/store/points.js";
-import { toLeafletMarker, selectPoint } from "@/leaflet/utils.js";
+import {
+    toLeafletMarker,
+    selectPoint,
+    leafletAddClass,
+} from "@/leaflet/utils.js";
 
 const props = defineProps({
     carteId: String,
@@ -35,9 +39,14 @@ function chargerPoints() {
             const groupe = groupes.find((g) => g.id === point.etage);
             if (!groupe || !point.coordonnees) return;
 
-            toLeafletMarker(point)
+            const leafletMarker = toLeafletMarker(point)
                 .on("click", () => emit("pointSelected", point))
                 .addTo(groupe.layerGroupe);
+
+            leafletAddClass(
+                leafletMarker._icon,
+                PointStatuts.getInfos(point.statut).leafletClass,
+            );
         });
     } catch (e) {
         console.error("Impossible de charger les points :", e);
@@ -115,16 +124,32 @@ watch(
 
 <style>
 .leaflet-marker-poste > div {
-    background: #06e;
     color: #fff;
-    border: 2px solid #00e;
+    border: 2px solid;
     border-radius: 50%;
     text-align: center;
+
+    background-color: lch(from var(--accent) l c h);
+    border-color: lch(from var(--accent) calc(l - 20) c h);
+    color: black;
 }
 
 .leaflet-marker-poste-selected > div {
-    background: var(--bs-warning-bg-subtle);
-    color: var(--bs-body-color);
-    border: 2px solid var(--bs-warning);
+    background: var(--bs-warning-bg-subtle) !important;
+    color: var(--bs-body-color) !important;
+    border: 2px solid var(--bs-warning) !important;
+}
+
+.leaflet-marker-done > div {
+    --accent: lch(83 53 135);
+    color: #111;
+}
+.leaflet-marker-current > div {
+    --accent: lch(75 40 25);
+    color: #111;
+}
+.leaflet-marker-todo > div {
+    --accent: lch(48 61 24);
+    color: #eee;
 }
 </style>
