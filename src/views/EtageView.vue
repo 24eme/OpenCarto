@@ -87,7 +87,7 @@ function checkEtage(etage) {
         />
 
         <FAB
-            mainTitle="Ajoute un poste"
+            mainTitle="Ajouter un poste"
             :mainLink="{ name: 'addInfoPoint' }"
             :mainIcons="{ main: 'bi-geo-alt', stack: 'bi-plus' }"
         ></FAB>
