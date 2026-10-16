@@ -83,12 +83,10 @@ onMounted(() => {
 
 datalist {
   display: flex;
-  flex-direction: column;
-  /*justify-content: space-between;*/
-  gap:40px;
+  flex-direction: row;
+  gap:34px;
   align-self: center;
-  writing-mode: vertical-lr;
-  width: 20rem;
+  width: 17.5rem;
 }
 
 .range {
@@ -115,7 +113,7 @@ input[type="range"] {
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   background-color: #c8cf5a;
-  width: 2rem;
+  width: 3.9rem;
   height: 2rem;
   border-radius: 50%;
 }
@@ -123,7 +121,7 @@ input[type="range"]::-webkit-slider-thumb {
 input[type="range"]::-moz-range-thumb {
   -webkit-appearance: none;
   background-color: #c8cf5a ;
-  width: 3rem;
+  width: 3.9rem;
   height: 2.5rem;
   border-radius: 10%;
   border: none;
