@@ -83,4 +83,10 @@ function getNbPoints(etage) {
 
 </template>
 
-<style></style>
+<style>
+.leaflet-bottom.leaflet-right {
+  left: 0;
+  right: unset;
+}
+
+</style>
