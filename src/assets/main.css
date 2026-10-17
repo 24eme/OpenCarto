@@ -52,6 +52,38 @@ a,
   border: 1px #e7e7e7 solid;
 }
 
+.prev-next-btn-container {
+  display: flex;
+  justify-content: space-around !important;
+  width: 23rem;
+  align-self: center;
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+}
+
+.prev-next-btn-container > .btn-light {
+  display: flex;
+  width: 10rem !important;
+  justify-content: center;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  border-radius: 5px;
+}
+
+.sub-prev-next-btn-container {
+  display: flex;
+  font-weight: bold;
+}
+
+.sub-prev-next-btn-container > .bi-chevron-double-left, .sub-prev-next-btn-container > .bi-chevron-double-right {
+  margin: 9px;
+}
+
+button:has(> .sub-prev-next-btn-container) {
+  border: 1px #e7e7e7 solid !important;
+  background-color: #f8f9fa;
+}
+
 
 
 @media (hover: hover) {
