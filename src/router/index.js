@@ -6,6 +6,7 @@ import PrisePhotoView from "@/views/PrisePhotoView.vue";
 import AddCoordonneesPoint from "@/views/AddCoordonneesPointView.vue";
 import TableInfoPoint from "@/components/TableInfoPoint.vue";
 import RapportView from '@/views/RapportView.vue';
+import SuiviInfestationView from '@/views/SuiviInfestationView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -46,6 +47,12 @@ const router = createRouter({
       path: "/:etage/point/addCoordonneesPoint",
       name: 'addCoordonneesPoint',
       component: AddCoordonneesPoint,
+    },
+
+    {
+      path: "/:etage/:point/suiviInfestation",
+      name: 'suiviInfestation',
+      component: SuiviInfestationView,
     },
   ],
 })

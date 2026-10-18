@@ -77,6 +77,17 @@ function formatDate(datestring) {
                     </div>
                 </div>
             </div>
+
+            <div class="m-1 row">
+              <RouterLink
+                  :to="{ name: 'suiviInfestation' }"
+                  class="btn btn-primary btn-suivi-infestation"
+              >
+                  Modifier le niveau d'infestation
+              </RouterLink>
+            </div>
+            <hr />
+
         </div>
         <div class="d-flex justify-content-center prev-next-btn-container">
           <button class="btn-light theme-primary" type="button" data-astro-cid-suf5bgbc="" @click="$emit('prev')"><div class="sub-prev-next-btn-container"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
