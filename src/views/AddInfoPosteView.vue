@@ -1,21 +1,21 @@
 <script setup>
-import { pointData } from "@/store/pointData.js";
+import { posteData } from "@/store/posteData.js";
 import { etagesConfig, etageid2label } from "@/store/etages.js";
 import { useRoute } from "vue-router";
 import { ref, computed } from "vue";
 import Autocomplete from "@/components/Autocomplete.vue";
-import { fetchPoints } from "@/store/points";
+import { fetchPostes } from "@/store/postes";
 
 const route = useRoute();
-const allPoints = ref(fetchPoints())
+const allPostes = ref(fetchPostes())
 const existingZones = ref([]);
 
 const lastZone = computed(() => {
-    if (pointData.zone) {
-        return pointData.zone;
+    if (posteData.zone) {
+        return posteData.zone;
     }
 
-    const filtered = allPoints.value.filter((p) => p.etage === pointData.etage);
+    const filtered = allPostes.value.filter((p) => p.etage === posteData.etage);
 
     if (filtered.length) {
         return filtered.at(-1).zone;
@@ -24,20 +24,20 @@ const lastZone = computed(() => {
     return "";
 });
 
-existingZones.value = [...new Set(allPoints.value.map((p) => p.zone))].sort()
+existingZones.value = [...new Set(allPostes.value.map((p) => p.zone))].sort()
 
 if (existingZones.value.length < 1) {
     existingZones.value = ["Faux plafond", "Derrière la colonne"];
 }
 
-if (!pointData.idPiege || pointData.idPiege === "0") {
-    pointData.idPiege = String(Math.floor(Math.random() * 101));
+if (!posteData.idPoste || posteData.idPoste === "0") {
+    posteData.idPoste = String(Math.floor(Math.random() * 101));
 }
 
-pointData.etage = route.params.etage;
+posteData.etage = route.params.etage;
 
 const etageLabel = computed(() => {
-    const label = etageid2label(pointData.etage);
+    const label = etageid2label(posteData.etage);
     return label.match(/^[aeéiouh]/i) ? "à l'" + label : "au " + label;
 })
 </script>
@@ -50,13 +50,13 @@ const etageLabel = computed(() => {
                     <RouterLink
                         :to="{
                             name: 'etage',
-                            params: { etage: pointData.etage },
+                            params: { etage: posteData.etage },
                         }"
                     >
                         <i class="bi bi-arrow-left-square fs-1 align-self-center" style="color: black;"></i></RouterLink>
                 </div>
                 <div class="col-auto flex-grow-1">
-                    <h1 class="m-0">Ajouter un point</h1>
+                    <h1 class="m-0">Ajouter un poste</h1>
                 </div>
             </div>
         </nav>
@@ -64,7 +64,7 @@ const etageLabel = computed(() => {
         <div class="container vstack justify-content-start">
             <div class="my-2">
                 <!-- mettre par défaut l'étage sur lequel il est -->
-                <h3>Le point sera placé {{ etageLabel }}</h3>
+                <h3>Le poste sera placé {{ etageLabel }}</h3>
             </div>
 
             <div class="my-2">
@@ -72,7 +72,7 @@ const etageLabel = computed(() => {
 
                 <Autocomplete
                     id="zoneText"
-                    @filter="(zone) => (pointData.zone = zone)"
+                    @filter="(zone) => (posteData.zone = zone)"
                     name="autocomplete-zones"
                     placeholder="ex. : Faux plafond, …"
                     :options="existingZones"
@@ -82,13 +82,13 @@ const etageLabel = computed(() => {
 
             <div class="my-2 mb-auto">
                 <label for="typeSelect" class="h4 form-label"
-                    >Type de piège</label
+                    >Type de poste</label
                 >
                 <select
                     id="typeSelect"
                     class="form-select"
-                    aria-label="select-type-piege"
-                    v-model="pointData.typePiege"
+                    aria-label="select-type-poste"
+                    v-model="posteData.typePoste"
                 >
                     <option value="wisebox">Wisebox</option>
                     <option value="mimetic">Mimetic </option>
@@ -100,12 +100,12 @@ const etageLabel = computed(() => {
 
             <div class="my-2 text-center">
                 <p class="fs-3">
-                    Numéro du piège<br />
+                    Numéro du poste<br />
                     <small>à reporter sur l'installation</small>
                 </p>
 
                 <p class="display-1 bg-secondary-subtle py-4">
-                    {{ pointData.idPiege }}
+                    {{ posteData.idPoste }}
                 </p>
             </div>
 

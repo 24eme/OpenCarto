@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from "@/views/HomeView.vue";
 import EtageView from "@/views/EtageView.vue";
-import AddInfoPointView from "@/views/AddInfoPointView.vue";
+import AddInfoPosteView from "@/views/AddInfoPosteView.vue";
 import PrisePhotoView from "@/views/PrisePhotoView.vue";
-import AddCoordonneesPoint from "@/views/AddCoordonneesPointView.vue";
-import TableInfoPoint from "@/components/TableInfoPoint.vue";
+import AddCoordonneesPoste from "@/views/AddCoordonneesPosteView.vue";
+import TableInfoPoste from "@/components/TableInfoPoste.vue";
 import RapportView from '@/views/RapportView.vue';
 import SuiviInfestationView from '@/views/SuiviInfestationView.vue';
 
@@ -22,35 +22,35 @@ const router = createRouter({
       component: EtageView,
       children: [
         {
-          path: "p/:point",
-          name: "pointInfos",
-          component: TableInfoPoint,
+          path: "p/:poste",
+          name: "posteInfos",
+          component: TableInfoPoste,
         },
       ]
     },
     {
-      path: "/:etage/point/add",
-      name: 'addInfoPoint',
-      component: AddInfoPointView,
+      path: "/:etage/poste/add",
+      name: "addInfoPoste",
+      component: AddInfoPosteView,
     },
     {
-      path: "/:etage/point/prisePhoto",
+      path: "/:etage/poste/prisePhoto",
       name: 'prisePhoto',
       component: PrisePhotoView,
     },
     {
-      path: "/:etage/point/rapport",
+      path: "/:etage/poste/rapport",
       name: 'rapport',
       component: RapportView,
     },
     {
-      path: "/:etage/point/addCoordonneesPoint",
-      name: 'addCoordonneesPoint',
-      component: AddCoordonneesPoint,
+      path: "/:etage/poste/addCoordonneesPoste",
+      name: "addCoordonneesPoste",
+      component: AddCoordonneesPoste,
     },
 
     {
-      path: "/:etage/:point/suiviInfestation",
+      path: "/:etage/:poste/suiviInfestation",
       name: 'suiviInfestation',
       component: SuiviInfestationView,
     },

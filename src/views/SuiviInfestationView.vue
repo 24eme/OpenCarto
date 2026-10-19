@@ -67,7 +67,7 @@ const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric
 
       <div class="m-1 row buttons-container ">
         <RouterLink
-            :to="{ name: 'pointInfos', path: 'p/:point' }"
+            :to="{ name: 'posteInfos', path: 'p/:poste' }"
             class="btn btn-primary custom-btn-primary"
         >
             Valider

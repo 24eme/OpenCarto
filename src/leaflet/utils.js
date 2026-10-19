@@ -1,5 +1,5 @@
 // @see https://github.com/tomickigrzegorz/leaflet-examples/blob/1c10e0f8f7daefaa1b3abe2d67aaf4ed4c09e72e/docs/67.add-data-attribute-to-marker/script.js#L30
-L.PiegeIcon = L.DivIcon.extend({
+L.PosteIcon = L.DivIcon.extend({
   createIcon: function (oldIcon) {
     const divElement = L.DivIcon.prototype.createIcon.call(this, oldIcon);
 
@@ -12,25 +12,25 @@ L.PiegeIcon = L.DivIcon.extend({
   },
 });
 
-export function selectPoint(point) {
-  const allPoints = document.querySelectorAll(".leaflet-marker-poste");
-  allPoints.forEach((p) => p.classList.remove("leaflet-marker-poste-selected"));
+export function selectPoste(poste) {
+  const allPostes = document.querySelectorAll(".leaflet-marker-poste");
+  allPostes.forEach((p) => p.classList.remove("leaflet-marker-poste-selected"));
 
-  if (!point) {
+  if (!poste) {
     return;
   }
 
-  const marker = document.querySelector('[data-id="' + point.id + '"]');
+  const marker = document.querySelector('[data-id="' + poste.id + '"]');
   L.DomUtil.addClass(marker, "leaflet-marker-poste-selected");
 }
 
-export function toLeafletMarker(point) {
-  return L.marker([point.coordonnees.lat, point.coordonnees.lng], {
-    icon: new L.PiegeIcon({
+export function toLeafletMarker(poste) {
+  return L.marker([poste.coordonnees.lat, poste.coordonnees.lng], {
+    icon: new L.PosteIcon({
       iconSize: [25, 25],
       className: "leaflet-marker-poste",
-      html: `<div>${point.idPiege}</div>`,
-      data: { id: point.id },
+      html: `<div>${poste.idPoste}</div>`,
+      data: { id: poste.id },
     }),
   });
 }

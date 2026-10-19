@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from "vue";
-import { pointData } from "@/store/pointData.js";
+import { posteData } from "@/store/posteData.js";
 
 const VALEURS = new Array("0%", "30%", "50%", "80%", "100%");
 
@@ -65,7 +65,7 @@ const backgroundSizeStyle = computed(() => {
 
       <div class="m-1 row buttons-container ">
         <RouterLink
-            :to="{ name: 'addCoordonneesPoint' }"
+            :to="{ name: 'addCoordonneesPoste' }"
             class="btn btn-primary custom-btn-primary"
         >
             Valider

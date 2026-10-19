@@ -1,11 +1,11 @@
 <script setup>
 import { onMounted, watch, inject } from "vue";
 import { etagesConfig } from "@/store/etages.js";
-import { pointData, PointStatuts } from "@/store/pointData.js";
-import { fetchPoints } from "@/store/points.js";
+import { posteData, PosteStatuts } from "@/store/posteData.js";
+import { fetchPostes } from "@/store/postes.js";
 import {
     toLeafletMarker,
-    selectPoint,
+    selectPoste,
     leafletAddClass,
 } from "@/leaflet/utils.js";
 
@@ -17,11 +17,11 @@ const props = defineProps({
     layer: String,
 });
 
-const emit = defineEmits(["move", "pointSelected"]);
+const emit = defineEmits(["move", "posteSelected"]);
 
 let controle = null;
 const groupes = [];
-const selectedPoint = inject("selectedPoint", undefined);
+const selectedPoste = inject("selectedPoste", undefined);
 
 function construireGroupeEtage(etage) {
     const calque = L.imageOverlay(etage.image, etage.bounds);
@@ -32,24 +32,24 @@ function construireGroupeEtage(etage) {
     return groupes.at(-1);
 }
 
-function chargerPoints() {
+function chargerPostes() {
     try {
-        const points = fetchPoints();
-        points.forEach((point) => {
-            const groupe = groupes.find((g) => g.id === point.etage);
-            if (!groupe || !point.coordonnees) return;
+        const postes = fetchPostes();
+        postes.forEach((poste) => {
+            const groupe = groupes.find((g) => g.id === poste.etage);
+            if (!groupe || !poste.coordonnees) return;
 
-            const leafletMarker = toLeafletMarker(point)
-                .on("click", () => emit("pointSelected", point))
+            const leafletMarker = toLeafletMarker(poste)
+                .on("click", () => emit("posteSelected", poste))
                 .addTo(groupe.layerGroupe);
 
             leafletAddClass(
                 leafletMarker._icon,
-                PointStatuts.getInfos(point.statut).leafletClass,
+                PosteStatuts.getInfos(poste.statut).leafletClass,
             );
         });
     } catch (e) {
-        console.error("Impossible de charger les points :", e);
+        console.error("Impossible de charger les postes :", e);
     }
 }
 
@@ -88,12 +88,12 @@ onMounted(() => {
     initialLayer.layerGroupe.addTo(map);
     map.fitBounds(initialLayer.layerGroupe.bounds);
 
-    chargerPoints();
+    chargerPostes();
     mettreAJourCoordonnees();
     map.on("move", mettreAJourCoordonnees);
 
-    if (selectedPoint) {
-        watch(selectedPoint, selectPoint, { immediate: true });
+    if (selectedPoste) {
+        watch(selectedPoste, selectPoste, { immediate: true });
     }
 });
 
@@ -118,7 +118,7 @@ watch(
         :style="{ height: carteHeight, width: carteWidth }"
     ></div>
     <div v-if="hasCoordinatesSelector" class="viseur">
-        <span>{{ pointData.idPiege }}</span>
+        <span>{{ posteData.idPoste }}</span>
     </div>
 </template>
 

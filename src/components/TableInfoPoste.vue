@@ -2,7 +2,7 @@
 import { etagesConfig, etageid2label } from "@/store/etages";
 
 const props = defineProps({
-    point: Object,
+    poste: Object,
 });
 
 defineEmits(["close", "next", "prev"]);
@@ -16,7 +16,7 @@ function formatDate(datestring) {
 <template>
     <div class="fixed-bottom card">
         <h5 class="card-header">
-            Point n° {{ point.idPiege }}
+            Poste n° {{ poste.idPoste }}
             <span class="fs-6 cursor-not-allowed bi bi-pencil"></span>
             <span class="float-end cursor-pointer" @click="$emit('close')">
                 ×
@@ -24,9 +24,9 @@ function formatDate(datestring) {
         </h5>
 
         <div class="row overflow-auto">
-            <div class="col-sm-3 mx-auto align-self-stretch" v-if="point.photo">
+            <div class="col-sm-3 mx-auto align-self-stretch" v-if="poste.photo">
                 <figure class="figure">
-                    <img class="figure-img img-fluid d-block mx-auto" :src="point.photo" alt="Photo du piège"></img>
+                    <img class="figure-img img-fluid d-block mx-auto" :src="poste.photo" alt="Photo du poste"></img>
                 </figure>
             </div>
             <div class="col px-3">
@@ -41,31 +41,31 @@ function formatDate(datestring) {
                         <tbody class="table-group-divider">
                             <tr>
                                 <td>Étage</td>
-                                <td>{{ etageid2label(point.etage) }}</td>
+                                <td>{{ etageid2label(poste.etage) }}</td>
                             </tr>
                             <tr>
                                 <td>Zone</td>
-                                <td>{{ point.zone }}</td>
+                                <td>{{ poste.zone }}</td>
                             </tr>
                             <tr>
-                                <td>Type de piège</td>
-                                <td>{{ point.typePiege }}</td>
+                                <td>Type de poste</td>
+                                <td>{{ poste.typePoste}}</td>
                             </tr>
                             <tr>
                                 <td>Photo</td>
-                                <td v-if="!point.photo">
+                                <td v-if="!poste.photo">
                                     <i class="bi bi-camera"></i> Ajouter
                                 </td>
                                 <td v-else>Modifier</td>
                             </tr>
                             <tr>
                                 <td>Créé le</td>
-                                <td>{{ formatDate(point.creeLe) }}</td>
+                                <td>{{ formatDate(poste.creeLe) }}</td>
                             </tr>
                         </tbody>
                     </table>
                     <div class="text-secondary text-center" style="display: none;">
-                        <small>{{ point.id }}</small>
+                        <small>{{ poste.id }}</small>
                     </div>
                 </div>
             </div>

@@ -1,8 +1,11 @@
 <script setup>
 import { onMounted, useTemplateRef, ref } from "vue";
 import { useRouter } from "vue-router";
-import { pointData, reinitialiserPointData } from "../store/pointData.js";
-import { createPoint } from "../store/points.js";
+import {
+    posteData,
+    reinitialiserPosteData,
+} from "@/store/posteData.js";
+import { createPoste } from "@/store/postes.js";
 import Carte from "../components/carte.vue";
 import Notification from "@/components/Notification.vue";
 import FAB from "@/components/FAB.vue";
@@ -15,18 +18,18 @@ function valider() {
     enregistrement.value = true;
     erreur.value = null;
     try {
-        const newPoint = createPoint({ ...pointData });
-        reinitialiserPointData();
-        router.push({ name: "pointInfos", params: { point: newPoint.id } });
+        const newPoste = createPoste({ ...posteData });
+        reinitialiserPosteData();
+        router.push({ name: "posteInfos", params: { poste: newPoste.id } });
     } catch (e) {
-        erreur.value = "Impossible d'enregistrer le point. Réessaie.";
+        erreur.value = "Impossible d'enregistrer le poste. Réessaie.";
     } finally {
         enregistrement.value = false;
     }
 }
 
-function updatePointCoordinate(coordinates) {
-    pointData.coordonnees = coordinates;
+function updatePosteCoordinate(coordinates) {
+    posteData.coordonnees = coordinates;
 }
 </script>
 
@@ -42,7 +45,7 @@ function updatePointCoordinate(coordinates) {
                     ></RouterLink>
                 </div>
                 <div class="col-auto flex-grow-1 flex-fill">
-                    <h1 class="m-0">Positionner le point</h1>
+                    <h1 class="m-0">Positionner le poste</h1>
                     <small>
                         Fais défiler la carte pour placer le viseur au bon
                         endroit
@@ -58,8 +61,8 @@ function updatePointCoordinate(coordinates) {
                     carteHeight="100%"
                     carteWidth="100%"
                     hasCoordinatesSelector
-                    :layer="pointData.etage"
-                    @move="updatePointCoordinate"
+                    :layer="posteData.etage"
+                    @move="updatePosteCoordinate"
                 ></Carte>
             </div>
         </div>
@@ -101,5 +104,11 @@ function updatePointCoordinate(coordinates) {
     pointer-events: none;
     z-index: 1000;
     user-select: none;
+
+    & > span {
+        margin-left: -100%;
+        margin-right: -100%;
+        text-align: center;
+    }
 }
 </style>

@@ -1,20 +1,20 @@
 <script setup>
 import UploadPlan from "../components/uploadPlan.vue";
 import { etagesConfig } from "@/store/etages";
-import { fetchPoints } from "@/store/points";
+import { fetchPostes } from "@/store/postes";
 import { ref } from "vue";
 
 const clientName = ref("Potel & Chabot");
 const etages = ref(etagesConfig);
 const modaleOuverte = ref(false);
-const points = fetchPoints();
+const postes = fetchPostes();
 
-function getNbPoints(etage) {
-    return points.filter((p) => p.etage === etage).length;
+function getNbPostes(etage) {
+    return postes.filter((p) => p.etage === etage).length;
 }
 // Possible de le faire en computed, mais complexifie le code
-// const getNbPoints = (etage) =>
-//    computed(() => points.filter((p) => p.etage === etage).length);
+// const getNbPostes = (etage) =>
+//    computed(() => postes.filter((p) => p.etage === etage).length);
 </script>
 
 <template>
@@ -40,7 +40,7 @@ function getNbPoints(etage) {
                     <thead>
                         <tr>
                             <th>Étage</th>
-                            <th class="text-end">Nb de pièges</th>
+                            <th class="text-end">Nb de postes</th>
                             <th class="ms-auto"></th>
                         </tr>
                     </thead>
@@ -48,7 +48,7 @@ function getNbPoints(etage) {
                         <tr v-for="etage in etages">
                             <td>{{ etage.label }}</td>
                             <td class="text-end">
-                                {{ getNbPoints(etage.id) }} points
+                                {{ getNbPostes(etage.id) }} postes
                             </td>
                             <td class="text-end ms-auto">
                                 <RouterLink

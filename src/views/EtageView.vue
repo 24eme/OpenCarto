@@ -1,9 +1,9 @@
 <script setup>
 import Carte from "../components/carte.vue";
-import TableInfoPoint from "@/components/TableInfoPoint.vue";
+import TableInfoPoste from "@/components/TableInfoPoste.vue";
 import FAB from "@/components/FAB.vue"
 import { etagesConfig } from "@/store/etages";
-import { fetchPoints } from "@/store/points";
+import { fetchPostes } from "@/store/postes";
 import { provide, readonly, ref, watch, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
@@ -11,46 +11,46 @@ const route = useRoute();
 const router = useRouter();
 
 const clientName = ref("Potel & Chabot");
-const points = ref(fetchPoints());
-const selectedPoint = ref();
+const postes = ref(fetchPostes());
+const selectedPoste = ref();
 const loadedEtage = ref();
 
-const nextPoint = computed(() => {
-    const etagePoints = points.value.filter((p) => p.etage === loadedEtage.value)
-    let currentPointIndex = etagePoints.findIndex((p) => p.id === selectedPoint.value.id)
-    currentPointIndex++
+const nextPoste = computed(() => {
+    const etagePostes = postes.value.filter((p) => p.etage === loadedEtage.value)
+    let currentPosteIndex = etagePostes.findIndex((p) => p.id === selectedPoste.value.id)
+    currentPosteIndex++
 
-    if (currentPointIndex >= etagePoints.length) {
-        currentPointIndex = 0;
+    if (currentPosteIndex >= etagePostes.length) {
+        currentPosteIndex = 0;
     }
 
-    return etagePoints.at(currentPointIndex);
+    return etagePostes.at(currentPosteIndex);
 })
 
-const prevPoint = computed(() => {
-    const etagePoints = points.value.filter((p) => p.etage === loadedEtage.value)
-    let currentPointIndex = etagePoints.findIndex((p) => p.id === selectedPoint.value.id)
-    currentPointIndex--
+const prevPoste = computed(() => {
+    const etagePostes = postes.value.filter((p) => p.etage === loadedEtage.value)
+    let currentPosteIndex = etagePostes.findIndex((p) => p.id === selectedPoste.value.id)
+    currentPosteIndex--
 
-    if (currentPointIndex < 0) {
-        currentPointIndex = etagePoints.length - 1;
+    if (currentPosteIndex < 0) {
+        currentPosteIndex = etagePostes.length - 1;
     }
 
-    return etagePoints.at(currentPointIndex);
+    return etagePostes.at(currentPosteIndex);
 })
 
 watch(() => route.params.etage, checkEtage, { immediate: true });
-watch(selectedPoint, (point) => {
-    if (point === undefined) {
+watch(selectedPoste, (poste) => {
+    if (poste === undefined) {
         router.push({ name: "etage" });
     } else {
-        router.push({ name: "pointInfos", params: { point: point.id } });
+        router.push({ name: "posteInfos", params: { poste: poste.id } });
     }
 });
 
-selectedPoint.value = points.value.find((p) => p.id === route.params.point);
+selectedPoste.value = postes.value.find((p) => p.id === route.params.poste);
 
-provide("selectedPoint", readonly(selectedPoint))
+provide("selectedPoste", readonly(selectedPoste))
 
 function checkEtage(etage) {
     if (etagesConfig.find(({ id }) => id === etage) === undefined) {
@@ -83,25 +83,25 @@ function checkEtage(etage) {
             carteHeight="100%"
             carteWidth="100%"
             :layer="loadedEtage"
-            @pointSelected="(point) => (selectedPoint = point)"
+            @posteSelected="(poste) => (selectedPoste = poste)"
         />
 
         <FAB
             mainTitle="Ajouter un poste"
-            :mainLink="{ name: 'addInfoPoint' }"
+            :mainLink="{ name: 'addInfoPoste' }"
             :mainIcons="{ main: 'bi-geo-alt', stack: 'bi-plus' }"
         ></FAB>
 
         <!-- <router-view> => Nested view visible dans router/index.js -->
-        <!-- correspond à /:etage/p/:point et charge TableInfoPoint -->
+        <!-- correspond à /:etage/p/:poste et charge TableInfoPoste -->
         <!-- évite de reconstruire une view complète avec une nouvelle -->
-        <!-- carte juste pour afficher les infos d'un point -->
-        <router-view is="TableInfoPoint"
-                v-if="selectedPoint"
-                :point="selectedPoint"
-                @close="selectedPoint = undefined"
-                @next="selectedPoint = nextPoint"
-                @prev="selectedPoint = prevPoint"
+        <!-- carte juste pour afficher les infos d'un poste -->
+        <router-view is="TableInfoPoste"
+                v-if="selectedPoste"
+                :poste="selectedPoste"
+                @close="selectedPoste = undefined"
+                @next="selectedPoste = nextPoste"
+                @prev="selectedPoste = prevPoste"
         </router-view>
     </main>
 </template>

@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import { pointData } from "@/store/pointData.js";
+import { posteData } from "@/store/posteData.js";
 import { etageid2label } from "@/store/etages";
 
 const inputPhoto = ref(null);
@@ -12,7 +12,7 @@ function ouvrirCamera() {
 function onPhotoSelected(event) {
     const file = event.target.files[0];
     if (file) {
-        pointData.photo = URL.createObjectURL(file);
+        posteData.photo = URL.createObjectURL(file);
     }
 }
 </script>
@@ -22,7 +22,7 @@ function onPhotoSelected(event) {
         <nav class="navbar bg-body-tertiary">
             <div class="container justify-content-start">
                 <div class="col-auto d-flex me-3">
-                    <RouterLink :to="{ name: 'addInfoPoint' }">
+                    <RouterLink :to="{ name: 'addInfoPoste' }">
                         <i
                             class="bi bi-arrow-left-square fs-1 align-self-center"
                             style="color: black"
@@ -30,14 +30,14 @@ function onPhotoSelected(event) {
                     ></RouterLink>
                 </div>
                 <div class="col-auto flex-grow-1">
-                    <h1 class="m-0">Ajout du piège</h1>
+                    <h1 class="m-0">Ajout du poste</h1>
                 </div>
             </div>
         </nav>
 
         <div class="vstack justify-content-start gap-1">
             <div class="border bg-light rounded-1 p-3 mt-1">
-                <h6>Information sur le piège :</h6>
+                <h6>Information sur le poste :</h6>
                 <div class="row row-cols-2 row-cols-sm-4 py-2">
                     <div class="col d-flex align-items-start">
                         <i
@@ -46,7 +46,7 @@ function onPhotoSelected(event) {
                         ></i>
                         <div>
                             <h3 class="fw-bold mb-0 fs-5">Étage</h3>
-                            <p>{{ etageid2label(pointData.etage) }}</p>
+                            <p>{{ etageid2label(posteData.etage) }}</p>
                         </div>
                     </div>
                     <div class="col d-flex align-items-start">
@@ -55,8 +55,8 @@ function onPhotoSelected(event) {
                             aria-hidden="true"
                         ></i>
                         <div>
-                            <h3 class="fw-bold mb-0 fs-5">Type de piège</h3>
-                            <p>{{ pointData.typePiege }}</p>
+                            <h3 class="fw-bold mb-0 fs-5">Type de poste</h3>
+                            <p>{{ posteData.typePoste }}</p>
                         </div>
                     </div>
                     <div class="col d-flex align-items-start">
@@ -66,7 +66,7 @@ function onPhotoSelected(event) {
                         ></i>
                         <div>
                             <h3 class="fw-bold mb-0 fs-5">Zone</h3>
-                            <p>{{ pointData.zone }}</p>
+                            <p>{{ posteData.zone }}</p>
                         </div>
                     </div>
                 </div>
@@ -81,9 +81,9 @@ function onPhotoSelected(event) {
                 @change="onPhotoSelected"
             />
 
-            <div class="flex-grow-1" v-if="pointData.photo">
+            <div class="flex-grow-1" v-if="posteData.photo">
                 <img
-                    :src="pointData.photo"
+                    :src="posteData.photo"
                     class="img-fluid d-block mx-auto"
                     style="max-height: 50svh"
                     @click="ouvrirCamera"
@@ -95,23 +95,24 @@ function onPhotoSelected(event) {
             <div>
                 <div class="vstack gap-2 m-1">
                     <textarea
-                        v-if="pointData.photo"
+                        v-if="posteData.photo"
                         id="descriptionPhotoTextArea"
                         class="mt-2 form-control"
                         rows="2"
-                        v-model="pointData.descriptionPhoto"
+                        v-model="posteData.descriptionPhoto"
                         placeholder="Description de l'emplacement (optionel)"
                     ></textarea>
                     <div class="buttons-container picture-button-container">
 
                     <button
-                        v-if="!pointData.photo"
+                        v-if="!posteData.photo"
                         class="btn btn-primary custom-btn-primary"
                         type="button"
                         @click="ouvrirCamera"
                     >
                         Prendre une photo
                     </button>
+
                     <RouterLink
                         v-else
                         :to="{ name: 'rapport' }"
@@ -121,7 +122,7 @@ function onPhotoSelected(event) {
                     </RouterLink>
 
                     <RouterLink
-                        v-if="!pointData.photo"
+                        v-if="!posteData.photo"
                         :to="{ name: 'rapport' }"
                         class="btn btn-light custom-btn-primary border-button"
                     >
