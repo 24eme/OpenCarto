@@ -70,7 +70,7 @@ function formatDate(datestring) {
                 </div>
             </div>
 
-            <div class="m-1 row">
+            <div class="row mx-auto">
               <RouterLink
                   :to="{ name: 'suiviInfestation' }"
                   class="btn btn-primary btn-suivi-infestation"
