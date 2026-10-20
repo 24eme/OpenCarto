@@ -84,9 +84,4 @@ function getNbPostes(etage) {
 </template>
 
 <style>
-.leaflet-bottom.leaflet-right {
-  left: 0;
-  right: unset;
-}
-
 </style>

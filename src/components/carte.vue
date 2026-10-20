@@ -66,7 +66,10 @@ onMounted(() => {
         boxZoom: false,
         wheelDebounceTime: 100,
         crs: L.CRS.Simple,
+        attributionControl: false,
     });
+
+    L.control.attribution({ position: "bottomleft" }).addTo(map);
 
     function mettreAJourCoordonnees() {
         const centre = map.getCenter();
