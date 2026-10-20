@@ -133,26 +133,35 @@ watch(
     text-align: center;
 
     background-color: lch(from var(--accent) l c h);
-    border-color: lch(from var(--accent) calc(l - 20) c h);
+    border-color: lch(from var(--accent) calc(l - 20) calc(c + 40) h);
     color: black;
 }
 
 .leaflet-marker-poste-selected > div {
-    background: var(--bs-warning-bg-subtle) !important;
-    color: var(--bs-body-color) !important;
-    border: 2px solid var(--bs-warning) !important;
+    --accent: lch(94 17 82) !important;
+    color: #111 !important;
 }
 
 .leaflet-marker-done > div {
-    --accent: lch(83 53 135);
-    color: #111;
-}
-.leaflet-marker-current > div {
-    --accent: lch(75 40 25);
+    --accent: lch(68 30 144);
     color: #111;
 }
 .leaflet-marker-todo > div {
     --accent: lch(48 61 24);
+    color: #eee;
+}
+.leaflet-marker-missing > div {
+    --accent: lch(88 0 0);
+    border-style: dashed;
+    color: #eee;
+}
+.leaflet-marker-swapped > div {
+    --accent: lch(79 35 242);
+    color: #eee;
+}
+.leaflet-marker-archived > div {
+    --accent: lch(88 0 0);
+    border-style: dashed;
     color: #eee;
 }
 </style>

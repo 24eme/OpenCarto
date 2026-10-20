@@ -2,8 +2,10 @@ import { reactive } from "vue";
 
 export const PosteStatuts = Object.freeze({
   A_FAIRE: "A_FAIRE",
-  EN_COURS: "EN_COURS",
   FAIT: "FAIT",
+  DISPARU: "DISPARU",
+  REMPLACE: "REMPLACE",
+  ARCHIVE: "ARCHIVE",
 
   getInfos: function (statut) {
     const infos = {
@@ -11,13 +13,21 @@ export const PosteStatuts = Object.freeze({
         description: "Poste à faire",
         class: "leaflet-marker-todo",
       },
-      [PosteStatuts.EN_COURS]: {
-        description: "Poste en cours",
-        class: "leaflet-marker-current",
-      },
       [PosteStatuts.FAIT]: {
         description: "Poste fait",
         class: "leaflet-marker-done",
+      },
+      [PosteStatuts.DISPARU]: {
+        description: "Poste disparu",
+        class: "leaflet-marker-missing",
+      },
+      [PosteStatuts.REMPLACE]: {
+        description: "Poste remplacé",
+        class: "leaflet-marker-swapped",
+      },
+      [PosteStatuts.ARCHIVE]: {
+        description: "Poste archivé",
+        class: "leaflet-marker-archived",
       },
     };
 
