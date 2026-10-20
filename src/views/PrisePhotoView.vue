@@ -69,6 +69,16 @@ function onPhotoSelected(event) {
                             <p>{{ posteData.zone }}</p>
                         </div>
                     </div>
+                    <div class="col d-flex align-items-start">
+                        <i
+                            class="bi bi-columns fs-4 me-2"
+                            aria-hidden="true"
+                        ></i>
+                        <div>
+                            <h3 class="fw-bold mb-0 fs-5">Numéro du poste</h3>
+                            <p>{{ posteData.idPoste }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
