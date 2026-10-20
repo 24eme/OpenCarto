@@ -95,11 +95,9 @@ onMounted(() => {
     mettreAJourCoordonnees();
     map.on("move", mettreAJourCoordonnees);
 
-    if (selectedPoste) {
-        watch(selectedPoste, (poste) => selectPoste(map, poste), {
-            immediate: true,
-        });
-    }
+    watch(selectedPoste, (poste) => selectPoste(map, poste), {
+        immediate: true,
+    });
 });
 
 // watcher qui se declenche lorsque l'utilisateur ajoute un nouveau plan parce que la length de l'objet

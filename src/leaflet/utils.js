@@ -21,6 +21,10 @@ export function selectPoste(map, poste) {
     const icon = layer._icon;
     L.DomUtil.removeClass(icon, "leaflet-marker-poste-selected");
 
+    if (!poste) {
+      return;
+    }
+
     if (icon.dataset.id === poste.id) {
       L.DomUtil.addClass(layer._icon, "leaflet-marker-poste-selected");
     }
