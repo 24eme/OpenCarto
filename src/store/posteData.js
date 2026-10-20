@@ -9,15 +9,15 @@ export const PosteStatuts = Object.freeze({
     const infos = {
       [PosteStatuts.A_FAIRE]: {
         description: "Poste à faire",
-        leafletClass: "leaflet-marker-todo",
+        class: "leaflet-marker-todo",
       },
       [PosteStatuts.EN_COURS]: {
         description: "Poste en cours",
-        leafletClass: "leaflet-marker-current",
+        class: "leaflet-marker-current",
       },
       [PosteStatuts.FAIT]: {
         description: "Poste fait",
-        leafletClass: "leaflet-marker-done",
+        class: "leaflet-marker-done",
       },
     };
 

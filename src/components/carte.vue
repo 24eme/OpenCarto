@@ -45,7 +45,7 @@ function chargerPostes() {
 
             leafletAddClass(
                 leafletMarker._icon,
-                PosteStatuts.getInfos(poste.statut).leafletClass,
+                PosteStatuts.getInfos(poste.statut).class,
             );
         });
     } catch (e) {
