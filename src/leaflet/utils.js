@@ -27,6 +27,18 @@ export function selectPoste(map, poste) {
 
     if (icon.dataset.id === poste.id) {
       L.DomUtil.addClass(layer._icon, "leaflet-marker-poste-selected");
+
+      // Center avec offset
+      // @see https://github.com/Leaflet/Leaflet/issues/859#issuecomment-7411258
+      const zoom = map.getZoom();
+      const size = map.getSize();
+      const offset = size.y * 0.3; // centre au tier de la carte
+
+      const projectedLatLng = map
+        .project(layer.getLatLng(), zoom)
+        .add([0, offset]);
+      const unprojectedLatLng = map.unproject(projectedLatLng, zoom);
+      map.setView(unprojectedLatLng, zoom);
     }
   });
 }
