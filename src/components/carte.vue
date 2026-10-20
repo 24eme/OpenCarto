@@ -96,7 +96,9 @@ onMounted(() => {
     map.on("move", mettreAJourCoordonnees);
 
     if (selectedPoste) {
-        watch(selectedPoste, selectPoste, { immediate: true });
+        watch(selectedPoste, (poste) => selectPoste(map, poste), {
+            immediate: true,
+        });
     }
 });
 

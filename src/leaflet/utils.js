@@ -12,16 +12,19 @@ L.PosteIcon = L.DivIcon.extend({
   },
 });
 
-export function selectPoste(poste) {
-  const allPostes = document.querySelectorAll(".leaflet-marker-poste");
-  allPostes.forEach((p) => p.classList.remove("leaflet-marker-poste-selected"));
+export function selectPoste(map, poste) {
+  map.eachLayer((layer) => {
+    if (!(layer instanceof L.Marker)) {
+      return;
+    }
 
-  if (!poste) {
-    return;
-  }
+    const icon = layer._icon;
+    L.DomUtil.removeClass(icon, "leaflet-marker-poste-selected");
 
-  const marker = document.querySelector('[data-id="' + poste.id + '"]');
-  L.DomUtil.addClass(marker, "leaflet-marker-poste-selected");
+    if (icon.dataset.id === poste.id) {
+      L.DomUtil.addClass(layer._icon, "leaflet-marker-poste-selected");
+    }
+  });
 }
 
 export function toLeafletMarker(poste) {
