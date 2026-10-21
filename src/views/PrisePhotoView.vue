@@ -36,9 +36,9 @@ function onPhotoSelected(event) {
         </nav>
 
         <div class="vstack justify-content-start gap-1">
-            <div class="border bg-light rounded-1 p-3 mt-1">
+            <div class="border bg-light rounded-1 p-3 pb-0 mt-1">
                 <h6>Information sur le poste :</h6>
-                <div class="row row-cols-2 row-cols-sm-4 py-2">
+                <div class="row row-cols-2 row-cols-sm-4">
                     <div class="col d-flex align-items-start">
                         <i
                             class="bi bi-geo-fill fs-4 me-2"
