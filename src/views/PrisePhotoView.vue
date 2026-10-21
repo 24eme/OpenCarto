@@ -113,15 +113,22 @@ function onPhotoSelected(event) {
                         placeholder="Description de l'emplacement (optionel)"
                     ></textarea>
                     <div class="buttons-container picture-button-container">
+                        <RouterLink
+                            v-if="!posteData.photo"
+                            :to="{ name: 'rapport' }"
+                            class="btn btn-primary custom-btn-primary border-button"
+                        >
+                            Continuer sans photo
+                        </RouterLink>
 
-                    <button
-                        v-if="!posteData.photo"
-                        class="btn btn-primary custom-btn-primary"
-                        type="button"
-                        @click="ouvrirCamera"
-                    >
-                        Prendre une photo
-                    </button>
+                        <button
+                            v-if="!posteData.photo"
+                            class="btn btn-light custom-btn-primary"
+                            type="button"
+                            @click="ouvrirCamera"
+                        >
+                            Prendre une photo
+                        </button>
 
                     <RouterLink
                         v-else
@@ -129,14 +136,6 @@ function onPhotoSelected(event) {
                         class="btn btn-primary custom-btn-primary"
                     >
                         Continuer
-                    </RouterLink>
-
-                    <RouterLink
-                        v-if="!posteData.photo"
-                        :to="{ name: 'rapport' }"
-                        class="btn btn-light custom-btn-primary border-button"
-                    >
-                        Continuer sans photo
                     </RouterLink>
                     </div>
                 </div>
