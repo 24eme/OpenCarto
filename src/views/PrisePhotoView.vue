@@ -127,7 +127,7 @@ function onPhotoSelected(event) {
                             type="button"
                             @click="ouvrirCamera"
                         >
-                            Prendre une photo
+                            Prendre une photo du poste en place
                         </button>
 
                     <RouterLink
