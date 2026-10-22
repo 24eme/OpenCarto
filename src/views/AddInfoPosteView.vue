@@ -113,7 +113,7 @@ const etageLabel = computed(() => {
 
         </div>
 
-        <div class="m-1 row buttons-container ">
+        <div class="m-2 large-margin-top row">
             <RouterLink :to="{ name: 'prisePhoto' }" class="btn btn-primary custom-btn-primary">
                 Continuer
             </RouterLink>
@@ -121,4 +121,8 @@ const etageLabel = computed(() => {
     </div>
 </template>
 
-<style></style>
+<style scoped>
+.large-margin-top {
+    margin-top: 20% !important;
+}
+</style>

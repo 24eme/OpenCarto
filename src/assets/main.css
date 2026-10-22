@@ -25,20 +25,7 @@ a,
   padding: 3px;
 }
 
-.buttons-container {
-  display: flex;
-  flex-direction: column;
-  margin-top: 74px !important;
-  margin-bottom: 10px !important;
-  align-self: center;
-  justify-content: end;
-}
-
 .custom-btn-primary {
-  display: flex;
-  width: 24rem !important;
-  justify-content: center;
-  height: 3.5rem;
   line-height: 2.8rem;
   font-size: 1.2rem;
   font-weight: bold;
@@ -46,7 +33,6 @@ a,
 
 .picture-button-container {
   gap: 1.2rem;
-  height: 8.1rem;
 }
 
 .border-button {

@@ -65,7 +65,7 @@ const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric
         </div>
       </div>
 
-      <div class="m-1 row buttons-container ">
+      <div class="m-2 row">
         <RouterLink
             :to="{ name: 'posteInfos', path: 'p/:poste' }"
             class="btn btn-primary custom-btn-primary"

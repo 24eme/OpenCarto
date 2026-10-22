@@ -103,7 +103,7 @@ function onPhotoSelected(event) {
             <div v-else class="flex-grow-1"></div>
 
             <div>
-                <div class="vstack gap-2 m-1">
+                <div class="vstack gap-2 m-2">
                     <textarea
                         v-if="posteData.photo"
                         id="descriptionPhotoTextArea"
@@ -112,7 +112,6 @@ function onPhotoSelected(event) {
                         v-model="posteData.descriptionPhoto"
                         placeholder="Description de l'emplacement (optionel)"
                     ></textarea>
-                    <div class="buttons-container picture-button-container">
                         <RouterLink
                             v-if="!posteData.photo"
                             :to="{ name: 'rapport' }"
@@ -137,7 +136,6 @@ function onPhotoSelected(event) {
                     >
                         Continuer
                     </RouterLink>
-                    </div>
                 </div>
             </div>
         </div>

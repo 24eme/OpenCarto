@@ -63,7 +63,7 @@ const backgroundSizeStyle = computed(() => {
         </div>
       </div>
 
-      <div class="m-1 row buttons-container ">
+      <div class="m-2 row">
         <RouterLink
             :to="{ name: 'addCoordonneesPoste' }"
             class="btn btn-primary custom-btn-primary"
