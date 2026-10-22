@@ -104,9 +104,10 @@ const etageLabel = computed(() => {
                     <small>à reporter sur l'installation</small>
                 </p>
 
-                <p class="display-1 bg-secondary-subtle py-4">
-                    {{ posteData.idPoste }}
-                </p>
+                <input
+                    v-model="posteData.idPoste"
+                    class="display-1 bg-secondary-subtle py-4 text-center w-100"
+                />
             </div>
 
           <hr />
