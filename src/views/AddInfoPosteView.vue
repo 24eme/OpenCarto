@@ -57,6 +57,10 @@ const availablePosteNumbers = computed(() => {
 if (!posteData.idPoste || posteData.idPoste === "0") {
     posteData.idPoste = availablePosteNumbers.value.at(0);
 }
+
+const isValidPosteId = computed(() => {
+    return availablePosteNumbers.value.includes(parseInt(posteData.idPoste));
+});
 </script>
 
 <template>
@@ -124,6 +128,7 @@ if (!posteData.idPoste || posteData.idPoste === "0") {
                 <input
                     v-model="posteData.idPoste"
                     class="display-1 bg-secondary-subtle py-4 text-center w-100"
+                    :class="isValidPosteId ? '' : 'border-danger'"
                 />
 
                 <small>Numéros disponibles : {{ availablePosteNumbers }}</small>
@@ -134,9 +139,14 @@ if (!posteData.idPoste || posteData.idPoste === "0") {
         </div>
 
         <div class="m-2 large-margin-top row">
-            <RouterLink :to="{ name: 'prisePhoto' }" class="btn btn-primary custom-btn-primary">
+            <component
+                :is="isValidPosteId ? 'router-link' : 'span'"
+                :to="{ name: 'prisePhoto' }"
+                class="btn btn-primary custom-btn-primary"
+                :class="isValidPosteId ? '' : 'disabled'"
+            >
                 Continuer
-            </RouterLink>
+            </component>
         </div>
     </div>
 </template>
