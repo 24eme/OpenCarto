@@ -45,6 +45,10 @@ const availablePosteNumbers = computed(() => {
         .map((p) => p.idPoste)
         .map((i) => parseInt(i));
 
+    if (allPosteIdFromEtage.length === 0) {
+        return [1];
+    }
+
     const allPossibleIds = range(1, Math.max(...allPosteIdFromEtage) + 1);
 
     const available = allPossibleIds.filter(
