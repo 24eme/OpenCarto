@@ -81,9 +81,9 @@ const etageLabel = computed(() => {
             </div>
 
             <div class="my-2 mb-auto">
-                <label for="typeSelect" class="h4 form-label"
-                    >Type de poste</label
-                >
+                <label for="typeSelect" class="h4 form-label">
+                    Type de poste
+                </label>
                 <select
                     id="typeSelect"
                     class="form-select"
