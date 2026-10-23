@@ -1,5 +1,21 @@
 const STORAGE_KEY = "postes";
 
+// les valeurs de start et end sont incluses
+export const range = (start, end, step = 1) => {
+  let output = [];
+
+  if (typeof end === "undefined") {
+    end = start;
+    start = 0;
+  }
+
+  for (let i = start; i <= end; i += step) {
+    output.push(i);
+  }
+
+  return output;
+};
+
 function lireStorage() {
   const brut = localStorage.getItem(STORAGE_KEY);
   if (!brut) return [];

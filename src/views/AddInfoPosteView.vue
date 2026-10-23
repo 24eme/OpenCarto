@@ -4,7 +4,7 @@ import { etagesConfig, etageid2label } from "@/store/etages.js";
 import { useRoute } from "vue-router";
 import { ref, computed } from "vue";
 import Autocomplete from "@/components/Autocomplete.vue";
-import { fetchPostes } from "@/store/postes";
+import { fetchPostes, range } from "@/store/postes";
 
 const route = useRoute();
 const allPostes = ref(fetchPostes())
@@ -30,16 +30,33 @@ if (existingZones.value.length < 1) {
     existingZones.value = ["Faux plafond", "Derrière la colonne"];
 }
 
-if (!posteData.idPoste || posteData.idPoste === "0") {
-    posteData.idPoste = String(Math.floor(Math.random() * 101));
-}
-
 posteData.etage = route.params.etage;
 
 const etageLabel = computed(() => {
     const label = etageid2label(posteData.etage);
     return label.match(/^[aeéiouh]/i) ? "à l'" + label : "au " + label;
 })
+
+const availablePosteNumbers = computed(() => {
+    const etagePostes = allPostes.value.filter(
+        (p) => p.etage === posteData.etage,
+    );
+    const allPosteIdFromEtage = etagePostes
+        .map((p) => p.idPoste)
+        .map((i) => parseInt(i));
+
+    const allPossibleIds = range(1, Math.max(...allPosteIdFromEtage) + 1);
+
+    const available = allPossibleIds.filter(
+        (i) => allPosteIdFromEtage.includes(i) === false,
+    );
+
+    return available;
+});
+
+if (!posteData.idPoste || posteData.idPoste === "0") {
+    posteData.idPoste = availablePosteNumbers.value.at(0);
+}
 </script>
 
 <template>
@@ -108,6 +125,8 @@ const etageLabel = computed(() => {
                     v-model="posteData.idPoste"
                     class="display-1 bg-secondary-subtle py-4 text-center w-100"
                 />
+
+                <small>Numéros disponibles : {{ availablePosteNumbers }}</small>
             </div>
 
           <hr />
