@@ -94,6 +94,13 @@ div:has(> .btn-suivi-infestation) {
   margin-left: 3.1rem;
 }
 
+.shadowed {
+    box-shadow:
+        0.3px 0.3px 0.5px hsl(0deg 0% 0% / 0.1),
+        0.9px 0.9px 1.4px -0.8px hsl(0deg 0% 0% / 0.1),
+        2.2px 2.2px 3.5px -1.7px hsl(0deg 0% 0% / 0.1),
+        5.3px 5.4px 8.5px -2.5px hsl(0deg 0% 0% / 0.1);
+}
 @media (hover: hover) {
   a:hover {
     background-color: hsla(160, 100%, 37%, 0.2);

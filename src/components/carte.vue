@@ -67,9 +67,11 @@ onMounted(() => {
         wheelDebounceTime: 100,
         crs: L.CRS.Simple,
         attributionControl: false,
+        zoomControl: false,
     });
 
     L.control.attribution({ position: "bottomleft" }).addTo(map);
+    L.control.zoom({ position: "topright" }).addTo(map);
 
     function mettreAJourCoordonnees() {
         const centre = map.getCenter();
@@ -116,10 +118,10 @@ watch(
 </script>
 
 <template>
-    <div
-        :id="carteId"
-        :style="{ height: carteHeight, width: carteWidth }"
-    ></div>
+    <div :id="carteId" :style="{ height: carteHeight, width: carteWidth }">
+        <slot name="filters"></slot>
+    </div>
+
     <div v-if="hasCoordinatesSelector" class="viseur">
         <span>{{ posteData.idPoste }}</span>
     </div>

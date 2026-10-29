@@ -2,6 +2,7 @@
 import Carte from "../components/carte.vue";
 import TableInfoPoste from "@/components/TableInfoPoste.vue";
 import FAB from "@/components/FAB.vue"
+import Filters from "@/components/Filters.vue";
 import { etagesConfig } from "@/store/etages";
 import { fetchPostes } from "@/store/postes";
 import { provide, readonly, ref, watch, computed } from "vue";
@@ -13,6 +14,7 @@ const router = useRouter();
 const clientName = ref("Potel & Chabot");
 const postes = ref(fetchPostes());
 const selectedPoste = ref();
+const selectedFilters = ref([]);
 const loadedEtage = ref();
 
 const nextPoste = computed(() => {
@@ -84,7 +86,11 @@ function checkEtage(etage) {
             carteWidth="100%"
             :layer="loadedEtage"
             @posteSelected="(poste) => (selectedPoste = poste)"
-        />
+        >
+            <template #filters>
+                <Filters @filter="(filters) => (selectedFilters = filters)"></Filters>
+            </template>
+        </Carte>
 
         <FAB
             mainTitle="Ajouter un poste"
