@@ -55,10 +55,10 @@ const backgroundSizeStyle = computed(() => {
 
         </div>
         <div class="vstack gap-2 m-1 rapport-text-area">
-          <label for="textRapport" class="h5 form-label fw-bold">Rapport d'Intervention</label>
+          <label for="informationsComplementaireTextArea" class="h5 form-label fw-bold">Informations complémentaires</label>
           <textarea
-            id="rapportIntervention"
-            placeholder="Ajouter un rapport d'intervention"
+            id="informationsComplementaireTextArea"
+            placeholder="Ajouter des informations complémentaires"
           ></textarea>
         </div>
       </div>
@@ -139,7 +139,7 @@ input[type="range"]::-moz-range-thumb {
   border: none;
 }
 
-#rapportIntervention {
+#informationsComplementaireTextArea {
   height: 20rem;
 }
 
