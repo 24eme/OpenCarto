@@ -5,7 +5,7 @@ import FAB from "@/components/FAB.vue"
 import Filters from "@/components/Filters.vue";
 import { etagesConfig } from "@/store/etages";
 import { fetchPostes } from "@/store/postes";
-import { provide, readonly, ref, watch, computed } from "vue";
+import { provide, readonly, ref, unref, watch, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
@@ -41,6 +41,17 @@ const prevPoste = computed(() => {
     return etagePostes.at(currentPosteIndex);
 })
 
+const filteredPostes = computed(() => {
+  if (selectedFilters.value === undefined || selectedFilters.value.length === 0) {
+    return [];
+  }
+
+  const etagePostes = postes.value.filter((p) => p.etage === loadedEtage.value)
+  return etagePostes.filter((p) =>
+    selectedFilters.value.includes(p.typePoste) === true
+  )
+})
+
 watch(() => route.params.etage, checkEtage, { immediate: true });
 watch(selectedPoste, (poste) => {
     if (poste === undefined) {
@@ -59,6 +70,12 @@ function checkEtage(etage) {
         router.push({ name: "home" }); // pseudo 404
     }
     loadedEtage.value = etage;
+}
+
+function updateFilters(filters) {
+  selectedFilters.value = unref(filters); // unref, sinon obligé de faire
+                                          // selectedFilters.value.value
+                                          // dans les autres fonctions
 }
 </script>
 
@@ -88,7 +105,7 @@ function checkEtage(etage) {
             @posteSelected="(poste) => (selectedPoste = poste)"
         >
             <template #filters>
-                <Filters @filter="(filters) => (selectedFilters = filters)"></Filters>
+                <Filters @filter="updateFilters"></Filters>
             </template>
         </Carte>
 
