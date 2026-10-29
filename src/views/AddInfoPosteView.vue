@@ -23,6 +23,19 @@ const lastZone = computed(() => {
 
     return "";
 });
+const lastType = computed(() => {
+    if (posteData.typePoste) {
+        return posteData.typePoste;
+    }
+
+    const filtered = allPostes.value.filter((p) => p.etage === posteData.etage);
+
+    if (filtered.length) {
+        return filtered.at(-1).typePoste;
+    }
+
+    return null;
+});
 
 existingZones.value = [...new Set(allPostes.value.map((p) => p.zone))].sort()
 
@@ -31,6 +44,7 @@ if (existingZones.value.length < 1) {
 }
 
 posteData.etage = route.params.etage;
+posteData.typePoste = lastType.value;
 
 const etageLabel = computed(() => {
     const label = etageid2label(posteData.etage);

@@ -38,8 +38,8 @@ export const PosteStatuts = Object.freeze({
 export const posteData = reactive({
   statut: PosteStatuts.A_FAIRE,
   etage: null,
-  zone: "",
-  typePoste: "1",
+  zone: null,
+  typePoste: null,
   idPoste: "0",
   photo: null,
   coordonnees: null, // { lat, lng } rempli dans addCoordonneesPoste.vue
