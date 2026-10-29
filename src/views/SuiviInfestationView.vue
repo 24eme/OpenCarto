@@ -1,6 +1,10 @@
 <script setup>
 import { ref, computed } from "vue";
 
+const props = defineProps({
+  isPremierPassage: Boolean
+})
+
 const VALEURS = new Array("0%", "30%", "50%", "80%", "100%");
 
 const indexSlider = ref(0);
@@ -24,7 +28,13 @@ const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric
           <div class="container justify-content-start">
               <div class="col-auto d-flex me-3">
 
-                <RouterLink :to="{ name: 'etage' }">
+                <RouterLink v-if="isPremierPassage === false" :to="{ name: 'etage' }">
+                    <i
+                        class="bi bi-arrow-left-square fs-1 align-self-center"
+                        style="color: black"
+                    ></i
+                ></RouterLink>
+                <RouterLink v-else :to="{ name: 'prisePhoto' }">
                     <i
                         class="bi bi-arrow-left-square fs-1 align-self-center"
                         style="color: black"
@@ -39,7 +49,7 @@ const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric
       </nav>
 
       <div class="container vstack rapport">
-        <div class="my-2 custom-slider">
+        <div v-if="isPremierPassage === false" class="my-2 custom-slider">
           <label for="rangeConso" class="h5 form-label fw-bold">Pourcentage de  Consommation</label>
           <div class="range">
             <input type="range" id="rangeConso" ref="rangeConso" min="0" :max="4" value="0" list="range-values" step="1" @input="updateIndex" :style="{ backgroundSize: backgroundSizeStyle }" class="" />
@@ -54,12 +64,12 @@ const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric
               :label="val"
             </option>
           </datalist>
-
         </div>
+
         <div class="vstack gap-2 m-1 rapport-text-area">
-          <label for="textRapport" class="h5 form-label fw-bold">Rapport de Suivi </label>
+          <label for="informationsComplementaireTextArea" class="h5 form-label fw-bold">Rapport de Suivi </label>
           <textarea
-            id="rapportIntervention"
+            id="informationsComplementaireTextArea"
             placeholder="Ajouter un rapport de suivi d'infestation"
           ></textarea>
         </div>
@@ -67,7 +77,15 @@ const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric
 
       <div class="m-2 row">
         <RouterLink
+            v-if="isPremierPassage === false"
             :to="{ name: 'posteInfos', path: 'p/:poste' }"
+            class="btn btn-primary custom-btn-primary"
+        >
+            Valider
+        </RouterLink>
+        <RouterLink
+            v-else
+            :to="{ name: 'addCoordonneesPoste' }"
             class="btn btn-primary custom-btn-primary"
         >
             Valider
@@ -141,7 +159,7 @@ input[type="range"]::-moz-range-thumb {
   border: none;
 }
 
-#rapportIntervention {
+#informationsComplementaireTextArea {
   height: 20rem;
 }
 
