@@ -45,6 +45,7 @@ if (existingZones.value.length < 1) {
 
 posteData.etage = route.params.etage;
 posteData.typePoste = lastType.value;
+posteData.zone = lastZone.value;
 
 const etageLabel = computed(() => {
     const label = etageid2label(posteData.etage);
