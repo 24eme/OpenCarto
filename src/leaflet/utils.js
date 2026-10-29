@@ -43,6 +43,22 @@ export function selectPoste(map, poste) {
   });
 }
 
+export function setFiltered(map, postes) {
+  const postesId = postes.map((p) => p.id);
+  map.eachLayer((layer) => {
+    if (!(layer instanceof L.Marker)) {
+      return;
+    }
+
+    const icon = layer._icon;
+    L.DomUtil.removeClass(icon, "leaflet-marker-filtered");
+
+    if (postesId.length && postesId.includes(icon.dataset.id) === false) {
+      leafletAddClass(icon, "leaflet-marker-filtered");
+    }
+  });
+}
+
 export function toLeafletMarker(poste) {
   return L.marker([poste.coordonnees.lat, poste.coordonnees.lng], {
     icon: new L.PosteIcon({

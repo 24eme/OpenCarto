@@ -64,6 +64,7 @@ watch(selectedPoste, (poste) => {
 selectedPoste.value = postes.value.find((p) => p.id === route.params.poste);
 
 provide("selectedPoste", readonly(selectedPoste))
+provide("filteredPostes", readonly(filteredPostes))
 
 function checkEtage(etage) {
     if (etagesConfig.find(({ id }) => id === etage) === undefined) {

@@ -6,6 +6,7 @@ import { fetchPostes } from "@/store/postes.js";
 import {
     toLeafletMarker,
     selectPoste,
+    setFiltered,
     leafletAddClass,
 } from "@/leaflet/utils.js";
 
@@ -22,6 +23,7 @@ const emit = defineEmits(["move", "posteSelected"]);
 let controle = null;
 const groupes = [];
 const selectedPoste = inject("selectedPoste", undefined);
+const filteredPostes = inject("filteredPostes", []);
 
 function construireGroupeEtage(etage) {
     const calque = L.imageOverlay(etage.image, etage.bounds);
@@ -100,6 +102,10 @@ onMounted(() => {
     watch(selectedPoste, (poste) => selectPoste(map, poste), {
         immediate: true,
     });
+
+    watch(filteredPostes, (postes) => setFiltered(map, postes), {
+        immediate: true,
+    });
 });
 
 // watcher qui se declenche lorsque l'utilisateur ajoute un nouveau plan parce que la length de l'objet
@@ -165,5 +171,8 @@ watch(
     --accent: lch(88 0 0);
     border-style: dashed;
     color: #eee;
+}
+.leaflet-marker-filtered > div {
+    opacity: 0.2;
 }
 </style>
