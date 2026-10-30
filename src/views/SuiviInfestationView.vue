@@ -17,6 +17,7 @@ const backgroundSizeStyle = computed(() => {
   return `${pourcentage}% 100%`;
 });
 
+const locale = globalThis.navigator.language
 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
 </script>
@@ -44,7 +45,7 @@ const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric
               <div class="col-auto flex-grow-1">
                   <h1 class="m-0">Rapport de Suivi</h1>
               </div>
-              <h5 class="h5-date">{{ new Date().toLocaleString("fr-FR", options) }}</h5>
+              <h5 class="h5-date">{{ new Date().toLocaleString(locale, options) }}</h5>
           </div>
       </nav>
 
