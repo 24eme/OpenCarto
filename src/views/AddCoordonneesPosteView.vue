@@ -3,7 +3,9 @@ import { onMounted, useTemplateRef, ref } from "vue";
 import { useRouter } from "vue-router";
 import {
     posteData,
+    PosteStatuts,
     reinitialiserPosteData,
+    newHistoryEntry,
 } from "@/store/posteData.js";
 import { createPoste } from "@/store/postes.js";
 import Carte from "../components/carte.vue";
@@ -18,6 +20,8 @@ function valider() {
     enregistrement.value = true;
     erreur.value = null;
     try {
+        posteData.statut = PosteStatuts.FAIT;
+        posteData.history.push(newHistoryEntry(posteData))
         const newPoste = createPoste({ ...posteData });
         reinitialiserPosteData();
         router.push({ name: "posteInfos", params: { poste: newPoste.id } });

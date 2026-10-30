@@ -35,6 +35,28 @@ export const PosteStatuts = Object.freeze({
   },
 });
 
+const HistoryItem = Object.freeze({
+  order: 0,
+  timestamp: null,
+  statut: null,
+  comment: "",
+  data: "",
+});
+
+export function newHistoryEntry(posteData) {
+  const { id, creeLe, history, statut, ...usefulData } = posteData;
+  const statutInfo = PosteStatuts.getInfos(posteData.statut);
+  const newEntry = Object.seal(Object.assign({}, HistoryItem));
+
+  newEntry.timestamp = new Date().toLocaleString();
+  newEntry.order = posteData.history.length + 1;
+  newEntry.comment = statutInfo.description;
+  newEntry.statut = posteData.statut;
+  newEntry.data = { ...usefulData };
+
+  return Object.freeze(newEntry);
+}
+
 export const posteData = reactive({
   statut: PosteStatuts.A_FAIRE,
   etage: null,
@@ -43,6 +65,7 @@ export const posteData = reactive({
   idPoste: "0",
   photo: null,
   coordonnees: null, // { lat, lng } rempli dans addCoordonneesPoste.vue
+  history: [],
 });
 
 export function reinitialiserPosteData() {
@@ -53,4 +76,5 @@ export function reinitialiserPosteData() {
   posteData.idPoste = null;
   posteData.photo = null;
   posteData.coordonnees = null;
+  posteData.history = [];
 }

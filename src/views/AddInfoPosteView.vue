@@ -1,5 +1,5 @@
 <script setup>
-import { posteData } from "@/store/posteData.js";
+import { posteData, PosteStatuts } from "@/store/posteData.js";
 import { etagesConfig, etageid2label } from "@/store/etages.js";
 import { useRoute } from "vue-router";
 import { ref, computed } from "vue";
