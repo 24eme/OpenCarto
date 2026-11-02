@@ -1,7 +1,12 @@
 <script setup>
 import { ref } from "vue";
 
-const props = defineProps({});
+const props = defineProps({
+    filtersList: {
+        type: Array,
+        required: true,
+    },
+});
 const filters = ref();
 
 const emit = defineEmits(["filter"]);
@@ -24,18 +29,12 @@ function toggle(event) {
 <template>
     <div class="wrapper">
         <span
+            v-for="filter in filtersList"
             @click="toggle"
-            data-filter="wisebox"
+            :data-filter="filter.key"
             class="badge-filter shadowed"
         >
-            Wisebox
-        </span>
-        <span
-            @click="toggle"
-            data-filter="ekomille"
-            class="badge-filter shadowed"
-        >
-            Ekomille
+            {{ filter.value }}
         </span>
     </div>
 </template>

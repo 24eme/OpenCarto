@@ -5,7 +5,7 @@ import FAB from "@/components/FAB.vue"
 import Filters from "@/components/Filters.vue";
 import { etagesConfig } from "@/store/etages";
 import { fetchPostes } from "@/store/postes";
-import { provide, readonly, ref, unref, watch, computed } from "vue";
+import { provide, readonly, ref, unref, watch, computed, capitalize } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
@@ -50,6 +50,16 @@ const filteredPostes = computed(() => {
   return etagePostes.filter((p) =>
     selectedFilters.value.includes(p.typePoste) === true
   )
+})
+
+const filtersList = computed(() => {
+  const etagePostes = postes.value.filter((p) => p.etage === loadedEtage.value)
+  return [...new Set(etagePostes.map((p) => p.typePoste))].sort().map((t) => {
+    return Object.fromEntries([
+      ["key", t],
+      ["value", capitalize(t)],
+    ])
+  })
 })
 
 watch(() => route.params.etage, checkEtage, { immediate: true });
@@ -106,7 +116,7 @@ function updateFilters(filters) {
             @posteSelected="(poste) => (selectedPoste = poste)"
         >
             <template #filters>
-                <Filters @filter="updateFilters"></Filters>
+                <Filters @filter="updateFilters" :filtersList="filtersList"></Filters>
             </template>
         </Carte>
 
