@@ -23,9 +23,13 @@ defineEmits(["close"]);
     </div>
 </template>
 
-<style scoped>
+<style>
 .card {
     max-height: 60dvh;
+}
+.card:has(.full-card) {
+    height: 90dvh;
+    max-height: 90dvh;
 }
 .cursor-pointer {
     cursor: pointer;

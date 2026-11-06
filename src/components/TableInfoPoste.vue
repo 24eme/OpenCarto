@@ -72,7 +72,18 @@ function formatDate(datestring) {
                   Modifier le niveau d'infestation
               </RouterLink>
             </div>
+
             <hr />
+
+            <div class="row mx-auto px-4">
+               <RouterLink
+                  :to="{ name: 'posteHistory' }"
+                  class="btn btn-outline-primary"
+              >
+                  Voir l'historique
+              </RouterLink>
+              <router-view></router-view>
+            </div>
 
         </div>
         <div class="d-flex justify-content-center prev-next-btn-container">

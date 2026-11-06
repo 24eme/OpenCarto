@@ -10,22 +10,32 @@ export const PosteStatuts = Object.freeze({
   getInfos: function (statut) {
     const infos = {
       [PosteStatuts.A_FAIRE]: {
+        libelle: "À faire",
+        icon: "bi bi-clock-fill text-warning",
         description: "Poste à faire",
         class: "leaflet-marker-todo",
       },
       [PosteStatuts.FAIT]: {
+        libelle: "Fait",
+        icon: "bi bi-check-circle-fill text-success",
         description: "Poste fait",
         class: "leaflet-marker-done",
       },
       [PosteStatuts.DISPARU]: {
+        libelle: "Disparu",
+        icon: "bi bi-dash-circle-dotted text-warning",
         description: "Poste disparu",
         class: "leaflet-marker-missing",
       },
       [PosteStatuts.REMPLACE]: {
+        libelle: "Remplacé",
+        icon: "bi bi-arrow-left-right",
         description: "Poste remplacé",
         class: "leaflet-marker-swapped",
       },
       [PosteStatuts.ARCHIVE]: {
+        libelle: "Archivé",
+        icon: "bi bi-archive-fill text-secondary",
         description: "Poste archivé",
         class: "leaflet-marker-archived",
       },
@@ -48,7 +58,7 @@ export function newHistoryEntry(posteData) {
   const statutInfo = PosteStatuts.getInfos(posteData.statut);
   const newEntry = Object.seal(Object.assign({}, HistoryItem));
 
-  newEntry.timestamp = new Date().toLocaleString();
+  newEntry.timestamp = new Date();
   newEntry.order = posteData.history.length + 1;
   newEntry.comment = statutInfo.description;
   newEntry.statut = posteData.statut;

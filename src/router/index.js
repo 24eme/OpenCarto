@@ -5,6 +5,7 @@ import AddInfoPosteView from "@/views/AddInfoPosteView.vue";
 import PrisePhotoView from "@/views/PrisePhotoView.vue";
 import AddCoordonneesPoste from "@/views/AddCoordonneesPosteView.vue";
 import TableInfoPoste from "@/components/TableInfoPoste.vue";
+import TableHistoryPoste from "@/components/TableHistoryPoste.vue";
 import SuiviInfestationView from "@/views/SuiviInfestationView.vue";
 
 const router = createRouter({
@@ -24,6 +25,11 @@ const router = createRouter({
           path: "p/:poste",
           name: "posteInfos",
           component: TableInfoPoste,
+        },
+        {
+          path: "p/:poste/history",
+          name: "posteHistory",
+          component: TableHistoryPoste,
         },
       ]
     },
