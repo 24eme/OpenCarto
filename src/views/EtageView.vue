@@ -1,6 +1,7 @@
 <script setup>
 import Carte from "../components/carte.vue";
 import TableInfoPoste from "@/components/TableInfoPoste.vue";
+import OverCard from "@/components/OverCard.vue"
 import FAB from "@/components/FAB.vue"
 import Filters from "@/components/Filters.vue";
 import { etagesConfig } from "@/store/etages";
@@ -126,17 +127,16 @@ function updateFilters(filters) {
             :mainIcons="{ main: 'bi-geo-alt', stack: 'bi-plus' }"
         ></FAB>
 
-        <!-- <router-view> => Nested view visible dans router/index.js -->
-        <!-- correspond à /:etage/p/:poste et charge TableInfoPoste -->
-        <!-- évite de reconstruire une view complète avec une nouvelle -->
-        <!-- carte juste pour afficher les infos d'un poste -->
-        <router-view is="TableInfoPoste"
-                v-if="selectedPoste"
-                :poste="selectedPoste"
-                @close="selectedPoste = undefined"
+        <OverCard v-if="selectedPoste" @close="selectedPoste = undefined">
+            <!-- <router-view> => Nested view visible dans router/index.js -->
+            <!-- correspond à /:etage/p/:poste et charge TableInfoPoste -->
+            <!-- évite de reconstruire une view complète avec une nouvelle -->
+            <!-- carte juste pour afficher les infos d'un poste -->
+            <router-view
                 @next="selectedPoste = nextPoste"
                 @prev="selectedPoste = prevPoste"
-        </router-view>
+            ></router-view>
+        </OverCard>
     </main>
 </template>
 

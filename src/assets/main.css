@@ -86,10 +86,6 @@ div:has(> .btn-suivi-infestation) {
   height: 2.5rem;
 }
 
-.card {
-  max-height: 60dvh !important;
-}
-
 .h5-date {
   margin-left: 3.1rem;
 }

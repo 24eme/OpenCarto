@@ -1,11 +1,14 @@
 <script setup>
+import { inject } from "vue";
 import { etagesConfig, etageid2label } from "@/store/etages";
 
 const props = defineProps({
     poste: Object,
 });
 
-defineEmits(["close", "next", "prev"]);
+const poste = props.poste || inject("selectedPoste");
+
+defineEmits(["next", "prev"]);
 
 function formatDate(datestring) {
     const date = new Date(datestring);
@@ -14,15 +17,6 @@ function formatDate(datestring) {
 </script>
 
 <template>
-    <div class="fixed-bottom card">
-        <h5 class="card-header">
-            Poste n° {{ poste.idPoste }}
-            <span class="fs-6 cursor-not-allowed bi bi-pencil"></span>
-            <span class="float-end cursor-pointer" @click="$emit('close')">
-                ×
-            </span>
-        </h5>
-
         <div class="row overflow-auto">
             <div class="col-sm-3 mx-auto align-self-stretch" v-if="poste.photo">
                 <figure class="figure">
@@ -92,7 +86,6 @@ function formatDate(datestring) {
               <i class="bi bi-chevron-double-right"></i>
           </button>
         </div>
-    </div>
 </template>
 
 <style scoped>
