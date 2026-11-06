@@ -1,4 +1,10 @@
+import { ref } from 'vue'
+
 const STORAGE_KEY = "postes";
+
+const postesRef = ref(lireStorage())
+
+export { postesRef }
 
 // les valeurs de start et end sont incluses
 export const range = (start, end, step = 1) => {
@@ -29,23 +35,23 @@ function lireStorage() {
 
 export function ecrireStorage(postes) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(postes));
+  postesRef.value = postes;
 }
 
 export function fetchPostes() {
-  return lireStorage();
+  return postesRef.value;
+}
+
+export function refreshPostes() {
+  postesRef.value = lireStorage()
 }
 
 export function createPoste(poste) {
-  const current_postes = lireStorage();
-
   const nouveauPoste = {
     ...poste,
     id: crypto.randomUUID(),
     creeLe: new Date().toISOString(),
-  };
-
-  current_postes.push(nouveauPoste);
-  ecrireStorage(current_postes);
-
-  return nouveauPoste;
+  }
+  ecrireStorage([...postesRef.value, nouveauPoste])
+  return nouveauPoste
 }
