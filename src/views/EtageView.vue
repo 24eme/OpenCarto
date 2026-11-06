@@ -133,9 +133,13 @@ function updateFilters(filters) {
             :layer="loadedEtage"
             @posteSelected="(poste) => (selectedPoste = poste)"
         >
-            <template #filters>
-                <Filters @filter="updateFilters" :filtersList="filtersList"></Filters>
-            </template>
+        <template #filters>
+          <Filters
+            :filtersList="filtersList"
+            :selected="selectedFilters"
+            @filter="updateFilters"
+          />
+        </template>
         </Carte>
 
         <Liste
