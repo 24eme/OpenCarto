@@ -20,7 +20,7 @@ function getNbPostes(etage) {
 <template>
     <main class="container-fluid g-0 vstack fullscreen">
         <nav class="navbar bg-body-tertiary">
-            <div class="container justify-content-start">
+            <div class="container justify-content-start margin-container">
                 <div class="col-auto d-flex me-3">
                     <i
                         class="bi bi-arrow-left-square fs-1 align-self-center"

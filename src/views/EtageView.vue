@@ -94,7 +94,7 @@ function updateFilters(filters) {
 <template>
     <main class="container-fluid g-0 vstack fullscreen">
         <nav class="navbar bg-body-tertiary">
-            <div class="container justify-content-start">
+            <div class="container justify-content-start margin-container">
                 <div class="col-auto d-flex me-3">
                     <RouterLink :to="{ name: 'home' }">
                         <i

@@ -26,7 +26,7 @@ const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric
 <template>
   <div class="vstack fullscreen rapport">
       <nav class="navbar bg-body-tertiary">
-          <div class="container justify-content-start">
+          <div class="container justify-content-start margin-container">
               <div class="col-auto d-flex me-3">
 
                 <RouterLink v-if="isPremierPassage === false" :to="{ name: 'etage' }">

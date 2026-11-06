@@ -40,7 +40,7 @@ function updatePosteCoordinate(coordinates) {
 <template>
     <main class="container-fluid g-0 vstack fullscreen">
         <nav class="navbar bg-body-tertiary">
-            <div class="container justify-content-start flex-nowrap">
+            <div class="container justify-content-start flex-nowrap margin-container">
                 <div class="col-auto d-flex me-3">
                     <RouterLink :to="{ name: 'rapport' }">
                         <i

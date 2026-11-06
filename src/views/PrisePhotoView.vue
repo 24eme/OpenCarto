@@ -20,7 +20,7 @@ function onPhotoSelected(event) {
 <template>
     <div class="vstack fullscreen">
         <nav class="navbar bg-body-tertiary">
-            <div class="container justify-content-start">
+            <div class="container justify-content-start margin-container">
                 <div class="col-auto d-flex me-3">
                     <RouterLink :to="{ name: 'addInfoPoste' }">
                         <i
