@@ -1,5 +1,6 @@
 <script setup>
 import Carte from "../components/carte.vue";
+import Liste from "../components/Liste.vue";
 import TableInfoPoste from "@/components/TableInfoPoste.vue";
 import OverCard from "@/components/OverCard.vue"
 import FAB from "@/components/FAB.vue"
@@ -17,6 +18,8 @@ const postes = ref(fetchPostes());
 const selectedPoste = ref();
 const selectedFilters = ref([]);
 const loadedEtage = ref();
+
+const showListe = ref(false);
 
 const nextPoste = computed(() => {
     const etagePostes = postes.value.filter((p) => p.etage === loadedEtage.value)
@@ -106,10 +109,20 @@ function updateFilters(filters) {
                     <h1 class="m-0">Suivi de l'infestation</h1>
                     <small>{{ clientName }}</small>
                 </div>
+                <div class="col-auto">
+                  <i
+                  class="bi fs-3"
+                  :class="showListe ? 'bi-map' : 'bi-list'"
+                  role="button"
+                  @click="showListe = !showListe"
+                  :title="showListe ? 'Voir la carte' : 'Voir la liste'"
+                  ></i>
+                </div>
             </div>
         </nav>
 
         <Carte
+            v-if="!showListe"
             carteId="carte"
             carteHeight="100%"
             carteWidth="100%"
@@ -120,6 +133,12 @@ function updateFilters(filters) {
                 <Filters @filter="updateFilters" :filtersList="filtersList"></Filters>
             </template>
         </Carte>
+
+        <Liste
+            v-else
+            :postes="filteredPostes"
+            @posteSelected="(poste) => (selectedPoste = poste)"
+        />
 
         <FAB
             mainTitle="Ajouter un poste"
