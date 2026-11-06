@@ -86,6 +86,7 @@ provide("filteredPostes", readonly(filteredPostes))
 function checkEtage(etage) {
     if (etagesConfig.find(({ id }) => id === etage) === undefined) {
         router.push({ name: "home" }); // pseudo 404
+        return;
     }
     loadedEtage.value = etage;
 }
