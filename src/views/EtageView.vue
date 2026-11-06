@@ -45,15 +45,18 @@ const prevPoste = computed(() => {
     return etagePostes.at(currentPosteIndex);
 })
 
+const postesEtageCourant = computed(() =>
+  postes.value.filter((p) => p.etage === loadedEtage.value)
+)
+
 const filteredPostes = computed(() => {
-  if (selectedFilters.value === undefined || selectedFilters.value.length === 0) {
-    return [];
+  const base = postesEtageCourant.value;
+
+  if (!selectedFilters.value?.length) {
+    return base;
   }
 
-  const etagePostes = postes.value.filter((p) => p.etage === loadedEtage.value)
-  return etagePostes.filter((p) =>
-    selectedFilters.value.includes(p.typePoste) === true
-  )
+  return base.filter((p) => selectedFilters.value.includes(p.typePoste));
 })
 
 const filtersList = computed(() => {
