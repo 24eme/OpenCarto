@@ -106,3 +106,7 @@ div:has(> .btn-suivi-infestation) {
 .margin-container {
   margin: 10px 0;
 }
+
+navbar,.bg-body-tertiary {
+  background-color: rgb(241, 243, 245) !important ;
+}
