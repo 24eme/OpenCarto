@@ -5,17 +5,23 @@ const props = defineProps({
   isPremierPassage: Boolean
 })
 
-const VALEURS = new Array("0%", "30%", "50%", "80%", "100%");
+const PAS = 10;
+const VALEURS = Array.from(
+  { length: 100 / PAS + 1 },
+  (_, i) => `${i * PAS}%`
+);
 
 const indexSlider = ref(0);
 
 const updateIndex = (event) => {
   indexSlider.value = Number(event.target.value);
 }
+
 const backgroundSizeStyle = computed(() => {
-  const pourcentage = (indexSlider.value / 4) * 100;
-  return `${pourcentage}% 100%`;
+  return `${indexSlider.value}% 100%`;
 });
+
+const indexActif = computed(() => indexSlider.value / PAS);
 
 const locale = globalThis.navigator.language
 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -53,17 +59,28 @@ const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric
         <div v-if="isPremierPassage === false" class="my-2 custom-slider">
           <label for="rangeConso" class="h5 form-label fw-bold">Pourcentage de  Consommation</label>
           <div class="range">
-            <input type="range" id="rangeConso" ref="rangeConso" min="0" :max="4" value="0" list="range-values" step="1" @input="updateIndex" :style="{ backgroundSize: backgroundSizeStyle }" class="" />
+            <input
+              type="range"
+              id="rangeConso"
+              ref="rangeConso"
+              min="0"
+              max="100"
+              step="10"
+              value="0"
+              list="range-values"
+              @input="updateIndex"
+              :style="{ backgroundSize: backgroundSizeStyle }"
+            />
           </div>
 
           <datalist id="range-values">
             <option
               v-for="(val, index) in VALEURS"
               :key="index"
-              :class="{ 'active-label': index === indexSlider }"
-              :value="index"
+              :class="{ 'active-label': index === indexActif }"
+              :value="index * PAS"
               :label="val"
-            </option>
+            ></option>
           </datalist>
         </div>
 
@@ -102,15 +119,16 @@ const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0, 10px;
+  margin: 0 10px;
 }
 
 datalist {
   display: flex;
   flex-direction: row;
-  gap:34px;
+  justify-content: space-between;
   align-self: center;
-  width: 17.5rem;
+  width: 23.25rem; /* meme largeur que la barre de slider (input type=range) */
+  font-size: 0.7rem;
 }
 
 datalist option {
@@ -127,8 +145,7 @@ datalist option {
   flex-direction: column;
   justify-content: center;
   margin-bottom: 15px;
-  width: 20rem;
-  align-self: center;
+  width: 21rem;
 }
 
 input[type="range"] {
@@ -136,7 +153,7 @@ input[type="range"] {
   background:  #274351;
   height: 2.5rem;
   border-radius: 5px;
-  width: 19.5rem;
+  width: 23.25rem;
   margin: 2px;
   background-image: linear-gradient(#c8cf5a);
   background-size: 0% 100%;
@@ -146,15 +163,15 @@ input[type="range"] {
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   background-color: #6b94be;
-  width: 3.9rem;
+  width: 2rem;
   height: 2rem;
   border-radius: 50%;
 }
 
 input[type="range"]::-moz-range-thumb {
   -webkit-appearance: none;
-  background-color: #6b94be ;
-  width: 3.9rem;
+  background-color: #6b94be;
+  width: 2rem;
   height: 2.5rem;
   border-radius: 10%;
   border: none;
