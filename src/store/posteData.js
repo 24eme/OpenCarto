@@ -3,6 +3,7 @@ import { reactive } from "vue";
 export const PosteStatuts = Object.freeze({
   CREE: "CREE",
   A_FAIRE: "A_FAIRE",
+  MODIFICATION: "MODIFICATION",
   FAIT: "FAIT",
   DISPARU: "DISPARU",
   REMPLACE: "REMPLACE",
@@ -20,6 +21,12 @@ export const PosteStatuts = Object.freeze({
         libelle: "À faire",
         icon: "bi bi-clock-fill text-warning",
         description: "Poste à faire",
+        class: "leaflet-marker-todo",
+      },
+      [PosteStatuts.MODIFICATION]: {
+        libelle: "Modification",
+        icon: "bi bi-shadows text-warning",
+        description: "Modification du poste",
         class: "leaflet-marker-todo",
       },
       [PosteStatuts.FAIT]: {
