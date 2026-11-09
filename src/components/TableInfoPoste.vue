@@ -1,12 +1,25 @@
 <script setup>
-import { inject } from "vue";
-import { etagesConfig, etageid2label } from "@/store/etages";
+import { computed, inject } from "vue";
+import { useRoute } from "vue-router";
+import { postesRef } from "@/store/postes";
+import { etageid2label } from "@/store/etages";
 
 const props = defineProps({
     poste: Object,
 });
 
-const poste = props.poste || inject("selectedPoste");
+const route = useRoute();
+
+const selectedPoste = inject("selectedPoste", null);
+
+
+const poste = computed(() => {
+  if (props.poste) {
+    return props.poste;
+  }
+  const depuisStore = postesRef.value.find((p) => p.id === route.params.poste);
+  return depuisStore ?? selectedPoste;
+});
 
 defineEmits(["next", "prev"]);
 
@@ -66,7 +79,7 @@ function formatDate(datestring) {
 
             <div class="row mx-auto">
               <RouterLink
-                  :to="{ name: 'suiviInfestation' }"
+                  :to="{ name: 'suiviInfestation', params: { etage: $route.params.etage, poste: poste.id } }"
                   class="btn btn-primary btn-suivi-infestation"
               >
                   Modifier le niveau d'infestation

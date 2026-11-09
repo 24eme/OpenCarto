@@ -1,21 +1,67 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, inject, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { postesRef, updateConsommation } from "@/store/postes";
 
 const props = defineProps({
-  isPremierPassage: Boolean
-})
+  isPremierPassage: Boolean,
+});
 
-const VALEURS = new Array("0%", "30%", "50%", "80%", "100%");
+const route = useRoute();
+const router = useRouter();
+
+const posteInjecte = inject("selectedPoste", null);
+
+const poste = computed(() => {
+  if (props.isPremierPassage) {
+    return posteInjecte;
+  }
+  return postesRef.value.find((p) => p.id === route.params.poste);
+});
+
+const PAS = 10;
+const VALEURS = Array.from(
+  { length: 100 / PAS + 1 },
+  (_, i) => `${i * PAS}%`
+);
 
 const indexSlider = ref(0);
 
 const updateIndex = (event) => {
   indexSlider.value = Number(event.target.value);
-}
+};
+
 const backgroundSizeStyle = computed(() => {
-  const pourcentage = (indexSlider.value / 4) * 100;
-  return `${pourcentage}% 100%`;
+  return `${indexSlider.value}% 100%`;
 });
+
+const indexActif = computed(() => indexSlider.value / PAS);
+
+watch(
+  poste,
+  (p) => {
+    if (!props.isPremierPassage && p) {
+      indexSlider.value = p.pourcentage_conso ?? 0;
+    }
+  },
+  { immediate: true }
+);
+
+const valider = () => {
+  if (props.isPremierPassage) {
+    router.push({ name: "addCoordonneesPoste" });
+    return;
+  }
+
+  if (!poste.value) {
+    return;
+  }
+  updateConsommation(poste.value.id, indexSlider.value);
+  router.push({
+    name: "posteInfos",
+    params: { etage: route.params.etage, poste: poste.value.id },
+  });
+};
 
 const locale = globalThis.navigator.language
 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -53,17 +99,28 @@ const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric
         <div v-if="isPremierPassage === false" class="my-2 custom-slider">
           <label for="rangeConso" class="h5 form-label fw-bold">Pourcentage de  Consommation</label>
           <div class="range">
-            <input type="range" id="rangeConso" ref="rangeConso" min="0" :max="4" value="0" list="range-values" step="1" @input="updateIndex" :style="{ backgroundSize: backgroundSizeStyle }" class="" />
+            <input
+              type="range"
+              id="rangeConso"
+              ref="rangeConso"
+              min="0"
+              max="100"
+              step="10"
+              :value="indexSlider"
+              list="range-values"
+              @input="updateIndex"
+              :style="{ backgroundSize: backgroundSizeStyle }"
+            />
           </div>
 
           <datalist id="range-values">
             <option
               v-for="(val, index) in VALEURS"
               :key="index"
-              :class="{ 'active-label': index === indexSlider }"
-              :value="index"
+              :class="{ 'active-label': index === indexActif }"
+              :value="index * PAS"
               :label="val"
-            </option>
+            ></option>
           </datalist>
         </div>
 
@@ -77,20 +134,9 @@ const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric
       </div>
 
       <div class="m-2 row">
-        <RouterLink
-            v-if="isPremierPassage === false"
-            :to="{ name: 'posteInfos', path: 'p/:poste' }"
-            class="btn btn-primary custom-btn-primary"
-        >
-            Valider
-        </RouterLink>
-        <RouterLink
-            v-else
-            :to="{ name: 'addCoordonneesPoste' }"
-            class="btn btn-primary custom-btn-primary"
-        >
-            Valider
-        </RouterLink>
+        <button class="btn btn-primary custom-btn-primary" @click="valider">
+          Valider
+        </button>
       </div>
   </div>
 </template>
@@ -102,15 +148,16 @@ const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0, 10px;
+  margin: 0 10px;
 }
 
 datalist {
   display: flex;
   flex-direction: row;
-  gap:34px;
+  justify-content: space-between;
   align-self: center;
-  width: 17.5rem;
+  width: 23.25rem; /* meme largeur que la barre de slider (input type=range) */
+  font-size: 0.7rem;
 }
 
 datalist option {
@@ -127,8 +174,7 @@ datalist option {
   flex-direction: column;
   justify-content: center;
   margin-bottom: 15px;
-  width: 20rem;
-  align-self: center;
+  width: 21rem;
 }
 
 input[type="range"] {
@@ -136,7 +182,7 @@ input[type="range"] {
   background:  #274351;
   height: 2.5rem;
   border-radius: 5px;
-  width: 19.5rem;
+  width: 23.25rem;
   margin: 2px;
   background-image: linear-gradient(#c8cf5a);
   background-size: 0% 100%;
@@ -146,15 +192,15 @@ input[type="range"] {
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   background-color: #6b94be;
-  width: 3.9rem;
+  width: 2rem;
   height: 2rem;
   border-radius: 50%;
 }
 
 input[type="range"]::-moz-range-thumb {
   -webkit-appearance: none;
-  background-color: #6b94be ;
-  width: 3.9rem;
+  background-color: #6b94be;
+  width: 2rem;
   height: 2.5rem;
   border-radius: 10%;
   border: none;
