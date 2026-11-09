@@ -67,14 +67,13 @@ const HistoryItem = Object.freeze({
   data: "",
 });
 
-export function newHistoryEntry(posteData) {
+export function newHistoryEntry(posteData, comment = "") {
   const { id, creeLe, history, statut, ...usefulData } = posteData;
-  const statutInfo = PosteStatuts.getInfos(posteData.statut);
   const newEntry = Object.seal(Object.assign({}, HistoryItem));
 
   newEntry.timestamp = new Date();
   newEntry.order = posteData.history.length + 1;
-  newEntry.comment = statutInfo.description;
+  newEntry.comment = comment;
   newEntry.statut = posteData.statut;
   newEntry.data = { ...usefulData };
 

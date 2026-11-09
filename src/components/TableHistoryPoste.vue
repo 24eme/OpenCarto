@@ -88,7 +88,14 @@ function calculateDiff(index) {
                     <div class="border border-subtle rounded p-2 lh-1">
                         <span :class="getStatutInfo(item.statut).icon"></span>
                     </div>
-                    <div>{{ getStatutInfo(item.statut).libelle }}</div>
+                    <div>
+                        <p class="m-0 fw-bold">
+                            {{ getStatutInfo(item.statut).description }}
+                        </p>
+                        <p v-if="item.comment" class="m-0 text-secondary">
+                            {{ item.comment }}
+                        </p>
+                    </div>
                     <details v-if="getDiff(index).length" class="ms-auto">
                         <summary>Changements</summary>
                         <div
