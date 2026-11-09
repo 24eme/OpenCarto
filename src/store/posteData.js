@@ -1,6 +1,7 @@
 import { reactive } from "vue";
 
 export const PosteStatuts = Object.freeze({
+  CREE: "CREE",
   A_FAIRE: "A_FAIRE",
   FAIT: "FAIT",
   DISPARU: "DISPARU",
@@ -9,6 +10,12 @@ export const PosteStatuts = Object.freeze({
 
   getInfos: function (statut) {
     const infos = {
+      [PosteStatuts.CREE]: {
+        libelle: "Création",
+        icon: "bi bi-plus-circle-fill text-secondary",
+        description: "Création du poste",
+        class: "leaflet-marker-done",
+      },
       [PosteStatuts.A_FAIRE]: {
         libelle: "À faire",
         icon: "bi bi-clock-fill text-warning",
