@@ -1,9 +1,23 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, inject, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { postesRef, updateConsommation } from "@/store/postes";
 
 const props = defineProps({
-  isPremierPassage: Boolean
-})
+  isPremierPassage: Boolean,
+});
+
+const route = useRoute();
+const router = useRouter();
+
+const posteInjecte = inject("selectedPoste", null);
+
+const poste = computed(() => {
+  if (props.isPremierPassage) {
+    return posteInjecte;
+  }
+  return postesRef.value.find((p) => p.id === route.params.poste);
+});
 
 const PAS = 10;
 const VALEURS = Array.from(
@@ -15,13 +29,39 @@ const indexSlider = ref(0);
 
 const updateIndex = (event) => {
   indexSlider.value = Number(event.target.value);
-}
+};
 
 const backgroundSizeStyle = computed(() => {
   return `${indexSlider.value}% 100%`;
 });
 
 const indexActif = computed(() => indexSlider.value / PAS);
+
+watch(
+  poste,
+  (p) => {
+    if (!props.isPremierPassage && p) {
+      indexSlider.value = p.pourcentage_conso ?? 0;
+    }
+  },
+  { immediate: true }
+);
+
+const valider = () => {
+  if (props.isPremierPassage) {
+    router.push({ name: "addCoordonneesPoste" });
+    return;
+  }
+
+  if (!poste.value) {
+    return;
+  }
+  updateConsommation(poste.value.id, indexSlider.value);
+  router.push({
+    name: "posteInfos",
+    params: { etage: route.params.etage, poste: poste.value.id },
+  });
+};
 
 const locale = globalThis.navigator.language
 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -66,7 +106,7 @@ const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric
               min="0"
               max="100"
               step="10"
-              value="0"
+              :value="indexSlider"
               list="range-values"
               @input="updateIndex"
               :style="{ backgroundSize: backgroundSizeStyle }"
@@ -94,20 +134,9 @@ const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric
       </div>
 
       <div class="m-2 row">
-        <RouterLink
-            v-if="isPremierPassage === false"
-            :to="{ name: 'posteInfos', path: 'p/:poste' }"
-            class="btn btn-primary custom-btn-primary"
-        >
-            Valider
-        </RouterLink>
-        <RouterLink
-            v-else
-            :to="{ name: 'addCoordonneesPoste' }"
-            class="btn btn-primary custom-btn-primary"
-        >
-            Valider
-        </RouterLink>
+        <button class="btn btn-primary custom-btn-primary" @click="valider">
+          Valider
+        </button>
       </div>
   </div>
 </template>

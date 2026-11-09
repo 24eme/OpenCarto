@@ -55,3 +55,10 @@ export function createPoste(poste) {
   ecrireStorage([...postesRef.value, nouveauPoste])
   return nouveauPoste
 }
+
+export function updateConsommation(id, pourcentage) {
+  const nouveaux = postesRef.value.map((p) =>
+    p.id === id ? { ...p, pourcentage_conso: pourcentage } : p
+  );
+  ecrireStorage(nouveaux);
+}
