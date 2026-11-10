@@ -156,12 +156,13 @@ datalist {
   flex-direction: row;
   justify-content: space-between;
   align-self: center;
-  width: 23.25rem; /* meme largeur que la barre de slider (input type=range) */
+    width: 100%;
   font-size: 0.7rem;
 }
 
 datalist option {
   all: unset;
+    width: 3ch;
 }
 
 .active-label {
@@ -174,25 +175,21 @@ datalist option {
   flex-direction: column;
   justify-content: center;
   margin-bottom: 15px;
-  width: 21rem;
+    width: 100%;
 }
 
 input[type="range"] {
-  -webkit-appearance: none;
-  background:  #274351;
-  height: 2.5rem;
-  border-radius: 5px;
-  width: 23.25rem;
-  margin: 2px;
-  background-image: linear-gradient(#c8cf5a);
-  background-size: 0% 100%;
-  background-repeat: no-repeat;
+    -webkit-appearance: none;
+    background: #274351;
+    border-radius: 5px;
+    background-image: linear-gradient(#c8cf5a);
+    background-size: 0% 100%;
+    background-repeat: no-repeat;
 }
 
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   background-color: #6b94be;
-  width: 2rem;
   height: 2rem;
   border-radius: 50%;
 }
@@ -200,7 +197,6 @@ input[type="range"]::-webkit-slider-thumb {
 input[type="range"]::-moz-range-thumb {
   -webkit-appearance: none;
   background-color: #6b94be;
-  width: 2rem;
   height: 2.5rem;
   border-radius: 10%;
   border: none;
