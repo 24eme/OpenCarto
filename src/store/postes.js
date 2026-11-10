@@ -69,7 +69,7 @@ export function refreshPostes() {
 export function createPoste(poste) {
   const nouveauPoste = {
     ...poste,
-    id: crypto.randomUUID(),
+    id: Date.now().toString(36) + Math.random().toString(36).substring(2),
     creeLe: new Date().toISOString(),
   }
   ecrireStorage([...postesRef.value, nouveauPoste])
