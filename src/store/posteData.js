@@ -45,6 +45,12 @@ export const PosteStatuts = Object.freeze({
   },
 });
 
+export const PrefixPoste = Object.freeze({
+  wisebox: "W",
+  mimetic: "M",
+  ekomille: "E",
+});
+
 const HistoryItem = Object.freeze({
   order: 0,
   timestamp: null,
@@ -89,4 +95,8 @@ export function reinitialiserPosteData() {
   posteData.coordonnees = null;
   posteData.pourcentage_conso = "0";
   posteData.history = [];
+}
+
+export function getPrefixPoste(typePoste) {
+  return PrefixPoste[typePoste] ?? "?";
 }
