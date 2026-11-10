@@ -159,6 +159,8 @@ const prefixPoste = computed (() => getPrefixPoste(posteData.typePoste));
                   v-model="posteData.idPoste"
                   class="display-1 bg-secondary-subtle py-4 text-center w-100"
                   :class="isValidPosteId ? '' : 'border-danger'"
+                  inputmode="numeric"
+                  @input="posteData.idPoste = posteData.idPoste.replace(/\D/g, '')"
                   />
                 </div>
 
