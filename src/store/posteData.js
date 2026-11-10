@@ -1,7 +1,9 @@
 import { reactive } from "vue";
 
 export const PosteStatuts = Object.freeze({
+  CREE: "CREE",
   A_FAIRE: "A_FAIRE",
+  MODIFICATION: "MODIFICATION",
   FAIT: "FAIT",
   DISPARU: "DISPARU",
   REMPLACE: "REMPLACE",
@@ -9,10 +11,22 @@ export const PosteStatuts = Object.freeze({
 
   getInfos: function (statut) {
     const infos = {
+      [PosteStatuts.CREE]: {
+        libelle: "Création",
+        icon: "bi bi-plus-circle-fill text-secondary",
+        description: "Création du poste",
+        class: "leaflet-marker-done",
+      },
       [PosteStatuts.A_FAIRE]: {
         libelle: "À faire",
         icon: "bi bi-clock-fill text-warning",
         description: "Poste à faire",
+        class: "leaflet-marker-todo",
+      },
+      [PosteStatuts.MODIFICATION]: {
+        libelle: "Modification",
+        icon: "bi bi-shadows text-warning",
+        description: "Modification du poste",
         class: "leaflet-marker-todo",
       },
       [PosteStatuts.FAIT]: {
@@ -59,14 +73,13 @@ const HistoryItem = Object.freeze({
   data: "",
 });
 
-export function newHistoryEntry(posteData) {
+export function newHistoryEntry(posteData, comment = "") {
   const { id, creeLe, history, statut, ...usefulData } = posteData;
-  const statutInfo = PosteStatuts.getInfos(posteData.statut);
   const newEntry = Object.seal(Object.assign({}, HistoryItem));
 
   newEntry.timestamp = new Date();
   newEntry.order = posteData.history.length + 1;
-  newEntry.comment = statutInfo.description;
+  newEntry.comment = comment;
   newEntry.statut = posteData.statut;
   newEntry.data = { ...usefulData };
 

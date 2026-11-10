@@ -38,10 +38,10 @@ function getStatutInfo(statut) {
 function getDiff(index) {
     const diff = calculateDiff(index);
     const current = history[index].data;
-    let build = {};
+    let build = [];
 
     Object.keys(diff).forEach((k) => {
-        build[k] = { old: diff[k], new: current[k] };
+        build.push({ type: k, old: diff[k], new: current[k] });
     });
 
     return build;
@@ -88,14 +88,23 @@ function calculateDiff(index) {
                     <div class="border border-subtle rounded p-2 lh-1">
                         <span :class="getStatutInfo(item.statut).icon"></span>
                     </div>
-                    <div>{{ getStatutInfo(item.statut).libelle }}</div>
-                    <details class="ms-auto">
+                    <div>
+                        <p class="m-0 fw-bold">
+                            {{ getStatutInfo(item.statut).description }}
+                        </p>
+                        <p v-if="item.comment" class="m-0 text-secondary">
+                            {{ item.comment }}
+                        </p>
+                    </div>
+                    <details v-if="getDiff(index).length" class="ms-auto">
                         <summary>Changements</summary>
                         <div
                             class="overflow-hidden"
                             v-for="(diff, type) in getDiff(index)"
                         >
-                            <p class="fw-bold text-capitalize">{{ type }}</p>
+                            <p class="fw-bold text-capitalize">
+                                {{ diff.type }}
+                            </p>
                             <p>
                                 <span
                                     class="badge text-decoration-line-through bg-secondary-subtle border border-secondary-subtle text-secondary-emphasis"

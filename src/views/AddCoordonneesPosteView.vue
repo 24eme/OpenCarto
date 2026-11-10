@@ -20,6 +20,8 @@ function valider() {
     enregistrement.value = true;
     erreur.value = null;
     try {
+        posteData.statut = PosteStatuts.CREE;
+        posteData.history.push(newHistoryEntry(posteData))
         posteData.statut = PosteStatuts.FAIT;
         posteData.history.push(newHistoryEntry(posteData))
         const newPoste = createPoste({ ...posteData });
