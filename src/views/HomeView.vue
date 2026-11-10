@@ -15,6 +15,49 @@ function getNbPostes(etage) {
 // Possible de le faire en computed, mais complexifie le code
 // const getNbPostes = (etage) =>
 //    computed(() => postes.filter((p) => p.etage === etage).length);
+
+function generateStats() {
+    const stats = [];
+    stats.push({ name: "Nombre total de postes", value: postes.value.length });
+
+    const types = [...new Set(postes.value.map((p) => p.typePoste))];
+    const zones = [...new Set(postes.value.map((p) => p.zone))];
+
+    types.forEach((t) => {
+        const filtered = postes.value.filter((p) => p.typePoste === t);
+        stats.push({
+            name: `Nombre de ${t}`,
+            value: filtered.length,
+        });
+
+        stats.push({
+            name: `Consommation des ${t} (moy.)`,
+            value:
+                parseFloat(
+                    filtered.reduce(
+                        (total, cv) => cv.pourcentage_conso + total,
+                        0,
+                    ) / filtered.length,
+                ).toFixed(2) + "%",
+        });
+    });
+
+    zones.forEach((z) => {
+        const filtered = postes.value.filter((p) => p.zone === z);
+        stats.push({
+            name: `Consommation dans la zone ${z} (moy.)`,
+            value:
+                parseFloat(
+                    filtered.reduce(
+                        (total, cv) => cv.pourcentage_conso + total,
+                        0,
+                    ) / filtered.length,
+                ).toFixed(2) + "%",
+        });
+    });
+
+    return stats;
+}
 </script>
 
 <template>
@@ -73,6 +116,20 @@ function getNbPostes(etage) {
                     </div>
                 </div>
             </div>
+
+            <hr />
+
+            <div class="d-flex flex-nowrap gap-1 mb-2 overflow-x-scroll">
+                <div
+                    class="flex-grow-1 border rounded p-2 text-center"
+                    v-for="stat in generateStats()"
+                >
+                    <h6>{{ stat.name }}</h6>
+                    <div class="big-number fw-bold text-primary">
+                        {{ stat.value }}
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -83,5 +140,8 @@ function getNbPostes(etage) {
 
 </template>
 
-<style>
+<style scoped>
+.big-number {
+    font-size: 2rem;
+}
 </style>
