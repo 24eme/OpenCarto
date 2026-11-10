@@ -7,10 +7,10 @@ import { ref } from "vue";
 const clientName = ref("Potel & Chabot");
 const etages = ref(etagesConfig);
 const modaleOuverte = ref(false);
-const postes = fetchPostes();
+const postes = ref(fetchPostes());
 
 function getNbPostes(etage) {
-    return postes.filter((p) => p.etage === etage).length;
+    return postes.value.filter((p) => p.etage === etage).length;
 }
 // Possible de le faire en computed, mais complexifie le code
 // const getNbPostes = (etage) =>
