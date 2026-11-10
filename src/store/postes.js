@@ -1,6 +1,7 @@
 import { ref } from 'vue'
 
 const STORAGE_KEY = "postes";
+const TYPE_FALLBACK = "SANS_TYPE"; // au cas où typePoste serait null
 
 const postesRef = ref(lireStorage())
 
@@ -26,7 +27,16 @@ function lireStorage() {
   const brut = localStorage.getItem(STORAGE_KEY);
   if (!brut) return [];
   try {
-    return JSON.parse(brut);
+    const parsed = JSON.parse(brut);
+
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+      console.error("Format de storage invalide, réinitialisation.");
+      return [];
+    }
+
+    return Object.values(parsed).flatMap((groupe) =>
+      groupe && typeof groupe === "object" ? Object.values(groupe) : []
+    );
   } catch (e) {
     console.error("Données corrompues dans localStorage, réinitialisation.", e);
     return [];
@@ -34,7 +44,17 @@ function lireStorage() {
 }
 
 export function ecrireStorage(postes) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(postes));
+  const structure = {};
+
+  for (const poste of postes) {
+    const type = poste.typePoste || TYPE_FALLBACK;
+    if (!structure[type]) {
+      structure[type] = {};
+    }
+    structure[type][poste.id] = poste;
+  }
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(structure));
   postesRef.value = postes;
 }
 

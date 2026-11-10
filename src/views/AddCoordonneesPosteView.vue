@@ -104,7 +104,7 @@ function updatePosteCoordinate(coordinates) {
 
     border: 2px solid var(--bs-warning);
     border-radius: 50%;
-    width: 25px;
+    width: 28px;
     height: 25px;
 
     pointer-events: none;

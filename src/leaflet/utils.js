@@ -1,3 +1,5 @@
+import { getPrefixPoste } from '@/store/posteData';
+
 // @see https://github.com/tomickigrzegorz/leaflet-examples/blob/1c10e0f8f7daefaa1b3abe2d67aaf4ed4c09e72e/docs/67.add-data-attribute-to-marker/script.js#L30
 L.PosteIcon = L.DivIcon.extend({
   createIcon: function (oldIcon) {
@@ -62,9 +64,9 @@ export function setFiltered(map, postes) {
 export function toLeafletMarker(poste) {
   return L.marker([poste.coordonnees.lat, poste.coordonnees.lng], {
     icon: new L.PosteIcon({
-      iconSize: [25, 25],
+      iconSize: [28, 25],
       className: "leaflet-marker-poste",
-      html: `<div>${poste.idPoste}</div>`,
+      html: `<div>${getPrefixPoste(poste.typePoste)}-${poste.idPoste}</div>`,
       data: { id: poste.id },
     }),
   });
