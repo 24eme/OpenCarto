@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, watch, inject } from "vue";
 import { etagesConfig } from "@/store/etages.js";
-import { posteData, PosteStatuts } from "@/store/posteData.js";
+import { posteData, PosteStatuts, getPrefixPoste } from "@/store/posteData.js";
 import { fetchPostes } from "@/store/postes.js";
 import {
     toLeafletMarker,
@@ -129,7 +129,7 @@ watch(
     </div>
 
     <div v-if="hasCoordinatesSelector" class="viseur">
-        <span>{{ posteData.idPoste }}</span>
+        <span>{{getPrefixPoste(posteData.typePoste)}}-{{ posteData.idPoste }}</span>
     </div>
 </template>
 
