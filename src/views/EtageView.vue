@@ -9,6 +9,7 @@ import { etagesConfig } from "@/store/etages";
 import { fetchPostes } from "@/store/postes";
 import { provide, readonly, ref, unref, watch, computed, capitalize } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { newHistoryEntry, PosteStatuts } from "@/store/posteData";
 
 const route = useRoute();
 const router = useRouter();
@@ -96,6 +97,13 @@ function updateFilters(filters) {
                                           // selectedFilters.value.value
                                           // dans les autres fonctions
 }
+
+function startNewTournee() {
+    postesEtageCourant.value.forEach((poste) => {
+        poste.statut = PosteStatuts.A_FAIRE;
+        poste.history.push(newHistoryEntry(poste, "Nouveau passage"));
+    });
+}
 </script>
 
 <template>
@@ -152,7 +160,15 @@ function updateFilters(filters) {
             mainTitle="Ajouter un poste"
             :mainLink="{ name: 'addInfoPoste' }"
             :mainIcons="{ main: 'bi-geo-alt', stack: 'bi-plus' }"
-        ></FAB>
+        >
+            <template #mini>
+                <div @click="startNewTournee">
+                    <i
+                        class="d-flex position-relative bi bi-node-plus lh-1"
+                    ></i>
+                </div>
+            </template>
+        </FAB>
 
         <OverCard v-if="selectedPoste" @close="selectedPoste = undefined">
             <!-- <router-view> => Nested view visible dans router/index.js -->
