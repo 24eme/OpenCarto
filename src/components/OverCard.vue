@@ -1,5 +1,6 @@
 <script setup>
 import { inject } from "vue";
+import { getPrefixPoste } from '@/store/posteData';
 
 const props = defineProps({
     poste: Object,
@@ -13,7 +14,7 @@ defineEmits(["close"]);
 <template>
     <div class="fixed-bottom card">
         <h5 class="card-header">
-            Poste n° {{ poste.idPoste }}
+            Poste <strong>{{getPrefixPoste(poste.typePoste)}}-{{ poste.idPoste }}</strong>
             <span class="float-end cursor-pointer" @click="$emit('close')">
                 ×
             </span>
