@@ -1,8 +1,8 @@
 <script setup>
-import { posteData, PosteStatuts } from "@/store/posteData.js";
+import { posteData, PosteStatuts, getPrefixPoste } from "@/store/posteData.js";
 import { etagesConfig, etageid2label } from "@/store/etages.js";
 import { useRoute } from "vue-router";
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import Autocomplete from "@/components/Autocomplete.vue";
 import { fetchPostes, range } from "@/store/postes";
 
@@ -54,7 +54,7 @@ const etageLabel = computed(() => {
 
 const availablePosteNumbers = computed(() => {
     const etagePostes = allPostes.value.filter(
-        (p) => p.etage === posteData.etage,
+        (p) => p.etage === posteData.etage && p.typePoste === posteData.typePoste,
     );
     const allPosteIdFromEtage = etagePostes
         .map((p) => p.idPoste)
@@ -73,6 +73,13 @@ const availablePosteNumbers = computed(() => {
     return available;
 });
 
+watch(
+    () => posteData.typePoste,
+    () => {
+        posteData.idPoste = availablePosteNumbers.value.at(0);
+    },
+);
+
 if (!posteData.idPoste || posteData.idPoste === "0") {
     posteData.idPoste = availablePosteNumbers.value.at(0);
 }
@@ -80,6 +87,8 @@ if (!posteData.idPoste || posteData.idPoste === "0") {
 const isValidPosteId = computed(() => {
     return availablePosteNumbers.value.includes(parseInt(posteData.idPoste));
 });
+
+const prefixPoste = computed (() => getPrefixPoste(posteData.typePoste));
 </script>
 
 <template>
@@ -144,11 +153,14 @@ const isValidPosteId = computed(() => {
                     <small>à reporter sur l'installation</small>
                 </p>
 
-                <input
-                    v-model="posteData.idPoste"
-                    class="display-1 bg-secondary-subtle py-4 text-center w-100"
-                    :class="isValidPosteId ? '' : 'border-danger'"
-                />
+                <div class="poste-id-wrapper">
+                  <span class="poste-id-prefix display-1">{{ prefixPoste }} -</span>
+                  <input
+                  v-model="posteData.idPoste"
+                  class="display-1 bg-secondary-subtle py-4 text-center w-100"
+                  :class="isValidPosteId ? '' : 'border-danger'"
+                  />
+                </div>
 
                 <small>Numéros disponibles : {{ availablePosteNumbers }}</small>
             </div>
@@ -173,5 +185,19 @@ const isValidPosteId = computed(() => {
 <style scoped>
 .large-margin-top {
     margin-top: 20% !important;
+}
+
+.poste-id-wrapper {
+    position: relative;
+}
+
+.poste-id-prefix {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--bs-secondary-color);
+    pointer-events: none;
+    user-select: none;
 }
 </style>
