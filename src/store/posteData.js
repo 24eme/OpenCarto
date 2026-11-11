@@ -127,5 +127,5 @@ export function reinitialiserPosteData() {
 }
 
 export function getPrefixPoste(typePoste) {
-  return PrefixPoste[typePoste] ?? "?";
+  return PrefixPoste[typePoste] ?? "";
 }
