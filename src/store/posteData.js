@@ -107,7 +107,7 @@ export const posteData = reactive({
   photo: null,
   coordonnees: null, // { lat, lng } rempli dans addCoordonneesPoste.vue
   pourcentage_conso: "0",
-  commentaire_suivi_conso: null,
+  commentaire_suivi_conso: "",
   anomalies: {},
   history: [],
 });
