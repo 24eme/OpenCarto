@@ -2,7 +2,7 @@
 import { posteData, PosteStatuts, getPrefixPoste } from "@/store/posteData.js";
 import { etagesConfig, etageid2label } from "@/store/etages.js";
 import { useRoute } from "vue-router";
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch, onMounted} from "vue";
 import Autocomplete from "@/components/Autocomplete.vue";
 import { fetchPostes, range } from "@/store/postes";
 
@@ -89,6 +89,33 @@ const isValidPosteId = computed(() => {
 });
 
 const prefixPoste = computed (() => getPrefixPoste(posteData.typePoste));
+
+
+const autocompleteZones = ref();
+const isDisabled = ref(false);
+
+
+onMounted(() => {
+  const autocompleteOptions = autocompleteZones.value.children[1].children[1];
+  const config = { attributes: true, attributeFilter: ["style"] };
+
+  const callback = (mutationList, observer) => {
+    const autocompleteOptionsDisplay = window.getComputedStyle(autocompleteOptions).getPropertyValue("display");
+
+    for (const mutation of mutationList) {
+      if (mutation.type === "attributes") {
+        if (autocompleteOptionsDisplay == "block") {
+          isDisabled.value = true;
+        } else {
+          isDisabled.value = false;
+        }
+      }
+    }
+  }
+  const observer = new MutationObserver(callback);
+  observer.observe(autocompleteOptions, config);
+});
+
 </script>
 
 <template>
@@ -116,7 +143,8 @@ const prefixPoste = computed (() => getPrefixPoste(posteData.typePoste));
                 <h3>Le poste sera placé {{ etageLabel }}</h3>
             </div>
 
-            <div class="my-2">
+            <div class="my-2" ref="autocompleteZones">
+>
                 <label for="zoneText" class="h4 form-label">Zone</label>
 
                 <Autocomplete
@@ -138,6 +166,8 @@ const prefixPoste = computed (() => getPrefixPoste(posteData.typePoste));
                     class="form-select"
                     aria-label="select-type-poste"
                     v-model="posteData.typePoste"
+                    :disabled="isDisabled"
+                    :style="{ 'background-color': isDisabled ? 'white' : null }"
                 >
                     <option value="wisebox">Wisebox</option>
                     <option value="mimetic">Mimetic </option>
