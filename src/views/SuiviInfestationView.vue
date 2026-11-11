@@ -2,6 +2,9 @@
 import { ref, computed, inject, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { postesRef, updateConsommation } from "@/store/postes";
+import { posteData } from "@/store/posteData.js";
+
+const commentaire = ref("");
 
 const props = defineProps({
   isPremierPassage: Boolean,
@@ -40,8 +43,13 @@ const indexActif = computed(() => indexSlider.value / PAS);
 watch(
   poste,
   (p) => {
-    if (!props.isPremierPassage && p) {
+    if (props.isPremierPassage) {
+      commentaire.value = posteData.commentaire_suivi_conso ?? "";
+      return;
+    }
+    if (p) {
       indexSlider.value = p.pourcentage_conso ?? 0;
+      commentaire.value = p.commentaire_suivi_conso ?? "";
     }
   },
   { immediate: true }
@@ -49,6 +57,7 @@ watch(
 
 const valider = () => {
   if (props.isPremierPassage) {
+    posteData.commentaire_suivi_conso = commentaire.value;
     router.push({ name: "addCoordonneesPoste" });
     return;
   }
@@ -56,7 +65,8 @@ const valider = () => {
   if (!poste.value) {
     return;
   }
-  updateConsommation(poste.value.id, indexSlider.value);
+
+  updateConsommation(poste.value.id, indexSlider.value, commentaire.value);
   router.push({
     name: "posteInfos",
     params: { etage: route.params.etage, poste: poste.value.id },
@@ -127,8 +137,7 @@ const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric
         <div class="vstack gap-2 m-1 rapport-text-area">
           <label for="informationsComplementaireTextArea" class="h5 form-label fw-bold">Rapport de Suivi </label>
           <textarea
-            id="informationsComplementaireTextArea"
-            placeholder="Ajouter un rapport de suivi d'infestation"
+            id="informationsComplementaireTextArea" v-model="commentaire" placeholder="Ajouter un rapport de suivi d'infestation"
           ></textarea>
         </div>
       </div>

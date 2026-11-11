@@ -95,6 +95,7 @@ export const posteData = reactive({
   photo: null,
   coordonnees: null, // { lat, lng } rempli dans addCoordonneesPoste.vue
   pourcentage_conso: "0",
+  commentaire_suivi_conso: null,
   history: [],
 });
 
@@ -107,6 +108,7 @@ export function reinitialiserPosteData() {
   posteData.photo = null;
   posteData.coordonnees = null;
   posteData.pourcentage_conso = "0";
+  posteData.commentaire_suivi_conso = "";
   posteData.history = [];
 }
 

@@ -76,9 +76,20 @@ export function createPoste(poste) {
   return nouveauPoste
 }
 
-export function updateConsommation(id, pourcentage) {
-  const nouveaux = postesRef.value.map((p) =>
-    p.id === id ? { ...p, pourcentage_conso: pourcentage } : p
-  );
+export function updateConsommation(id, pourcentage, commentaire) {
+  const nouveaux = postesRef.value.map((p) => {
+    if (p.id !== id) {
+      return p;
+    }
+
+    const maj = { ...p, pourcentage_conso: pourcentage };
+
+    if (commentaire !== undefined) {
+      maj.commentaire_suivi_conso = commentaire;
+    }
+
+    return maj;
+  });
+
   ecrireStorage(nouveaux);
 }
