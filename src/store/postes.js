@@ -76,7 +76,7 @@ export function createPoste(poste) {
   return nouveauPoste
 }
 
-export function updateConsommation(id, pourcentage, commentaire) {
+export function updateConsommation(id, pourcentage, commentaire, anomalies) {
   const nouveaux = postesRef.value.map((p) => {
     if (p.id !== id) {
       return p;
@@ -86,6 +86,9 @@ export function updateConsommation(id, pourcentage, commentaire) {
 
     if (commentaire !== undefined) {
       maj.commentaire_suivi_conso = commentaire;
+    }
+    if (anomalies !== undefined) {
+      maj.anomalies = anomalies;
     }
 
     return maj;
