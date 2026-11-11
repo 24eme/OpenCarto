@@ -2,9 +2,20 @@
 import { ref, computed, inject, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { postesRef, updateConsommation } from "@/store/postes";
-import { posteData } from "@/store/posteData.js";
+import { posteData, AnomaliesSuivi } from "@/store/posteData.js";
 
 const commentaire = ref("");
+
+const anomaliesOuvertes = ref(false);
+
+const anomalies = ref(
+  Object.fromEntries(
+    Object.entries(AnomaliesSuivi).map(([key, label]) => [
+      key,
+      { label, checked: false },
+    ])
+  )
+);
 
 const props = defineProps({
   isPremierPassage: Boolean,
@@ -45,19 +56,35 @@ watch(
   (p) => {
     if (props.isPremierPassage) {
       commentaire.value = posteData.commentaire_suivi_conso ?? "";
+      chargerAnomalies(posteData.anomalies);
       return;
     }
     if (p) {
       indexSlider.value = p.pourcentage_conso ?? 0;
       commentaire.value = p.commentaire_suivi_conso ?? "";
+      chargerAnomalies(p.anomalies);
     }
   },
   { immediate: true }
 );
 
+function chargerAnomalies(source = {}) {
+  for (const key of Object.keys(anomalies.value)) {
+    anomalies.value[key].checked = source[key]?.checked ?? false;
+  }
+}
+
 const valider = () => {
+  const anomaliesData = Object.fromEntries(
+    Object.entries(anomalies.value).map(([key, { label, checked }]) => [
+      key,
+      { label, checked },
+    ])
+  );
+
   if (props.isPremierPassage) {
     posteData.commentaire_suivi_conso = commentaire.value;
+    posteData.anomalies = anomaliesData;
     router.push({ name: "addCoordonneesPoste" });
     return;
   }
@@ -66,7 +93,7 @@ const valider = () => {
     return;
   }
 
-  updateConsommation(poste.value.id, indexSlider.value, commentaire.value);
+  updateConsommation(poste.value.id, indexSlider.value, commentaire.value, anomaliesData);
   router.push({
     name: "posteInfos",
     params: { etage: route.params.etage, poste: poste.value.id },
@@ -136,6 +163,36 @@ const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric
 
         <div class="vstack gap-2 m-1 rapport-text-area">
           <label for="informationsComplementaireTextArea" class="h5 form-label fw-bold">Rapport de Suivi </label>
+          <div class="my-2">
+            <button
+            type="button"
+            class="btn btn-light w-100 d-flex justify-content-between align-items-center fw-bold h5 mb-0"
+            :aria-expanded="anomaliesOuvertes"
+            aria-controls="anomalies-panel"
+            @click="anomaliesOuvertes = !anomaliesOuvertes">
+              <span>Anomalies constatées</span>
+              <i class="bi bi-chevron-down transition-rotate" :class="{ 'rotate-180': anomaliesOuvertes }"></i>
+          </button>
+
+            <div
+            v-show="anomaliesOuvertes"
+            id="anomalies-panel"
+            class="vstack gap-2 anomalies-list mt-2">
+              <div
+              v-for="(anomalie, key) in anomalies"
+              :key="key"
+              class="form-check">
+              <input
+              class="form-check-input"
+              type="checkbox"
+              :id="`anomalie-${key}`"
+              v-model="anomalie.checked"/>
+                <label class="form-check-label" :for="`anomalie-${key}`">
+                  {{ anomalie.label }}
+                </label>
+              </div>
+            </div>
+          </div>
           <textarea
             id="informationsComplementaireTextArea" v-model="commentaire" placeholder="Ajouter un rapport de suivi d'infestation"
           ></textarea>
@@ -237,6 +294,18 @@ html, body, #app  {
   border: 1.5px lightslategray dotted;
   padding: 15px;
   border-radius: 5px;
+}
+
+.anomalies-list {
+  padding: 15px;
+}
+
+.transition-rotate {
+  transition: transform 0.2s ease;
+}
+
+.rotate-180 {
+  transform: rotate(-180deg);
 }
 
 </style>
