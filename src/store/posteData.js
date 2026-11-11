@@ -65,6 +65,18 @@ export const PrefixPoste = Object.freeze({
   ekomille: "E",
 });
 
+export const AnomaliesSuivi = Object.freeze({
+  concurrence_alimentaire: "Concurrence alimentaire sous les éléments avec la ou les zones",
+  trous_sol: "Trous sol (avec les zones)",
+  trous_mur: "Trous mur (avec les zones)",
+  passages_cables: "Trou sol avec les passages de câbles ou tuyaux (avec les zones)",
+  debarras_zone: "Prévoir de faire débarrasser la zone",
+  bouchon_curage: "Bouchon de curage cassé, manquant ou non hermétique",
+  porte_acces: "Porte accès (avec les zones) non hermétique",
+  siphon_sol: "Siphon sol (avec la zone) manquant, cassé ou abîmé",
+  tuyaux: "Tuyaux cassés (avec la zone), abîmés ou manquants",
+});
+
 const HistoryItem = Object.freeze({
   order: 0,
   timestamp: null,
@@ -96,6 +108,7 @@ export const posteData = reactive({
   coordonnees: null, // { lat, lng } rempli dans addCoordonneesPoste.vue
   pourcentage_conso: "0",
   commentaire_suivi_conso: null,
+  anomalies: {},
   history: [],
 });
 
@@ -109,6 +122,7 @@ export function reinitialiserPosteData() {
   posteData.coordonnees = null;
   posteData.pourcentage_conso = "0";
   posteData.commentaire_suivi_conso = "";
+  posteData.anomalies = {};
   posteData.history = [];
 }
 
