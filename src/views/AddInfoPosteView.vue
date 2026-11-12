@@ -144,7 +144,6 @@ onMounted(() => {
             </div>
 
             <div class="my-2" ref="autocompleteZones">
->
                 <label for="zoneText" class="h4 form-label">Zone</label>
 
                 <Autocomplete
