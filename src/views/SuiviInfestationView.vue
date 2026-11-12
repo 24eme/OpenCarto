@@ -77,7 +77,7 @@ const valider = () => {
 
 const locale = globalThis.navigator.language
 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-
+const datePassage = new Date().toLocaleString(locale, options);
 </script>
 
 
@@ -103,7 +103,7 @@ const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric
               <div class="col-auto flex-grow-1">
                   <h1 class="m-0">Rapport de Suivi</h1>
               </div>
-              <h5 class="h5-date">{{ new Date().toLocaleString(locale, options) }}</h5>
+              <h5 class="h5-date">{{ datePassage }}</h5>
           </div>
       </nav>
 
