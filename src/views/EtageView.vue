@@ -6,7 +6,7 @@ import OverCard from "@/components/OverCard.vue"
 import FAB from "@/components/FAB.vue"
 import Filters from "@/components/Filters.vue";
 import { etagesConfig } from "@/store/etages";
-import { fetchPostes } from "@/store/postes";
+import { ecrireStorage, fetchPostes } from "@/store/postes";
 import { provide, readonly, ref, unref, watch, computed, capitalize } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { newHistoryEntry, PosteStatuts } from "@/store/posteData";
@@ -104,6 +104,7 @@ function startNewTournee() {
         poste.statut = PosteStatuts.A_FAIRE;
         poste.history.push(newHistoryEntry(poste, "Nouveau passage"));
     });
+    ecrireStorage(postes.value)
     cartoForceReload.value += 1;
 }
 </script>

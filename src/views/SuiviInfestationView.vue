@@ -2,7 +2,12 @@
 import { ref, computed, inject, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { postesRef, ecrireStorage } from "@/store/postes";
-import { posteData, AnomaliesSuivi, newHistoryEntry } from "@/store/posteData.js";
+import {
+    posteData,
+    AnomaliesSuivi,
+    newHistoryEntry,
+    PosteStatuts,
+} from "@/store/posteData.js";
 
 const anomaliesOuvertes = ref(false);
 const anomalies = ref(
@@ -70,6 +75,7 @@ const valider = () => {
   if (props.isPremierPassage) {
     router.push({ name: "addCoordonneesPoste" });
   } else {
+    poste.value.statut = PosteStatuts.FAIT
     poste.value.history.push(newHistoryEntry(poste.value))
     ecrireStorage(postesRef.value)
     router.push({ name: "posteInfos" });
