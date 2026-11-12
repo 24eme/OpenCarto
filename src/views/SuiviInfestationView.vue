@@ -37,6 +37,7 @@ const VALEURS = Array.from(
 
 const indexSlider = ref(poste.value.pourcentage_conso ?? 0);
 const commentaire = ref(poste.value.commentaire_suivi_conso);
+chargerAnomalies(poste.value.anomalies)
 
 const updateIndex = (event) => {
   indexSlider.value = Number(event.target.value);
