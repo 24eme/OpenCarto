@@ -8,7 +8,9 @@ import {
     newHistoryEntry,
     PosteStatuts,
 } from "@/store/posteData.js";
+import { etageid2label } from "@/store/etages";
 
+const infosOuvertes = ref(false)
 const anomaliesOuvertes = ref(false);
 const anomalies = ref(
   Object.fromEntries(
@@ -116,6 +118,55 @@ const datePassage = new Date().toLocaleString(locale, options);
       </nav>
 
       <div class="container vstack rapport">
+          <div class="border bg-light rounded-1 p-3 pb-0 mt-1">
+              <h6 @click="infosOuvertes = !infosOuvertes">
+                  Informations sur le poste
+                  <span class="float-end bi bi-chevron-down"></span>
+              </h6>
+              <div class="row row-cols-2 row-cols-sm-4" v-if="infosOuvertes">
+                  <div class="col d-flex align-items-start">
+                      <i
+                          class="bi bi-geo-fill fs-4 me-2"
+                          aria-hidden="true"
+                      ></i>
+                      <div>
+                          <h3 class="fw-bold mb-0 fs-5">Étage</h3>
+                          <p>{{ etageid2label(poste.etage) }}</p>
+                      </div>
+                  </div>
+                  <div class="col d-flex align-items-start">
+                      <i
+                          class="bi bi-brilliance fs-4 me-2"
+                          aria-hidden="true"
+                      ></i>
+                      <div>
+                          <h3 class="fw-bold mb-0 fs-5">Type de poste</h3>
+                          <p>{{ poste.typePoste }}</p>
+                      </div>
+                  </div>
+                  <div class="col d-flex align-items-start">
+                      <i
+                          class="bi bi-columns fs-4 me-2"
+                          aria-hidden="true"
+                      ></i>
+                      <div>
+                          <h3 class="fw-bold mb-0 fs-5">Zone</h3>
+                          <p>{{ poste.zone }}</p>
+                      </div>
+                  </div>
+                  <div class="col d-flex align-items-start">
+                      <i
+                          class="bi bi-columns fs-4 me-2"
+                          aria-hidden="true"
+                      ></i>
+                      <div>
+                          <h3 class="fw-bold mb-0 fs-5">Numéro du poste</h3>
+                          <p>{{ poste.idPoste }}</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
         <div v-if="isPremierPassage === false" class="my-2 custom-slider">
           <label for="rangeConso" class="h5 form-label fw-bold">Pourcentage de  Consommation</label>
           <div class="range">
