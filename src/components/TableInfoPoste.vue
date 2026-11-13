@@ -109,7 +109,7 @@ function setDisparuOrArchive(statut) {
                   :to="{ name: 'suiviInfestation', params: { etage: $route.params.etage, poste: poste.id } }"
                   class="btn btn-primary btn-suivi-infestation"
               >
-                  Modifier le niveau d'infestation
+                  Saisir le niveau d'infestation
               </RouterLink>
             </div>
 
