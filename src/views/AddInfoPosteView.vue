@@ -197,7 +197,7 @@ onMounted(() => {
                   />
                 </div>
 
-                <small>Numéros disponibles : {{ availablePosteNumbers }}</small>
+                Numéros disponibles : {{ availablePosteNumbers }}
             </div>
             <hr />
 
