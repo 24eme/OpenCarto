@@ -1,13 +1,15 @@
 <script setup>
 import { ref, computed, inject, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { postesRef, updateConsommation } from "@/store/postes";
-import { posteData, AnomaliesSuivi } from "@/store/posteData.js";
-
-const commentaire = ref("");
+import { postesRef, ecrireStorage } from "@/store/postes";
+import {
+    posteData,
+    AnomaliesSuivi,
+    newHistoryEntry,
+    PosteStatuts,
+} from "@/store/posteData.js";
 
 const anomaliesOuvertes = ref(false);
-
 const anomalies = ref(
   Object.fromEntries(
     Object.entries(AnomaliesSuivi).map(([key, label]) => [
@@ -24,12 +26,11 @@ const props = defineProps({
 const route = useRoute();
 const router = useRouter();
 
-const posteInjecte = inject("selectedPoste", null);
-
 const poste = computed(() => {
   if (props.isPremierPassage) {
-    return posteInjecte;
+    return posteData;
   }
+
   return postesRef.value.find((p) => p.id === route.params.poste);
 });
 
@@ -39,7 +40,9 @@ const VALEURS = Array.from(
   (_, i) => `${i * PAS}%`
 );
 
-const indexSlider = ref(0);
+const indexSlider = ref(poste.value.pourcentage_conso ?? 0);
+const commentaire = ref(poste.value.commentaire_suivi_conso);
+chargerAnomalies(poste.value.anomalies)
 
 const updateIndex = (event) => {
   indexSlider.value = Number(event.target.value);
@@ -50,23 +53,6 @@ const backgroundSizeStyle = computed(() => {
 });
 
 const indexActif = computed(() => indexSlider.value / PAS);
-
-watch(
-  poste,
-  (p) => {
-    if (props.isPremierPassage) {
-      commentaire.value = posteData.commentaire_suivi_conso ?? "";
-      chargerAnomalies(posteData.anomalies);
-      return;
-    }
-    if (p) {
-      indexSlider.value = p.pourcentage_conso ?? 0;
-      commentaire.value = p.commentaire_suivi_conso ?? "";
-      chargerAnomalies(p.anomalies);
-    }
-  },
-  { immediate: true }
-);
 
 function chargerAnomalies(source = {}) {
   for (const key of Object.keys(anomalies.value)) {
@@ -82,27 +68,23 @@ const valider = () => {
     ])
   );
 
+  poste.value.commentaire_suivi_conso = commentaire.value;
+  poste.value.pourcentage_conso = indexSlider.value;
+  poste.value.anomalies = anomaliesData;
+
   if (props.isPremierPassage) {
-    posteData.commentaire_suivi_conso = commentaire.value;
-    posteData.anomalies = anomaliesData;
     router.push({ name: "addCoordonneesPoste" });
-    return;
+  } else {
+    poste.value.statut = PosteStatuts.FAIT
+    poste.value.history.push(newHistoryEntry(poste.value))
+    ecrireStorage(postesRef.value)
+    router.push({ name: "posteInfos" });
   }
-
-  if (!poste.value) {
-    return;
-  }
-
-  updateConsommation(poste.value.id, indexSlider.value, commentaire.value, anomaliesData);
-  router.push({
-    name: "posteInfos",
-    params: { etage: route.params.etage, poste: poste.value.id },
-  });
 };
 
 const locale = globalThis.navigator.language
 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-
+const datePassage = new Date().toLocaleString(locale, options);
 </script>
 
 
@@ -128,7 +110,7 @@ const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric
               <div class="col-auto flex-grow-1">
                   <h1 class="m-0">Rapport de Suivi</h1>
               </div>
-              <h5 class="h5-date">{{ new Date().toLocaleString(locale, options) }}</h5>
+              <h5 class="h5-date">{{ datePassage }}</h5>
           </div>
       </nav>
 

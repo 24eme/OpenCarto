@@ -27,6 +27,17 @@ function formatDate(datestring) {
     const date = new Date(datestring);
     return date.toLocaleDateString();
 }
+
+function anomalies2array(poste) {
+  const anomalies = []
+  for (const anomalie in poste.anomalies) {
+    if (poste.anomalies[anomalie].checked === false) {
+      continue;
+    }
+    anomalies.push(poste.anomalies[anomalie])
+  }
+  return anomalies;
+}
 </script>
 
 <template>
@@ -57,6 +68,14 @@ function formatDate(datestring) {
                             <tr>
                                 <td>Type de poste</td>
                                 <td>{{ poste.typePoste}}</td>
+                            </tr>
+                            <tr>
+                                <td>Consommation</td>
+                                <td>{{ poste.pourcentage_conso }}%</td>
+                            </tr>
+                            <tr>
+                                <td>Anomalies</td>
+                                <td>{{ anomalies2array(poste).length }}</td>
                             </tr>
                             <tr>
                                 <td>Photo</td>
