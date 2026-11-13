@@ -36,7 +36,7 @@ const sortedPostes = computed(() => {
         role="button"
         @click="emit('posteSelected', poste)"
       >
-        <td>{{getPrefixPoste(poste.typePoste)}}-{{ poste.idPoste }}</td>
+        <td>{{getPrefixPoste(poste.typePoste)}}{{ poste.idPoste }}</td>
         <td>{{ poste.typePoste }}</td>
         <td>{{ poste.statut }}</td>
       </tr>

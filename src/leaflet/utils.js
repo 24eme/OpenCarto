@@ -66,7 +66,7 @@ export function toLeafletMarker(poste) {
     icon: new L.PosteIcon({
       iconSize: [28, 25],
       className: "leaflet-marker-poste",
-      html: `<div>${getPrefixPoste(poste.typePoste)}-${poste.idPoste}</div>`,
+      html: `<div>${getPrefixPoste(poste.typePoste)}${poste.idPoste}</div>`,
       data: { id: poste.id },
     }),
   });

@@ -14,7 +14,10 @@ defineEmits(["close"]);
 <template>
     <div class="fixed-bottom card">
         <h5 class="card-header">
-            Poste <strong>{{getPrefixPoste(poste.typePoste)}}-{{ poste.idPoste }}</strong>
+            Poste
+            <strong>
+                {{ getPrefixPoste(poste.typePoste) }}{{ poste.idPoste }}
+            </strong>
             <span class="float-end cursor-pointer" @click="$emit('close')">
                 ×
             </span>

@@ -187,7 +187,7 @@ onMounted(() => {
                 </p>
 
                 <div class="poste-id-wrapper">
-                  <span class="poste-id-prefix display-1">{{ prefixPoste }} -</span>
+                  <span class="poste-id-prefix display-1">{{ prefixPoste }}</span>
                   <input
                   v-model="posteData.idPoste"
                   class="display-1 bg-secondary-subtle py-4 text-center w-100"
