@@ -32,7 +32,7 @@ export const PosteStatuts = Object.freeze({
       [PosteStatuts.FAIT]: {
         libelle: "Fait",
         icon: "bi bi-check-circle-fill text-success",
-        description: "Poste fait",
+        description: "Suivi effectué",
         class: "leaflet-marker-done",
       },
       [PosteStatuts.DISPARU]: {
