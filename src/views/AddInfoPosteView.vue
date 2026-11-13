@@ -58,7 +58,8 @@ const availablePosteNumbers = computed(() => {
     );
     const allPosteIdFromEtage = etagePostes
         .map((p) => p.idPoste)
-        .map((i) => parseInt(i));
+        .map((i) => parseInt(i))
+        .filter((i) => Number.isInteger(i));
 
     if (allPosteIdFromEtage.length === 0) {
         return [1];
