@@ -24,6 +24,7 @@ let controle = null;
 const groupes = [];
 const selectedPoste = inject("selectedPoste", undefined);
 const filteredPostes = inject("filteredPostes", []);
+const postes = fetchPostes();
 
 function construireGroupeEtage(etage) {
     const calque = L.imageOverlay(etage.image, etage.bounds);
@@ -36,7 +37,6 @@ function construireGroupeEtage(etage) {
 
 function chargerPostes() {
     try {
-        const postes = fetchPostes();
         postes.forEach((poste) => {
             const groupe = groupes.find((g) => g.id === poste.etage);
             if (!groupe || !poste.coordonnees) return;
@@ -53,6 +53,21 @@ function chargerPostes() {
     } catch (e) {
         console.error("Impossible de charger les postes :", e);
     }
+}
+
+function removeAllMarkers(map, initialLayer) {
+    initialLayer.layerGroupe.eachLayer((layer) => {
+        if (!(layer instanceof L.Marker)) {
+            return;
+        }
+        initialLayer.layerGroupe.removeLayer(layer)
+    })
+    map.eachLayer((layer) => {
+        if (!(layer instanceof L.Marker)) {
+            return;
+        }
+        map.removeLayer(layer)
+    })
 }
 
 onMounted(() => {
@@ -106,6 +121,11 @@ onMounted(() => {
     watch(filteredPostes, (postes) => setFiltered(map, postes), {
         immediate: true,
     });
+
+    watch(postes, () => {
+        removeAllMarkers(map, initialLayer);
+        chargerPostes();
+    }, { deep: true })
 });
 
 // watcher qui se declenche lorsque l'utilisateur ajoute un nouveau plan parce que la length de l'objet
