@@ -172,6 +172,8 @@ onMounted(() => {
                     <option value="wisebox">Wisebox</option>
                     <option value="mimetic">Mimetic </option>
                     <option value="ekomille">Ekomille</option>
+                    <option value="boite-souris-secu">Boite souris sécurisée</option>
+                    <option value="boite-rat-carton"> Boîte rat carton</option>
                 </select>
             </div>
 
