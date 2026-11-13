@@ -139,17 +139,22 @@ onMounted(() => {
         </nav>
 
         <div class="container vstack justify-content-start">
-            <div class="my-2">
+            <div class="my-0">
                 <!-- mettre par défaut l'étage sur lequel il est -->
+                <hr />
+
                 <h3>Le poste sera placé {{ etageLabel }}</h3>
+                <hr />
+
             </div>
 
             <div class="my-2" ref="autocompleteZones">
 
-                <label for="zoneText" class="h4 form-label">Zone</label>
+                <label for="zoneText" class="h4 form-label fw-bold">Zone</label>
 
                 <Autocomplete
                     id="zoneText"
+                    class="mt-0 mb-3"
                     @filter="(zone) => (posteData.zone = zone)"
                     name="autocomplete-zones"
                     placeholder="ex. : Faux plafond, …"
@@ -159,7 +164,7 @@ onMounted(() => {
             </div>
 
             <div class="my-2 mb-auto">
-                <label for="typeSelect" class="h4 form-label">
+                <label for="typeSelect" class="h4 form-label fw-bold">
                     Type de poste
                 </label>
                 <select
@@ -179,8 +184,8 @@ onMounted(() => {
             </div>
 
             <hr />
-            <div class="my-2 text-center" v-if="getPrefixPoste(posteData.typePoste)">
-              <p class="fs-3">
+            <div class="my-2" v-if="getPrefixPoste(posteData.typePoste)">
+              <p class="fs-4 fw-bold mb-2">
                 Numéro interne de la machine
               </p>
               <input class="display-1 text-center w-100"
@@ -190,40 +195,31 @@ onMounted(() => {
 
             </div>
 
-            <div class="my-2 text-center">
-                <p class="fs-3">
+            <div class="my-2">
+                <p class="fs-4 fw-bold mb-2">
                     Numéro du poste<br />
-                    <small>à reporter sur l'installation</small>
+                    <small>- à reporter sur l'installation - </small>
                 </p>
 
                 <div class="poste-id-wrapper">
                   <span class="poste-id-prefix display-1">{{ prefixPoste }}</span>
                   <input
                   v-model="posteData.idPoste"
-                  class="display-1 bg-secondary-subtle py-4 text-center w-100"
+                  class="display-1 bg-secondary-subtle py-2 text-center w-100 rounded-1 poste-id-input"
                   :class="isValidPosteId ? '' : 'border-danger'"
                   inputmode="numeric"
                   @input="posteData.idPoste = posteData.idPoste.replace(/\D/g, '')"
                   />
                 </div>
 
-                Numéros disponibles : {{ availablePosteNumbers }}
+                <div class="m-2">
+                  Numéros disponibles : {{ availablePosteNumbers }}
+                </div>
             </div>
             <hr />
-
-            <div class="my-2 text-center" v-if="getPrefixPoste(posteData.typePoste)">
-              <p class="fs-3">
-                Numéro interne de la machine
-              </p>
-              <input
-              >
-              </input>
-              <hr />
-
-            </div>
         </div>
 
-        <div class="m-2 large-margin-top row">
+        <div class="m-2 row">
             <component
                 :is="isValidPosteId ? 'router-link' : 'span'"
                 :to="{ name: 'prisePhoto' }"
@@ -237,21 +233,21 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.large-margin-top {
-    margin-top: 20% !important;
-}
-
 .poste-id-wrapper {
     position: relative;
 }
 
 .poste-id-prefix {
     position: absolute;
-    left: 1rem;
+    left: 8rem;
     top: 50%;
     transform: translateY(-50%);
     color: var(--bs-secondary-color);
     pointer-events: none;
     user-select: none;
+}
+
+.poste-id-input {
+  text-indent: 1rem;
 }
 </style>
