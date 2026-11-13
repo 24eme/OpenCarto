@@ -40,6 +40,7 @@ const VALEURS = Array.from(
   (_, i) => `${i * PAS}%`
 );
 
+const checkboxDisparu = ref(false);
 const indexSlider = ref(poste.value.pourcentage_conso ?? 0);
 const commentaire = ref(poste.value.commentaire_suivi_conso);
 chargerAnomalies(poste.value.anomalies)
@@ -69,14 +70,14 @@ const valider = () => {
   );
 
   poste.value.commentaire_suivi_conso = commentaire.value;
-  poste.value.pourcentage_conso = indexSlider.value;
+  poste.value.pourcentage_conso = checkboxDisparu ? -1 : indexSlider.value;
   poste.value.anomalies = anomaliesData;
 
   if (props.isPremierPassage) {
     router.push({ name: "addCoordonneesPoste" });
   } else {
     poste.value.statut = PosteStatuts.FAIT
-    poste.value.history.push(newHistoryEntry(poste.value))
+    poste.value.history.push(newHistoryEntry(poste.value, checkboxDisparu ? "Poste disparu" : ""))
     ecrireStorage(postesRef.value)
     router.push({ name: "posteInfos" });
   }
@@ -119,6 +120,8 @@ const datePassage = new Date().toLocaleString(locale, options);
           <label for="rangeConso" class="h5 form-label fw-bold">Pourcentage de  Consommation</label>
           <div class="range">
             <input
+              :aria-disabled="checkboxDisparu"
+              :disabled="checkboxDisparu"
               type="range"
               id="rangeConso"
               ref="rangeConso"
@@ -141,6 +144,15 @@ const datePassage = new Date().toLocaleString(locale, options);
               :label="val"
             ></option>
           </datalist>
+
+          <div class="border-3 border-start border-secondary bg-secondary-subtle p-2 my-2">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" v-model="checkboxDisparu" id="checkboxDisparu" switch>
+              <label class="form-check-label" for="checkboxDisparu">
+                Le poste a disparu ?
+              </label>
+            </div>
+          </div>
         </div>
 
         <div class="vstack gap-2 m-1 rapport-text-area">
@@ -233,6 +245,10 @@ input[type="range"] {
     background-image: linear-gradient(#c8cf5a);
     background-size: 0% 100%;
     background-repeat: no-repeat;
+
+    &:disabled {
+        opacity: .5;
+    }
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -251,7 +267,7 @@ input[type="range"]::-moz-range-thumb {
 }
 
 #informationsComplementaireTextArea {
-  height: 20rem;
+  height: 15rem;
 }
 
 .h5 {
