@@ -119,7 +119,7 @@ function generateStats() {
 
             <hr />
 
-            <div class="d-flex flex-nowrap gap-1 mb-2 overflow-x-scroll">
+            <div class="d-flex flex-wrap gap-1 mb-2 overflow-x-scroll">
                 <div
                     class="flex-grow-1 border rounded p-2 text-center"
                     v-for="stat in generateStats()"
