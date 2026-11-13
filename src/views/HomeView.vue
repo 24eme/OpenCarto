@@ -131,8 +131,7 @@ function generateStats() {
                     :class="statistiquesOpenedIcon"
                 ></span>
             </h1>
-            <div
-                class="d-flex flex-wrap gap-1 mb-2 overflow-x-scroll"
+            <div class="d-flex flex-wrap gap-1 mb-2"
                 v-if="statistiquesOpened"
             >
                 <div
