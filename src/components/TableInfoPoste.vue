@@ -1,8 +1,9 @@
 <script setup>
 import { computed, inject } from "vue";
 import { useRoute } from "vue-router";
-import { postesRef } from "@/store/postes";
+import { postesRef, ecrireStorage } from "@/store/postes";
 import { etageid2label } from "@/store/etages";
+import { PosteStatuts, newHistoryEntry } from "@/store/posteData";
 
 const props = defineProps({
     poste: Object,
@@ -37,6 +38,13 @@ function anomalies2array(poste) {
     anomalies.push(poste.anomalies[anomalie])
   }
   return anomalies;
+}
+
+function setDisparuOrArchive(statut) {
+    poste.value.statut = statut;
+    poste.value.idPoste = "disparu";
+    poste.value.history.push(newHistoryEntry(poste.value));
+    ecrireStorage(postesRef.value)
 }
 </script>
 
@@ -107,7 +115,7 @@ function anomalies2array(poste) {
 
             <hr />
 
-            <div class="row mx-auto px-4">
+            <div class="row mb-3 mx-auto px-4">
                <RouterLink
                   :to="{ name: 'posteHistory' }"
                   class="btn btn-outline-primary"
@@ -117,6 +125,32 @@ function anomalies2array(poste) {
               <router-view></router-view>
             </div>
 
+            <hr />
+
+            <div
+                v-if="poste.statut !== PosteStatuts.DISPARU
+                      && poste.statut !== PosteStatuts.ARCHIVE"
+                class="row mx-auto mt-2 px-4"
+            >
+                <fieldset class="danger-zone rounded pb-2 gap-2">
+                    <legend>Zone de danger</legend>
+
+                    <div class="vstack gap-2 mx-auto">
+                        <button
+                            @click="setDisparuOrArchive(PosteStatuts.DISPARU)"
+                            class="btn btn-outline-secondary"
+                        >
+                            Poste disparu
+                        </button>
+                        <button
+                            @click="setDisparuOrArchive(PosteStatuts.ARCHIVE)"
+                            class="btn btn-outline-secondary"
+                        >
+                            Archiver le poste
+                        </button>
+                    </div>
+                </fieldset>
+            </div>
         </div>
         <div class="d-flex justify-content-center prev-next-btn-container">
           <button class="hstack gap-2 btn btn-light fw-semibold" type="button" @click="$emit('prev')">
@@ -140,5 +174,14 @@ function anomalies2array(poste) {
 }
 .cursor-not-allowed {
     cursor: not-allowed;
+}
+.danger-zone {
+    border: 1px dashed lch(48 61 24);
+
+    legend {
+        margin-top: -1em;
+        width: fit-content;
+        background-color: white;
+    }
 }
 </style>
