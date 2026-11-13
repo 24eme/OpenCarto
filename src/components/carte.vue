@@ -158,7 +158,13 @@ watch(
     color: #fff;
     border: 2px solid;
     border-radius: 50%;
-    text-align: center;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     background-color: lch(from var(--accent) l c h);
     border-color: lch(from var(--accent) calc(l - 20) calc(c + 40) h);
@@ -178,18 +184,15 @@ watch(
     --accent: lch(48 61 24);
     color: #eee;
 }
-.leaflet-marker-missing > div {
+.leaflet-marker-missing > div,
+.leaflet-marker-archived > div {
     --accent: lch(88 0 0);
+    border-color: lch(from var(--accent) calc(l - 20) c h);
     border-style: dashed;
-    color: #eee;
+    color: #333;
 }
 .leaflet-marker-swapped > div {
     --accent: lch(79 35 242);
-    color: #eee;
-}
-.leaflet-marker-archived > div {
-    --accent: lch(88 0 0);
-    border-style: dashed;
     color: #eee;
 }
 .leaflet-marker-filtered > div {
