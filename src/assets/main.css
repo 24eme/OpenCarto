@@ -40,35 +40,13 @@ a,
 }
 
 .prev-next-btn-container {
-  display: flex;
-  justify-content: space-around !important;
-  width: 23rem;
-  align-self: center;
-  margin-top: 10px !important;
-  margin-bottom: 10px !important;
-}
+  justify-content: space-evenly;
+  padding: 10px 5px;
+  font-size: 0.8rem !important;
 
-.prev-next-btn-container > .btn-light {
-  display: flex;
-  width: 10rem !important;
-  justify-content: center;
-  height: 2.5rem;
-  line-height: 2.5rem;
-  border-radius: 5px;
-}
-
-.sub-prev-next-btn-container {
-  display: flex;
-  font-weight: bold;
-}
-
-.sub-prev-next-btn-container > .bi-chevron-double-left, .sub-prev-next-btn-container > .bi-chevron-double-right {
-  margin: 9px;
-}
-
-button:has(> .sub-prev-next-btn-container) {
-  border: 1px #e7e7e7 solid !important;
-  background-color: #f8f9fa;
+  .btn-container {
+      padding: 0;
+  }
 }
 
 .btn-suivi-infestation {
@@ -96,6 +74,14 @@ div:has(> .btn-suivi-infestation) {
         0.9px 0.9px 1.4px -0.8px hsl(0deg 0% 0% / 0.1),
         2.2px 2.2px 3.5px -1.7px hsl(0deg 0% 0% / 0.1),
         5.3px 5.4px 8.5px -2.5px hsl(0deg 0% 0% / 0.1);
+}
+
+.shadowed-top {
+    box-shadow:
+        0px -0.1px 0.1px hsl(0deg 0% 0% / 0.11),
+        0px -0.4px 0.5px -0.8px hsl(0deg 0% 0% / 0.11),
+        0px -0.9px 1px -1.7px hsl(0deg 0% 0% / 0.11),
+        0.1px -2.2px 2.5px -2.5px hsl(0deg 0% 0% / 0.11);
 }
 @media (hover: hover) {
   a:hover {

@@ -106,28 +106,24 @@ function anomalies2array(poste) {
               </RouterLink>
             </div>
 
-            <hr />
-
-            <div class="row mb-3 mx-auto px-4">
-               <RouterLink
-                  :to="{ name: 'posteHistory' }"
-                  class="btn btn-outline-primary"
-              >
-                  Voir l'historique
-              </RouterLink>
               <router-view></router-view>
-            </div>
         </div>
-        <div class="d-flex justify-content-center prev-next-btn-container">
-          <button class="hstack gap-2 btn btn-light fw-semibold" type="button" @click="$emit('prev')">
-              <i class="bi bi-chevron-double-left"></i>
-              Précédent
-          </button>
-
-          <button class="hstack gap-2 btn btn-light fw-semibold" type="button" @click="$emit('next')">
-              Suivant
-              <i class="bi bi-chevron-double-right"></i>
-          </button>
+        <div class="hstack bg-body-secondary gap-1 prev-next-btn-container border-top shadowed-top">
+            <button class="vstack btn btn-container" @click="$emit('prev')">
+                <span class="bi bi-chevron-double-left"></span>
+                Préc.
+            </button>
+            <RouterLink
+                :to="{ name: 'posteHistory' }"
+                class="vstack btn btn-container"
+            >
+                <span class="bi bi-layer-backward"></span>
+                Voir l'historique
+            </RouterLink>
+            <button class="vstack btn btn-container" @click="$emit('next')">
+                <span class="bi bi-chevron-double-right"></span>
+                Suiv.
+            </button>
         </div>
 </template>
 
