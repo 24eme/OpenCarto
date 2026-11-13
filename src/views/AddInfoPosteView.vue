@@ -40,7 +40,7 @@ const lastType = computed(() => {
 existingZones.value = [...new Set(allPostes.value.map((p) => p.zone))].sort()
 
 if (existingZones.value.length < 1) {
-    existingZones.value = ["Faux plafond", "Derrière la colonne"];
+    existingZones.value = ["Cuisine", "Halle d'entrée", "Couloir"];
 }
 
 posteData.etage = route.params.etage;
