@@ -144,7 +144,7 @@ onMounted(() => {
             </div>
 
             <div class="my-2" ref="autocompleteZones">
->
+
                 <label for="zoneText" class="h4 form-label">Zone</label>
 
                 <Autocomplete
@@ -196,9 +196,18 @@ onMounted(() => {
 
                 <small>Numéros disponibles : {{ availablePosteNumbers }}</small>
             </div>
+            <hr />
 
-          <hr />
+            <div class="my-2 text-center" v-if="getPrefixPoste(posteData.typePoste)">
+              <p class="fs-3">
+                Numéro interne de la machine
+              </p>
+              <input
+              >
+              </input>
+              <hr />
 
+            </div>
         </div>
 
         <div class="m-2 large-margin-top row">
