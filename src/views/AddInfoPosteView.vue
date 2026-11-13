@@ -179,6 +179,16 @@ onMounted(() => {
             </div>
 
             <hr />
+            <div class="my-2 text-center" v-if="getPrefixPoste(posteData.typePoste)">
+              <p class="fs-3">
+                Numéro interne de la machine
+              </p>
+              <input class="display-1 text-center w-100"
+              >
+              </input>
+              <hr />
+
+            </div>
 
             <div class="my-2 text-center">
                 <p class="fs-3">
