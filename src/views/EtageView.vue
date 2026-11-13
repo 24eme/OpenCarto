@@ -98,14 +98,12 @@ function updateFilters(filters) {
                                           // dans les autres fonctions
 }
 
-const cartoForceReload = ref(0);
 function startNewTournee() {
     postesEtageCourant.value.forEach((poste) => {
         poste.statut = PosteStatuts.A_FAIRE;
         poste.history.push(newHistoryEntry(poste, "Nouveau passage"));
     });
     ecrireStorage(postes.value)
-    cartoForceReload.value += 1;
 }
 </script>
 
@@ -143,7 +141,6 @@ function startNewTournee() {
             carteWidth="100%"
             :layer="loadedEtage"
             @posteSelected="(poste) => (selectedPoste = poste)"
-            :key="cartoForceReload"
         >
         <template #filters>
           <Filters
