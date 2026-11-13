@@ -2,12 +2,17 @@
 import UploadPlan from "../components/uploadPlan.vue";
 import { etagesConfig } from "@/store/etages";
 import { fetchPostes } from "@/store/postes";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 const clientName = ref("Potel & Chabot");
 const etages = ref(etagesConfig);
 const modaleOuverte = ref(false);
 const postes = ref(fetchPostes());
+const statistiquesOpened = ref(false);
+const statistiquesOpenedIcon = computed(() => ({
+    "bi-chevron-contract": statistiquesOpened.value === true,
+    "bi-chevron-expand": statistiquesOpened.value === false,
+}))
 
 function getNbPostes(etage) {
     return postes.value.filter((p) => p.etage === etage).length;
@@ -119,7 +124,17 @@ function generateStats() {
 
             <hr />
 
-            <div class="d-flex flex-wrap gap-1 mb-2 overflow-x-scroll">
+            <h1 @click="statistiquesOpened = !statistiquesOpened">
+                Statistiques
+                <span
+                    class="float-end bi"
+                    :class="statistiquesOpenedIcon"
+                ></span>
+            </h1>
+            <div
+                class="d-flex flex-wrap gap-1 mb-2 overflow-x-scroll"
+                v-if="statistiquesOpened"
+            >
                 <div
                     class="flex-grow-1 border rounded p-2 text-center"
                     v-for="stat in generateStats()"
