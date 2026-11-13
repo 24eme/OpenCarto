@@ -16,7 +16,7 @@ const router = useRouter();
 
 const clientName = ref("Potel & Chabot");
 const postes = ref(fetchPostes());
-const selectedPoste = ref();
+const selectedPoste = ref({});
 const selectedFilters = ref([]);
 const loadedEtage = ref();
 
