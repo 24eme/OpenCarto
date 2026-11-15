@@ -27,13 +27,13 @@ const datePassage = new Date().toLocaleString(locale, options);
 
 <template>
 <div ref="annexesHtml" class="annexes-container">
-  <div style="display: flex; justify-content: space-around; gap: 20px;">
+  <div style="display: flex; justify-content: space-around; gap: 50px;">
     <img src="./../assets/logo_aurouze.png" style="display: block; max-width: 100px; max-height: 40px; width: 238px; height: 82px; margin: 40px auto;"></img>
 
     <div>
-      <h1 style="border:0.2px black solid; font-size: 14px; width: 450px; font-weight: bold; padding:5px; background-color: lightblue;">Traçabilité: Plan de Prévention et de Lutter Anti Nuisible</h1>
+      <h1 style="border:0.2px black solid; font-size: 14px; width: 600px; font-weight: bold; padding:5px; background-color: lightblue;">Traçabilité: Plan de Prévention et de Lutter Anti Nuisible</h1>
 
-      <table style="border: 0.2px black solid; border-collapse: collapse; font-size: 10px; width: 450px; font-weight: 800;">
+      <table style="border: 0.2px black solid; border-collapse: collapse; font-size: 10px; width: 600px; font-weight: 800;">
         <thead>
           <tr>
             <th style="border: 0.2px black solid; border-collapse: collapse; text-align: center; font-weight: bold; background-color: lightblue;">CONTRÔLE DU DISPOSITIF DE PREVENTION</th>
@@ -54,7 +54,8 @@ const datePassage = new Date().toLocaleString(locale, options);
     </div>
   </div>
 
-  <table style="font-size: 8px; border: 0.2px black solid; width: 650px; font-weight: 800;">
+
+  <table style="font-size: 9px; border: 0.2px black solid; width: 750px; font-weight: 800; margin-top: 40px;">
     <thead>
       <tr>
         <th style="border: 0.2px black solid; border-collapse: collapse; font-weight: 800; text-align: center;" scope="col">Localisation</th>
@@ -69,15 +70,15 @@ const datePassage = new Date().toLocaleString(locale, options);
     </thead>
     <tbody>
       <tr v-for="poste in postes">
-        <th style="border: 0.2px black solid; border-collapse: collapse;" scope="row">Adresse</th>
-        <td style="border: 0.2px black solid; border-collapse: collapse;">{{ JSON.parse(JSON.stringify((poste.etage))) }}</td>
-        <td style="border: 0.2px black solid; border-collapse: collapse;">{{ JSON.parse(JSON.stringify((poste.zone))) }}</td>
-        <td style="border: 0.2px black solid; border-collapse: collapse;">{{ JSON.parse(JSON.stringify((poste.idPoste))) }}</td>
-        <td style="border: 0.2px black solid; border-collapse: collapse;">{{ JSON.parse(JSON.stringify((poste.typePoste))) }}</td>
+        <th style="border: 0.2px black solid; border-collapse: collapse; text-align: center;" scope="row">Adresse</th>
+        <td style="border: 0.2px black solid; border-collapse: collapse; text-align: center;">{{ JSON.parse(JSON.stringify((poste.etage))) }}</td>
+        <td style="border: 0.2px black solid; border-collapse: collapse; text-align: center;">{{ JSON.parse(JSON.stringify((poste.zone))) }}</td>
+        <td style="border: 0.2px black solid; border-collapse: collapse; text-align: center;">{{ JSON.parse(JSON.stringify((poste.idPoste))) }}</td>
+        <td style="border: 0.2px black solid; border-collapse: collapse; text-align: center;">{{ JSON.parse(JSON.stringify((poste.typePoste))) }}</td>
 
-        <td style="border: 0.2px black solid; border-collapse: collapse;"> {{ JSON.parse(JSON.stringify((poste.pourcentage_conso))) }} %</td>
-        <td style="border: 0.2px black solid; border-collapse: collapse;">
-          <ul v-for="anomalie in anomalies2array(poste)" style="padding-left: 15px; list-style-type: none ;" >
+        <td style="border: 0.2px black solid; border-collapse: collapse; text-align: center;"> {{ JSON.parse(JSON.stringify((poste.pourcentage_conso))) }} %</td>
+        <td style="border: 0.2px black solid; border-collapse: collapse; text-align: center; padding-top: 18px;">
+          <ul v-for="anomalie in anomalies2array(poste)" style="padding-left: 0; list-style-type: none ;" >
             <li>
               - {{ JSON.parse(JSON.stringify((anomalie.label))) }}
             </li>

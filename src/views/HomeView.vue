@@ -2,7 +2,9 @@
 import UploadPlan from "../components/uploadPlan.vue";
 import { etagesConfig } from "@/store/etages";
 import { fetchPostes } from "@/store/postes";
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
+import AnnexesPDF from "@/components/AnnexesPDF.vue";
+import { jsPDF } from "jspdf";
 
 const clientName = ref("Potel & Chabot");
 const etages = ref(etagesConfig);
@@ -62,6 +64,43 @@ function generateStats() {
     });
 
     return stats;
+}
+
+const annexesPdfRef = ref();
+const pdfGenerationButton = ref();
+
+const show = false;
+
+
+onMounted(() => {
+  const annexesHtml = annexesPdfRef.value.annexesHtml;
+
+  window.addEventListener("click", function (e) {
+    if (e.target == pdfGenerationButton.value) {
+      generatePdfAnnexes(annexesHtml);
+    }
+  });
+});
+
+
+function generatePdfAnnexes(annexesHtml) {
+  const doc = new jsPDF({
+    orientation: "landscape",
+    unit: "pt",
+    format:"a4",
+  });
+
+  const annexesContent = annexesHtml.innerHTML
+
+  doc.html("<div style='display:flex; flex-direction:column;'>" + annexesContent + "</div>", {
+    callback: function (doc) {
+      doc.save("rapport_annexes.pdf");
+    },
+    x: 20,
+    y: 20,
+    width: 750,
+    windowWidth: 750,
+  });
 }
 </script>
 
@@ -124,6 +163,20 @@ function generateStats() {
 
             <hr />
 
+            <div>
+              <AnnexesPDF v-show="show" ref="annexesPdfRef"
+              :postes="postes"
+              >
+
+              </AnnexesPDF>
+              <button class="btn btn-primary btn-send-tournee custom-btn-primary" ref="pdfGenerationButton"
+              >
+                Envoyer dans la tournée
+              </button>
+            </div>
+
+            <hr />
+
             <h1 @click="statistiquesOpened = !statistiquesOpened">
                 Statistiques
                 <span
@@ -157,5 +210,13 @@ function generateStats() {
 <style scoped>
 .big-number {
     font-size: 2rem;
+}
+
+.btn-send-tournee {
+  display: flex;
+  margin: 40px auto;
+  justify-content: center;
+  font-weight: normal;
+  width: 20rem ;
 }
 </style>
