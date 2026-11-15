@@ -21,31 +21,16 @@ const sortedPostes = computed(() => {
 </script>
 
 <template>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Numéro de poste</th>
-        <th>Type de poste</th>
-        <th>Statut</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        v-for="poste in sortedPostes"
-        :key="poste.id"
-        role="button"
-        @click="emit('posteSelected', poste)"
-      >
-        <td>{{getPrefixPoste(poste.typePoste)}}{{ poste.idPoste }}</td>
-        <td>{{ poste.typePoste }}</td>
-        <td>{{ poste.statut }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="px-2 mt-3">
+  <h1>Liste des postes</h1>
+  <div class="list-group fs-6">
+    <button class="list-group-item list-group-item-action" v-for="poste in sortedPostes" :key="poste.id" @click="emit('posteSelected', poste)" :class="poste.statut == 'FAIT' ? 'list-group-item-success' : ''">
+    <div class="d-flex w-100 justify-content-between">
+      <span><span class="badge rounded-pill text-bg-dark">Poste N° {{getPrefixPoste(poste.typePoste)}}{{ poste.idPoste }}</span></span>
+      <small>{{ poste.typePoste }}</small>
+      <span>{{ poste.zone ? poste.zone : "Aucun" }}</span>
+    </div>
+    </button>
+  </div>
+  </div>
 </template>
-
-<style>
-
-
-
-</style>

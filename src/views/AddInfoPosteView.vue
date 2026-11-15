@@ -152,12 +152,12 @@ onMounted(() => {
 
                 <label for="zoneText" class="h4 form-label fw-bold">Zone</label>
 
-                <Autocomplete
+                <Autocomplete required="required"
                     id="zoneText"
                     class="mt-0 mb-3"
                     @filter="(zone) => (posteData.zone = zone)"
                     name="autocomplete-zones"
-                    placeholder="ex. : Faux plafond, …"
+                    placeholder="Cuisine, Réserve, etc ..."
                     :options="existingZones"
                     :initial-value="lastZone"
                 ></Autocomplete>

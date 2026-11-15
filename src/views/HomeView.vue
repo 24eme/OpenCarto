@@ -121,7 +121,18 @@ function generatePdfAnnexes(annexesHtml) {
 
         <div class="container">
             <h1 class="mt-4">Liste des étages</h1>
-            <div class="table-responsive fs-5">
+
+            <div class="list-group fs-5 mt-3 mb-4">
+              <RouterLink class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" v-for="etage in etages"
+                  :to="{
+                      name: 'etage',
+                      params: { etage: etage.id },
+                  }"
+                  >{{ etage.label }} <span class="badge text-bg-primary rounded-pill">{{ getNbPostes(etage.id) }} postes</span>
+              </RouterLink>
+            </div>
+
+            <div class="table-responsive fs-5 d-none">
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -168,6 +179,7 @@ function generatePdfAnnexes(annexesHtml) {
               >
 
               </AnnexesPDF>
+
               <button class="btn btn-primary btn-send-tournee custom-btn-primary" ref="pdfGenerationButton"
               >
                 Envoyer dans la tournée

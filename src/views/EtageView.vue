@@ -120,16 +120,16 @@ function startNewTournee() {
                 </div>
                 <div class="col-auto flex-grow-1">
                     <h1 class="m-0">{{ loadedEtage }}</h1>
-                    <small>{{ clientName }}</small>
                 </div>
                 <div class="col-auto">
-                  <i
-                  class="bi fs-3"
-                  :class="showListe ? 'bi-map' : 'bi-list'"
-                  role="button"
-                  @click="showListe = !showListe"
-                  :title="showListe ? 'Voir la carte' : 'Voir la liste'"
-                  ></i>
+                      <button class="btn btn-sm px-3" :class="!showListe ? 'btn-dark' : 'btn-outline-dark'" @click="showListe = !showListe"><i
+                      class="bi fs-3 bi-map"
+                      title="Voir la carte"
+                      ></i></button>
+                      <button class="btn btn-sm ms-1 px-3"  :class="showListe ? 'btn-dark' : 'btn-outline-dark'" @click="showListe = !showListe"><i
+                      class="bi fs-3 bi-list"
+                      title="Voir la liste"
+                      ></i></button>
                 </div>
             </div>
         </nav>
