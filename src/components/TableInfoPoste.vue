@@ -1,11 +1,9 @@
 <script setup>
-import { computed, inject, ref, onMounted} from "vue";
+import { computed, inject } from "vue";
 import { useRoute } from "vue-router";
 import { postesRef, ecrireStorage } from "@/store/postes";
 import { etageid2label } from "@/store/etages";
 import { PosteStatuts, newHistoryEntry } from "@/store/posteData";
-import AnnexesPDF from "./AnnexesPDF.vue";
-import { jsPDF } from "jspdf";
 
 const props = defineProps({
     poste: Object,
@@ -42,46 +40,6 @@ function anomalies2array(poste) {
   return anomalies;
 }
 
-
-const annexesPdfRef = ref();
-const pdfGenerationButton = ref();
-
-const show = false;
-
-onMounted(() => {
-  const annexesHtml = annexesPdfRef.value.annexesHtml;
-
-  window.addEventListener("click", function (e) {
-    if (e.target == pdfGenerationButton.value) {
-      generatePdfAnnexes(annexesHtml);
-    }
-  });
-});
-
-
-function generatePdfAnnexes(annexesHtml) {
-  const doc = new jsPDF({
-    orientation: "portrait",
-    unit: "pt",
-    format:"a4",
-  });
-
-  const annexesContent = annexesHtml.innerHTML
-
-  doc.html(annexesContent, {
-    callback: function (doc) {
-      doc.save("rapport_annexes.pdf");
-    },
-    x: 20,
-    y: 20,
-    width: 550,
-    windowWidth: 600,
-    html2canvas: {
-    }
-
-
-  });
-}
 </script>
 
 <template>
@@ -147,14 +105,6 @@ function generatePdfAnnexes(annexesHtml) {
               >
                   Saisir le niveau d'infestation
               </RouterLink>
-
-              <div>
-                <AnnexesPDF v-show="show" ref="annexesPdfRef"></AnnexesPDF>
-                <button class="btn btn-primary" style="margin-top:5px;" ref="pdfGenerationButton"
-                >
-                  Envoyer dans la tournée
-                </button>
-              </div>
             </div>
 
               <router-view></router-view>
