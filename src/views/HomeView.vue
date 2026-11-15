@@ -114,8 +114,7 @@ function generatePdfAnnexes(annexesHtml) {
                     ></i>
                 </div>
                 <div class="col-auto">
-                    <h1 class="m-0">Suivi de l'infestation</h1>
-                    <small>{{ clientName }}</small>
+                    <h1 class="m-0">{{ clientName }}</h1>
                 </div>
             </div>
         </nav>

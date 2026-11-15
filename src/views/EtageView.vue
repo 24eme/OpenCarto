@@ -119,7 +119,7 @@ function startNewTournee() {
                     ></RouterLink>
                 </div>
                 <div class="col-auto flex-grow-1">
-                    <h1 class="m-0">Suivi de l'infestation</h1>
+                    <h1 class="m-0">{{ loadedEtage }}</h1>
                     <small>{{ clientName }}</small>
                 </div>
                 <div class="col-auto">
