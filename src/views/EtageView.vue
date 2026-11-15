@@ -122,11 +122,11 @@ function startNewTournee() {
                     <h1 class="m-0">{{ loadedEtage }}</h1>
                 </div>
                 <div class="col-auto">
-                      <button class="btn btn-sm px-3" :class="!showListe ? 'btn-dark' : 'btn-outline-dark'" @click="showListe = !showListe"><i
+                      <button class="btn btn-sm px-3 rounded-0 rounded-start" :class="!showListe ? 'btn-dark' : 'btn-outline-dark'" @click="showListe = !showListe"><i
                       class="bi fs-3 bi-map"
                       title="Voir la carte"
                       ></i></button>
-                      <button class="btn btn-sm ms-1 px-3"  :class="showListe ? 'btn-dark' : 'btn-outline-dark'" @click="showListe = !showListe"><i
+                      <button class="btn btn-sm px-3 rounded-0 rounded-end"  :class="showListe ? 'btn-dark' : 'btn-outline-dark'" @click="showListe = !showListe"><i
                       class="bi fs-3 bi-list"
                       title="Voir la liste"
                       ></i></button>
@@ -162,14 +162,9 @@ function startNewTournee() {
             :mainLink="{ name: 'addInfoPoste' }"
             :mainIcons="{ main: 'bi-geo-alt', stack: 'bi-plus' }"
         >
-            <template #mini>
-                <div @click="startNewTournee">
-                    <i
-                        class="d-flex position-relative bi bi-node-plus lh-1"
-                    ></i>
-                </div>
-            </template>
         </FAB>
+
+        <button class="btn btn-link opacity-50 position-absolute bottom-0" @click="startNewTournee">[RESET]</button>
 
         <OverCard v-if="selectedPoste" @close="selectedPoste = undefined">
             <!-- <router-view> => Nested view visible dans router/index.js -->

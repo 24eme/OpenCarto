@@ -44,7 +44,7 @@ function updatePosteCoordinate(coordinates) {
         <nav class="navbar bg-body-tertiary">
             <div class="container justify-content-start flex-nowrap margin-container">
                 <div class="col-auto d-flex me-3">
-                    <RouterLink :to="{ name: 'rapport' }">
+                    <RouterLink :to="{ name: 'addInfoPoste' }">
                         <i
                             class="bi bi-arrow-left-square fs-1 align-self-center"
                         ></i
@@ -82,7 +82,7 @@ function updatePosteCoordinate(coordinates) {
 
         <FAB
             mainTitle="Valider le placement"
-            :mainIcons="{ main: 'bi-check-lg' }"
+            :mainIcons="{ main: 'bi-geo-alt', stack: 'bi-plus' }"
             @click="valider"
         ></FAB>
     </main>

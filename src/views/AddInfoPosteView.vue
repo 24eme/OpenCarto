@@ -222,7 +222,7 @@ onMounted(() => {
         <div class="m-2 row">
             <component
                 :is="isValidPosteId ? 'router-link' : 'span'"
-                :to="{ name: 'prisePhoto' }"
+                :to="{ name: 'addCoordonneesPoste' }"
                 class="btn btn-primary custom-btn-primary"
                 :class="isValidPosteId ? '' : 'disabled'"
             >

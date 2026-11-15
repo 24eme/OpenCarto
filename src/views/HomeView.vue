@@ -180,7 +180,7 @@ function generatePdfAnnexes(annexesHtml) {
 
               </AnnexesPDF>
 
-              <button class="btn btn-primary btn-send-tournee custom-btn-primary" ref="pdfGenerationButton"
+              <button class="btn btn-outline-primary btn-send-tournee custom-btn-primary" ref="pdfGenerationButton"
               >
                 Envoyer dans la tournée
               </button>

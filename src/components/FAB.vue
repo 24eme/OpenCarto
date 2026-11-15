@@ -38,10 +38,6 @@ const props = defineProps({
             <i v-if="mainIcons.stack" class="bi stack stack-be" :class="[mainIcons.stack]"></i>
         </i>
     </div>
-
-    <div class="fab mini">
-        <slot name="mini"></slot>
-    </div>
 </div>
 </template>
 
