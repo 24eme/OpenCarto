@@ -37,6 +37,7 @@ const router = createRouter({
       path: "/:etage/poste/add",
       name: "addInfoPoste",
       component: AddInfoPosteView,
+      props: { isExistingPoste: false },
     },
     {
       path: "/:etage/poste/prisePhoto",
@@ -60,6 +61,12 @@ const router = createRouter({
       name: 'suiviInfestation',
       component: SuiviInfestationView,
       props: { isPremierPassage: false },
+    },
+    {
+      path: "/:etage/:poste/edit",
+      name: "editInfoPoste",
+      component: AddInfoPosteView,
+      props: { isExistingPoste: true },
     },
   ],
 })
