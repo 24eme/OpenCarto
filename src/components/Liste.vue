@@ -6,6 +6,8 @@ const props = defineProps({
   postes: { type: Array, default: () => [] },
 });
 
+const emit = defineEmits(["posteSelected"]);
+
 const ORDRE_TYPES = Object.keys(PrefixPoste);
 
 const sortedPostes = computed(() => {

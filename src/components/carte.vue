@@ -149,7 +149,7 @@ watch(
     </div>
 
     <div v-if="hasCoordinatesSelector" class="viseur">
-        <span>{{getPrefixPoste(posteData.typePoste)}}-{{ posteData.idPoste }}</span>
+        <span>{{getPrefixPoste(posteData.typePoste)}}{{ posteData.idPoste }}</span>
     </div>
 </template>
 
