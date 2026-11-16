@@ -31,12 +31,12 @@ const datePassage = new Date().toLocaleString(locale, options);
     <img src="./../assets/logo_aurouze.png" style="display: block; max-width: 100px; max-height: 40px; width: 238px; height: 82px; margin: 40px auto;"></img>
 
     <div>
-      <h1 style="border:0.2px black solid; font-size: 14px; width: 600px; font-weight: bold; padding:5px; background-color: lightblue;">Traçabilité: Plan de Prévention et de Lutter Anti Nuisible</h1>
+      <h1 style="border:0.2px black solid; font-size: 14px; width: 600px; font-weight: bold; padding:5px; background-color: #add8e6; text-align: center;">Traçabilité: Plan de Prévention et de Lutter Anti Nuisible</h1>
 
       <table style="border: 0.2px black solid; border-collapse: collapse; font-size: 10px; width: 600px; font-weight: 800;">
         <thead>
           <tr>
-            <th style="border: 0.2px black solid; border-collapse: collapse; text-align: center; font-weight: bold; background-color: lightblue;">CONTRÔLE DU DISPOSITIF DE PREVENTION</th>
+            <th style="border: 0.2px black solid; border-collapse: collapse; text-align: center; font-weight: bold; background-color:  #add8e6;">CONTRÔLE DU DISPOSITIF DE PREVENTION</th>
           </tr>
         </thead>
         <tbody>
