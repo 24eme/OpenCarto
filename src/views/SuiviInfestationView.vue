@@ -288,7 +288,7 @@ input[type="range"]::-moz-range-thumb {
 }
 
 #informationsComplementaireTextArea {
-  height: 15rem;
+  height: 10rem;
 }
 
 .h5 {
