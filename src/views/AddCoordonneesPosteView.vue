@@ -82,7 +82,7 @@ function updatePosteCoordinate(coordinates) {
 
         <FAB
             mainTitle="Valider le placement"
-            :mainIcons="{ main: 'bi-geo-alt', stack: 'bi-plus' }"
+            :mainIcons="{ main: 'bi-geo-alt', stack: 'bi-check' }"
             @click="valider"
         ></FAB>
     </main>

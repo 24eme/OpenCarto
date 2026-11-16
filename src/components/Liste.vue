@@ -23,7 +23,7 @@ const sortedPostes = computed(() => {
 <template>
   <div class="px-2 mt-3">
   <h1>Liste des postes</h1>
-  <div class="list-group fs-6">
+  <div class="list-group fs-5">
     <button class="list-group-item list-group-item-action" v-for="poste in sortedPostes" :key="poste.id" @click="emit('posteSelected', poste)" :class="poste.statut == 'FAIT' ? 'list-group-item-success' : ''">
     <div class="d-flex w-100 justify-content-between">
       <span><span class="badge rounded-pill text-bg-dark">Poste N° {{getPrefixPoste(poste.typePoste)}}{{ poste.idPoste }}</span></span>

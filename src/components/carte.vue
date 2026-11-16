@@ -99,7 +99,7 @@ onMounted(() => {
     groupes.forEach((groupe) => {
         controleCalques[groupe.label] = groupe.layerGroupe;
     });
-    controle = L.control.layers(controleCalques).addTo(map);
+    //controle = L.control.layers(controleCalques).addTo(map);
 
     const initialLayerIndex = groupes.findIndex(
         (groupe) => groupe.id === props.layer,

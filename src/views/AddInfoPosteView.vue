@@ -163,7 +163,7 @@ onMounted(() => {
                 ></Autocomplete>
             </div>
 
-            <div class="my-2 mb-auto">
+            <div class="my-2">
                 <label for="typeSelect" class="h4 form-label fw-bold">
                     Type de poste
                 </label>
@@ -183,19 +183,18 @@ onMounted(() => {
                 </select>
             </div>
 
-            <hr />
-            <div class="my-2" v-if="getPrefixPoste(posteData.typePoste)">
+            <div class="my-2" :class="!getPrefixPoste(posteData.typePoste) ? 'opacity-25' : ''">
               <p class="fs-4 fw-bold mb-2">
                 Numéro interne de la machine
               </p>
-              <input class="display-1 text-center w-100"
-              >
-              </input>
-              <hr />
+              <input :disabled="!getPrefixPoste(posteData.typePoste)" class="form-control"
+              ></input>
 
             </div>
 
-            <div class="my-2">
+
+            <div class="my-2 mt-auto">
+                <hr />
                 <p class="fs-4 fw-bold mb-2">
                     Numéro du poste<br />
                     <small>- à reporter sur l'installation - </small>
