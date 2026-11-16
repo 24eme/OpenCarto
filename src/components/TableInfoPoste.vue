@@ -114,6 +114,13 @@ function anomalies2array(poste) {
                 Préc.
             </button>
             <RouterLink
+                :to="{ name: 'editInfoPoste' }"
+                class="vstack btn btn-container"
+            >
+                <span class="bi bi-pencil-square"></span>
+                Modifier
+            </RouterLink>
+            <RouterLink
                 :to="{ name: 'posteHistory' }"
                 class="vstack btn btn-container"
             >

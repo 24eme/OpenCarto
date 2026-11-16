@@ -6,9 +6,17 @@ import { ref, computed, watch, onMounted} from "vue";
 import Autocomplete from "@/components/Autocomplete.vue";
 import { fetchPostes, range } from "@/store/postes";
 
+const props = defineProps({
+  isExistingPoste: Boolean,
+});
+
 const route = useRoute();
 const allPostes = ref(fetchPostes())
 const existingZones = ref([]);
+
+if (props.isExistingPoste) {
+  posteData.value = allPostes.value.find((p) => p.id === route.params.poste);
+}
 
 const lastZone = computed(() => {
     if (posteData.zone) {
