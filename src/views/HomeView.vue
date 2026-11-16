@@ -6,7 +6,8 @@ import { ref, computed, onMounted } from "vue";
 import AnnexesPDF from "@/components/AnnexesPDF.vue";
 import { jsPDF } from "jspdf";
 
-const clientName = ref("Potel & Chabot");
+let clientName = ref("Potel & Chabot");
+let url = null;
 const etages = ref(etagesConfig);
 const modaleOuverte = ref(false);
 const postes = ref(fetchPostes());
@@ -74,7 +75,16 @@ const show = false;
 
 onMounted(() => {
   const annexesHtml = annexesPdfRef.value.annexesHtml;
-
+  const params = new URLSearchParams(window.location.search);
+  if(params.get('url')) {
+    localStorage.setItem("url", params.get('url'));
+  }
+  if(params.get('client')) {
+    localStorage.setItem("client", params.get('client'));
+  }
+  if(localStorage.getItem('client')) {
+    clientName.value = localStorage.getItem('client');
+  }
   window.addEventListener("click", function (e) {
     if (e.target == pdfGenerationButton.value) {
       generatePdfAnnexes(annexesHtml);
@@ -109,7 +119,7 @@ function generatePdfAnnexes(annexesHtml) {
         <nav class="navbar bg-body-tertiary">
             <div class="container justify-content-start margin-container">
                 <div class="col-auto d-flex me-3">
-                    <i
+                    <i onclick="document.location.href = localStorage.getItem('url')"
                         class="bi bi-arrow-left-square fs-1 align-self-center"
                     ></i>
                 </div>
