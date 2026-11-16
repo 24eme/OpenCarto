@@ -72,7 +72,7 @@ const valider = () => {
   );
 
   poste.value.commentaire_suivi_conso = commentaire.value;
-  poste.value.pourcentage_conso = checkboxDisparu ? -1 : indexSlider.value;
+  poste.value.pourcentage_conso = checkboxDisparu.value ? -1 : indexSlider.value;
   poste.value.anomalies = anomaliesData;
 
   if (props.isPremierPassage) {
