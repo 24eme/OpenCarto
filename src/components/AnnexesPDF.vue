@@ -89,6 +89,12 @@ const datePassage = new Date().toLocaleString(locale, options);
       </tr>
     </tbody>
   </table>
+
+  <div style="margin: 0 auto;">
+    <img src="./../assets/test-carte.png" style="margin-top: 250px; width: 800px;"></img>
+  </div>
+
+
 </div>
 </template>
 
