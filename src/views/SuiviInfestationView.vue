@@ -118,52 +118,22 @@ const datePassage = new Date().toLocaleString(locale, options);
       </nav>
 
       <div class="container vstack rapport">
-          <div class="border bg-light rounded-1 p-3 pb-0 mt-1">
-              <h6 @click="infosOuvertes = !infosOuvertes">
-                  Informations sur le poste
-                  <span class="float-end bi bi-chevron-down"></span>
-              </h6>
-              <div class="row row-cols-2 row-cols-sm-4" v-if="infosOuvertes">
-                  <div class="col d-flex align-items-start">
-                      <i
-                          class="bi bi-geo-fill fs-4 me-2"
-                          aria-hidden="true"
-                      ></i>
-                      <div>
-                          <h3 class="fw-bold mb-0 fs-5">Étage</h3>
-                          <p>{{ etageid2label(poste.etage) }}</p>
-                      </div>
-                  </div>
-                  <div class="col d-flex align-items-start">
-                      <i
-                          class="bi bi-brilliance fs-4 me-2"
-                          aria-hidden="true"
-                      ></i>
-                      <div>
-                          <h3 class="fw-bold mb-0 fs-5">Type de poste</h3>
-                          <p>{{ poste.typePoste }}</p>
-                      </div>
-                  </div>
-                  <div class="col d-flex align-items-start">
-                      <i
-                          class="bi bi-columns fs-4 me-2"
-                          aria-hidden="true"
-                      ></i>
-                      <div>
-                          <h3 class="fw-bold mb-0 fs-5">Zone</h3>
-                          <p>{{ poste.zone }}</p>
-                      </div>
-                  </div>
-                  <div class="col d-flex align-items-start">
-                      <i
-                          class="bi bi-columns fs-4 me-2"
-                          aria-hidden="true"
-                      ></i>
-                      <div>
-                          <h3 class="fw-bold mb-0 fs-5">Numéro du poste</h3>
-                          <p>{{ poste.idPoste }}</p>
-                      </div>
-                  </div>
+          <div class="border bg-light rounded-1 p-2 m-2 fs-6">
+              <div class="row">
+                <div class="col-6"><i class="bi bi-geo-fill"></i> Étage</div>
+                <div class="col-6 fw-bold">{{ etageid2label(poste.etage) }}</div>
+              </div>
+              <div class="row">
+                <div class="col-6"><i class="bi bi-columns"></i> Zone</div>
+                <div class="col-6 fw-bold">{{ poste.zone }}</div>
+              </div>
+              <div class="row">
+                <div class="col-6 "><i class="bi bi-brilliance"></i> Type de poste</div>
+                <div class="col-6 fw-bold">{{ poste.typePoste }}</div>
+              </div>
+              <div class="row">
+                <div class="col-6"><i class="bi bi-123"></i> Numéro du poste</div>
+                <div class="col-6 fw-bold">{{ poste.idPoste }}</div>
               </div>
           </div>
 
@@ -322,7 +292,6 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .h5 {
-  margin-bottom: 20px;
   background-color: #f1f3f5;
   padding: 12px;
   border-radius: 5px;

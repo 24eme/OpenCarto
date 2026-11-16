@@ -51,14 +51,12 @@ function anomalies2array(poste) {
             </div>
             <div class="col px-3">
                 <div class="table-responsive">
-                    <table class="table table-stripped">
-                        <thead>
+                    <table class="table table-striped-columns">
+                        <tbody>
                             <tr>
-                                <th>Type</th>
-                                <th>Valeur</th>
+                              <td>Créé le</td>
+                              <td>{{ formatDate(poste.creeLe) }}</td>
                             </tr>
-                        </thead>
-                        <tbody class="table-group-divider">
                             <tr>
                                 <td>Étage</td>
                                 <td>{{ etageid2label(poste.etage) }}</td>
@@ -73,23 +71,22 @@ function anomalies2array(poste) {
                             </tr>
                             <tr>
                                 <td>Consommation</td>
-                                <td>{{ poste.pourcentage_conso }}%</td>
+                                <td v-if="poste.statut == 'FAIT'">{{ poste.pourcentage_conso }}%</td>
+                                <td v-if="poste.statut != 'FAIT'" class="text-muted">Non saisie</td>
                             </tr>
                             <tr>
                                 <td>Anomalies</td>
-                                <td>{{ anomalies2array(poste).length }}</td>
+                                <td v-if="anomalies2array(poste).length > 0">{{ anomalies2array(poste).length }}</td>
+                                <td v-if="anomalies2array(poste).length == 0" class="text-muted">Aucune</td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                                 <td>Photo</td>
                                 <td v-if="!poste.photo">
                                     <i class="bi bi-camera"></i> Ajouter
                                 </td>
                                 <td v-else>Modifier</td>
-                            </tr>
-                            <tr>
-                                <td>Créé le</td>
-                                <td>{{ formatDate(poste.creeLe) }}</td>
-                            </tr>
+                            </tr> -->
+
                         </tbody>
                     </table>
                     <div class="text-secondary text-center" style="display: none;">
