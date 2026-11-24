@@ -142,46 +142,17 @@ function generatePdfAnnexes(annexesHtml) {
               </RouterLink>
             </div>
 
-            <div class="table-responsive fs-5 d-none">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Étage</th>
-                            <th class="text-end">Nb de postes</th>
-                            <th class="ms-auto"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="etage in etages">
-                            <td>{{ etage.label }}</td>
-                            <td class="text-end">
-                                {{ getNbPostes(etage.id) }} postes
-                            </td>
-                            <td class="text-end ms-auto">
-                                <RouterLink
-                                    :to="{
-                                        name: 'etage',
-                                        params: { etage: etage.id },
-                                    }"
-                                    >» Voir</RouterLink
-                                >
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
 
-                <div class="float-end">
-                    <div
-                        @click="modaleOuverte = true"
-                        class="btn btn-outline-primary fs-6"
-                    >
-                        <i class="bi bi-plus"></i>
-                        Ajouter un étage
-                    </div>
-                </div>
+            <div class="">
+              <div
+              @click="modaleOuverte = true"
+              class="btn btn-outline-primary fs-6">
+              <i class="bi bi-plus"></i>
+                Ajouter un étage
+              </div>
             </div>
 
-            <hr />
+          <hr />
 
             <div>
               <AnnexesPDF v-show="show" ref="annexesPdfRef"
