@@ -6,7 +6,6 @@ import PrisePhotoView from "@/views/PrisePhotoView.vue";
 import AddCoordonneesPoste from "@/views/AddCoordonneesPosteView.vue";
 import TableInfoPoste from "@/components/TableInfoPoste.vue";
 import TableHistoryPoste from "@/components/TableHistoryPoste.vue";
-import SuiviInfestationView from "@/views/SuiviInfestationView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,22 +44,9 @@ const router = createRouter({
       component: PrisePhotoView,
     },
     {
-      path: "/:etage/poste/rapport",
-      name: 'rapport',
-      component: SuiviInfestationView,
-      props: { isPremierPassage: true },
-    },
-    {
       path: "/:etage/poste/addCoordonneesPoste",
       name: "addCoordonneesPoste",
       component: AddCoordonneesPoste,
-    },
-
-    {
-      path: "/:etage/:poste/suiviInfestation",
-      name: 'suiviInfestation',
-      component: SuiviInfestationView,
-      props: { isPremierPassage: false },
     },
     {
       path: "/:etage/:poste/edit",
