@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 
 const STORAGE_KEY = "postes";
-const TYPE_FALLBACK = "SANS_TYPE"; // au cas où typePoste serait null
+const ZONE_FALLBACK = "SANS_ZONE"; // au cas où zone serait vide
 
 const postesRef = ref(lireStorage())
 
@@ -47,11 +47,11 @@ export function ecrireStorage(postes) {
   const structure = {};
 
   for (const poste of postes) {
-    const type = poste.typePoste || TYPE_FALLBACK;
-    if (!structure[type]) {
-      structure[type] = {};
+    const zone = poste.zone || ZONE_FALLBACK;
+    if (!structure[zone]) {
+      structure[zone] = {};
     }
-    structure[type][poste.id] = poste;
+    structure[zone][poste.id] = poste;
   }
 
   localStorage.setItem(STORAGE_KEY, JSON.stringify(structure));
