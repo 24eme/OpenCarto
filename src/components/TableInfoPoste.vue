@@ -86,6 +86,10 @@ function valider() {
     if (!poste.value) {
       return;
     }
+    if (autreCoche.value && !detailAutre.value.trim()) {
+        alert("Merci de préciser l'anomalie « Autre ».");
+        return;
+    }
 
     poste.value.pourcentage_conso = pourcentageConso.value;
     poste.value.anomalies = Object.fromEntries(
