@@ -33,9 +33,11 @@ const PAS = 10;
 const VALEURS = Array.from({ length: 100 / PAS + 1 }, (_, i) => i * PAS);
 const VALEUR_NON_SUIVI = -1;
 const LABEL_NON_SUIVI = "Ne peut pas suivre la conso";
+const AUTRE_KEY = "autre";
 
 const pourcentageConso = ref(0);
 const anomalies = ref({});
+const detailAutre = ref("");
 
 const anomaliesOuvertes = ref(false);
 const anomaliesDropdownRef = ref(null);
@@ -55,6 +57,10 @@ const anomaliesSelectionneesCount = computed(
     () => Object.values(anomalies.value).filter((a) => a.checked).length
 );
 
+const autreCoche = computed(
+    () => anomalies.value[AUTRE_KEY]?.checked === true
+);
+
 function initFromPoste(p) {
     if (!p) return;
     pourcentageConso.value =
@@ -65,6 +71,7 @@ function initFromPoste(p) {
             { label, checked: p.anomalies?.[key]?.checked ?? false },
         ])
     );
+    detailAutre.value = p.anomalies?.[AUTRE_KEY]?.detail ?? "";
 }
 
 initFromPoste(poste.value);
@@ -74,14 +81,19 @@ watch(poste, (newPoste) => {
 });
 
 function valider() {
-    if (!poste.value) return;
+    if (!poste.value) {
+      return;
+    }
 
     poste.value.pourcentage_conso = pourcentageConso.value;
     poste.value.anomalies = Object.fromEntries(
-        Object.entries(anomalies.value).map(([key, { label, checked }]) => [
-            key,
-            { label, checked },
-        ])
+        Object.entries(anomalies.value).map(([key, { label, checked }]) => {
+            const entry = { label, checked };
+            if (key === AUTRE_KEY) {
+                entry.detail = checked ? detailAutre.value.trim() : "";
+            }
+            return [key, entry];
+        })
     );
     poste.value.statut = PosteStatuts.FAIT;
     if (!poste.value.history) {
@@ -203,6 +215,23 @@ function formatDate(datestring) {
                                         </div>
                                     </div>
                                 </div>
+                            </td>
+                        </tr>
+                        <tr v-if="autreCoche">
+                            <td>
+                                <label for="detailAutre" class="fw-normal mb-0">
+                                    Précision « Autre »
+                                </label>
+                            </td>
+                            <td>
+                                <input
+                                    id="detailAutre"
+                                    type="text"
+                                    class="form-control form-control-sm"
+                                    v-model="detailAutre"
+                                    placeholder="Précisez l'anomalie constatée"
+                                    maxlength="500"
+                                />
                             </td>
                         </tr>
                     </tbody>

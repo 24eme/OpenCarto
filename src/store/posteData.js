@@ -75,6 +75,7 @@ export const AnomaliesSuivi = Object.freeze({
   porte_acces: "Porte accès (avec les zones) non hermétique",
   siphon_sol: "Siphon sol (avec la zone) manquant, cassé ou abîmé",
   tuyaux: "Tuyaux cassés (avec la zone), abîmés ou manquants",
+  autre: "Autre",
 });
 
 const HistoryItem = Object.freeze({
