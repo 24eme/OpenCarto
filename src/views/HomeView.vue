@@ -2,6 +2,7 @@
 import UploadPlan from "../components/uploadPlan.vue";
 import { etagesConfig } from "@/store/etages";
 import { fetchPostes } from "@/store/postes";
+import { NomPoste, getNomPoste } from "@/store/posteData";
 import { ref, computed, onMounted } from "vue";
 import AnnexesPDF from "@/components/AnnexesPDF.vue";
 import { jsPDF } from "jspdf";
@@ -12,11 +13,7 @@ let url = null;
 const etages = ref(etagesConfig);
 const modaleOuverte = ref(false);
 const postes = ref(fetchPostes());
-const statistiquesOpened = ref(false);
-const statistiquesOpenedIcon = computed(() => ({
-    "bi-chevron-contract": statistiquesOpened.value === true,
-    "bi-chevron-expand": statistiquesOpened.value === false,
-}))
+
 
 function getNbPostes(etage) {
     return postes.value.filter((p) => p.etage === etage).length;
@@ -29,40 +26,17 @@ function generateStats() {
     const stats = [];
     stats.push({ name: "Nombre total de postes", value: postes.value.length });
 
-    const types = [...new Set(postes.value.map((p) => p.typePoste))];
-    const zones = [...new Set(postes.value.map((p) => p.zone))];
+
+    const types = [...new Set(Object.keys(NomPoste))];
 
     types.forEach((t) => {
         const filtered = postes.value.filter((p) => p.typePoste === t);
+
         stats.push({
-            name: `Nombre de ${t}`,
+            name: `${getNomPoste(t)}`,
             value: filtered.length,
         });
 
-        stats.push({
-            name: `Consommation des ${t} (moy.)`,
-            value:
-                parseFloat(
-                    filtered.reduce(
-                        (total, cv) => cv.pourcentage_conso + total,
-                        0,
-                    ) / filtered.length,
-                ).toFixed(2) + "%",
-        });
-    });
-
-    zones.forEach((z) => {
-        const filtered = postes.value.filter((p) => p.zone === z);
-        stats.push({
-            name: `Consommation dans la zone ${z} (moy.)`,
-            value:
-                parseFloat(
-                    filtered.reduce(
-                        (total, cv) => cv.pourcentage_conso + total,
-                        0,
-                    ) / filtered.length,
-                ).toFixed(2) + "%",
-        });
     });
 
     return stats;
@@ -184,19 +158,12 @@ async function save(postes) {
 
             <hr />
 
-            <h1 @click="statistiquesOpened = !statistiquesOpened">
-                Statistiques
-                <span
-                    class="float-end bi"
-                    :class="statistiquesOpenedIcon"
-                ></span>
-            </h1>
-            <div class="d-flex flex-wrap gap-1 mb-2"
-                v-if="statistiquesOpened"
-            >
+            <h1>Récapitulatif</h1>
+            <div class="d-flex flex-column align-items-center gap-2 mb-2">
                 <div
-                    class="flex-grow-1 border rounded p-2 text-center"
+                    class="border rounded p-2 text-center stat-block"
                     v-for="stat in generateStats()"
+                    :key="stat.name"
                 >
                     <h6>{{ stat.name }}</h6>
                     <div class="big-number fw-bold text-primary">
@@ -225,5 +192,10 @@ async function save(postes) {
   justify-content: center;
   font-weight: normal;
   width: 20rem ;
+}
+
+.stat-block {
+    width: 20rem;
+    max-width: 100%;
 }
 </style>
