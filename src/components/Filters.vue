@@ -6,7 +6,6 @@ const props = defineProps({
     type: Array,
     required: true,
   },
-  // ← nouveau : filtres actifs passés par le parent
   selected: {
     type: Array,
     default: () => [],
@@ -15,10 +14,8 @@ const props = defineProps({
 
 const emit = defineEmits(['filter'])
 
-// sélection locale initialisée depuis le parent
 const filters = ref([...props.selected])
 
-// si le parent change la sélection (reset, navigation…), on se resynchronise
 watch(
   () => props.selected,
   (val) => {
@@ -31,7 +28,7 @@ function toggle(key) {
   if (i === -1) filters.value.push(key)
   else filters.value.splice(i, 1)
 
-  emit('filter', [...filters.value]) // ← tableau, pas la ref
+  emit('filter', [...filters.value])
 }
 
 function estSelectionne(key) {
@@ -55,14 +52,14 @@ function estSelectionne(key) {
 </template>
 
 <style scoped>
-/* inchangé */
+
 .wrapper {
   margin: 1rem 0;
   width: 100%;
   position: absolute;
   display: block;
   overflow-x: visible;
-  z-index: 401; /* leaflet-pane z-index = 400 */
+  z-index: 401;
 }
 .badge-filter {
   --filter_background-color: lch(99 0.5 285);
