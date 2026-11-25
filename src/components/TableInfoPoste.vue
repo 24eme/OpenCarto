@@ -62,7 +62,9 @@ const autreCoche = computed(
 );
 
 function initFromPoste(p) {
-    if (!p) return;
+    if (!p) {
+      return;
+    }
     pourcentageConso.value =
         p.pourcentage_conso == null ? 0 : p.pourcentage_conso;
     anomalies.value = Object.fromEntries(
