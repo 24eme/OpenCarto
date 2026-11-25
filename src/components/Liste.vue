@@ -40,8 +40,8 @@ const sortedPostes = computed(() => {
       <button class="list-group-item list-group-item-action" v-for="poste in postes" :key="poste.id" @click="emit('posteSelected', poste)" :class="poste.statut == 'FAIT' ? 'list-group-item-success' : ''">
       <div class="d-flex w-100 justify-content-between">
         <span><span class="badge rounded-pill text-bg-dark">{{getPrefixPoste(poste.typePoste)}}{{ poste.idPoste }}</span><span class="ms-4">{{ poste.typePoste }}</span></span>
-        <span class="font-monospace" v-if="poste.pourcentage_conso > 0">{{ poste.pourcentage_conso }} %</span>
-        <span class="font-monospace" v-if="poste.pourcentage_conso <= 0">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span class="font-monospace" v-if="poste.pourcentage_conso == -1">NPPS</span>
+        <span class="font-monospace" v-else>{{ poste.pourcentage_conso }} %</span>
       </div>
       </button>
     </div>
