@@ -158,8 +158,8 @@ async function save(postes) {
 
             <hr />
 
-            <h1>Récapitulatif</h1>
             <div class="d-flex flex-column align-items-center gap-2 mb-2">
+              <h1>Récapitulatif</h1>
                 <div
                     class="border rounded p-2 text-center stat-block"
                     v-for="stat in generateStats()"
