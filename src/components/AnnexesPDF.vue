@@ -76,7 +76,7 @@ const datePassage = new Date().toLocaleString(locale, options);
         <td style="border: 0.2px black solid; border-collapse: collapse; text-align: center;">{{ JSON.parse(JSON.stringify((poste.etage))) }}</td>
         <td style="border: 0.2px black solid; border-collapse: collapse; text-align: center;">{{ JSON.parse(JSON.stringify((poste.zone))) }}</td>
         <td style="border: 0.2px black solid; border-collapse: collapse; text-align: center;">{{ JSON.parse(JSON.stringify((poste.idPoste))) }}</td>
-        <td style="border: 0.2px black solid; border-collapse: collapse; text-align: center;">{{ JSON.parse(JSON.stringify((poste.typePoste))) }}</td>
+        <td style="border: 0.2px black solid; border-collapse: collapse; text-align: center;">{{ JSON.parse(JSON.stringify((getNomPoste(poste.typePoste)))) }}</td>
 
         <td style="border: 0.2px black solid; border-collapse: collapse; text-align: center;"> {{ JSON.parse(JSON.stringify((poste.pourcentage_conso))) }} %</td>
         <td style="border: 0.2px black solid; border-collapse: collapse; text-align: center; padding-top: 18px;">
