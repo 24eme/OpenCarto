@@ -66,6 +66,14 @@ export const PrefixPoste = Object.freeze({
   boite: "B",
 });
 
+export const NomPoste = Object.freeze({
+  wisebox: "Wisebox",
+  mimetic: "Mimetic",
+  ekomille: "Ekomille",
+  boite_rat_carton: "Boite rat carton",
+  boite_souris_securisee: "Boite souris sécurisée",
+})
+
 export const AnomaliesSuivi = Object.freeze({
   concurrence_alimentaire: "Concurrence alimentaire sous les éléments avec la ou les zones",
   trous_sol: "Trous sol (avec les zones)",
@@ -136,4 +144,8 @@ export function getPrefixPoste(typePoste) {
     return PrefixPoste.boite;
   }
   return PrefixPoste[typePoste] ?? "";
+}
+
+export function getNomPoste(typePoste) {
+  return NomPoste[typePoste];
 }

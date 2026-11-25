@@ -1,5 +1,6 @@
 <script setup>
 import { ref, watch } from 'vue'
+import { getNomPoste } from '@/store/posteData'
 
 const props = defineProps({
   filtersList: {
@@ -46,7 +47,7 @@ function estSelectionne(key) {
       :class="{ selected: estSelectionne(filter.key) }"
       @click="toggle(filter.key)"
     >
-      {{ filter.value }}
+      {{ getNomPoste(filter.value.toLowerCase()) }}
     </span>
   </div>
 </template>

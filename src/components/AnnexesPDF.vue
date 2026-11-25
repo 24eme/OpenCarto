@@ -1,5 +1,7 @@
 <script setup>
 import { ref } from 'vue';
+import { posteData, getNomPoste } from "@/store/posteData.js";
+
 
 const annexesHtml = ref();
 defineExpose({ annexesHtml });

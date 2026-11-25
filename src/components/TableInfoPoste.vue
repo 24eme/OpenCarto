@@ -10,7 +10,7 @@ import {
 import { useRoute } from "vue-router";
 import { postesRef, ecrireStorage } from "@/store/postes";
 import { etageid2label } from "@/store/etages";
-import { PosteStatuts, newHistoryEntry, AnomaliesSuivi } from "@/store/posteData";
+import { PosteStatuts, newHistoryEntry, AnomaliesSuivi, getNomPoste } from "@/store/posteData";
 
 const props = defineProps({
     poste: Object,
@@ -147,7 +147,7 @@ function formatDate(datestring) {
                         </tr>
                         <tr>
                             <td>Type de poste</td>
-                            <td>{{ poste.typePoste }}</td>
+                            <td>{{ getNomPoste(poste.typePoste) }}</td>
                         </tr>
                         <tr>
                             <td>Consommation</td>

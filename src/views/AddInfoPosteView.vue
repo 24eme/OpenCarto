@@ -1,5 +1,5 @@
 <script setup>
-import { posteData, PosteStatuts, getPrefixPoste } from "@/store/posteData.js";
+import { posteData, PosteStatuts, getPrefixPoste, NomPoste, getNomPoste } from "@/store/posteData.js";
 import { etagesConfig, etageid2label } from "@/store/etages.js";
 import { useRoute } from "vue-router";
 import { ref, computed, watch, onMounted} from "vue";
@@ -183,11 +183,7 @@ onMounted(() => {
                     :disabled="isDisabled"
                     :style="{ 'background-color': isDisabled ? 'white' : null }"
                 >
-                    <option value="wisebox">Wisebox</option>
-                    <option value="mimetic">Mimetic </option>
-                    <option value="ekomille">Ekomille</option>
-                    <option value="boite-souris-secu">Boite souris sécurisée</option>
-                    <option value="boite-rat-carton"> Boîte rat carton</option>
+                  <option v-for="(nomType, valueType) in NomPoste" :value="valueType">{{ nomType }}</option>
                 </select>
             </div>
 
