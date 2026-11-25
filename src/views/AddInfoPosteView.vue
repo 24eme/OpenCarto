@@ -61,25 +61,25 @@ const etageLabel = computed(() => {
 })
 
 const availablePosteNumbers = computed(() => {
-    const etagePostes = allPostes.value.filter(
-        (p) => p.etage === posteData.etage && p.typePoste === posteData.typePoste,
-    );
-    const allPosteIdFromEtage = etagePostes
-        .map((p) => p.idPoste)
-        .map((i) => parseInt(i))
-        .filter((i) => Number.isInteger(i));
-
-    if (allPosteIdFromEtage.length === 0) {
-        return [1];
+    const prefix = getPrefixPoste(posteData.typePoste);
+    if (! prefix) {
+      return [];
     }
 
-    const allPossibleIds = range(1, Math.max(...allPosteIdFromEtage) + 1);
-
-    const available = allPossibleIds.filter(
-        (i) => allPosteIdFromEtage.includes(i) === false,
+    const etagePostes = allPostes.value.filter(
+        (p) => p.etage === posteData.etage
+               && getPrefixPoste(p.typePoste) === prefix,
     );
 
-    return available;
+    const used = etagePostes
+        .map((p) => parseInt(p.idPoste))
+        .filter(Number.isInteger);
+
+    if (used.length === 0) {
+      return [1];
+    }
+
+    return range(1, Math.max(...used) + 1).filter((i) => !used.includes(i));
 });
 
 watch(

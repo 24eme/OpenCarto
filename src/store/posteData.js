@@ -63,6 +63,7 @@ export const PrefixPoste = Object.freeze({
   wisebox: "W",
   mimetic: "M",
   ekomille: "E",
+  boite: "B",
 });
 
 export const AnomaliesSuivi = Object.freeze({
@@ -128,5 +129,11 @@ export function reinitialiserPosteData() {
 }
 
 export function getPrefixPoste(typePoste) {
+  if (!typePoste) {
+    return "";
+  }
+  if (typePoste.startsWith("boite_")) {
+    return PrefixPoste.boite;
+  }
   return PrefixPoste[typePoste] ?? "";
 }
