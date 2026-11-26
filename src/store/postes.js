@@ -46,7 +46,7 @@ export const range = (start, end, step = 1) => {
   return output;
 };
 
-export function ecrireStorage(postes) {
+export function ecrirePostes(postes) {
   datasRef.value.postes = postes;
   postesRef.value = postes;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(datasRef.value));
@@ -54,11 +54,6 @@ export function ecrireStorage(postes) {
 
 export function ecrirePlans(plans) {
   datasRef.value.plans = plans;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(datasRef.value));
-}
-
-export function ecrirePassageId(passageId) {
-  datasRef.value.passageId = passageId;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(datasRef.value));
 }
 
@@ -70,18 +65,13 @@ export function fetchDatas() {
   return datasRef.value;
 }
 
-export function refreshPostes() {
-  datasRef.value = lireStorage();
-  postesRef.value = datasRef.value.postes;
-}
-
 export function createPoste(poste) {
   const nouveauPoste = {
     ...poste,
     id: Date.now().toString(36) + Math.random().toString(36).substring(2),
     creeLe: new Date().toISOString(),
   }
-  ecrireStorage([...postesRef.value, nouveauPoste])
+  ecrirePostes([...postesRef.value, nouveauPoste])
   return nouveauPoste
 }
 
@@ -103,5 +93,5 @@ export function updateConsommation(id, pourcentage, commentaire, anomalies) {
     return maj;
   });
 
-  ecrireStorage(nouveaux);
+  ecrirePostes(nouveaux);
 }

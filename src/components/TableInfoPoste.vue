@@ -8,7 +8,7 @@ import {
     watch,
 } from "vue";
 import { useRoute } from "vue-router";
-import { postesRef, ecrireStorage } from "@/store/postes";
+import { postesRef, ecrirePostes } from "@/store/postes";
 import { etageid2label } from "@/store/etages";
 import { PosteStatuts, newHistoryEntry, AnomaliesSuivi, getNomPoste } from "@/store/posteData";
 
@@ -108,7 +108,7 @@ function valider() {
     const commentaireHistory =
         pourcentageConso.value === VALEUR_NON_SUIVI ? LABEL_NON_SUIVI : "";
     poste.value.history.push(newHistoryEntry(poste.value, commentaireHistory));
-    ecrireStorage(postesRef.value);
+    ecrirePostes(postesRef.value);
 }
 
 function formatDate(datestring) {
