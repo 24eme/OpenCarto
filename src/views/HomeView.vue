@@ -7,7 +7,7 @@ import { ref, computed, onMounted } from "vue";
 import AnnexesPDF from "@/components/AnnexesPDF.vue";
 import { jsPDF } from "jspdf";
 
-let urlAPI = ""
+let urlSendAPI = "";
 let clientName = ref("Potel & Chabot");
 let url = null;
 const etages = ref(etagesConfig);
@@ -64,7 +64,7 @@ onMounted(() => {
   window.addEventListener("click", function (e) {
     if (e.target == pdfGenerationButton.value) {
       generatePdfAnnexes(annexesHtml);
-      save(postes.value);
+      save(datas.value);
     }
   });
 });
@@ -91,11 +91,11 @@ function generatePdfAnnexes(annexesHtml) {
 }
 
 
-async function save(postes) {
-  const res = await fetch(urlAPI, {
+async function save(datas) {
+  const res = await fetch(urlSendAPI, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(postes),
+    body: JSON.stringify(datas),
   })
   if (! res.ok) {
     throw new Error(`HTTP ${res.status}`);
