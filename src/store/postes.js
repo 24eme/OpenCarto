@@ -1,11 +1,34 @@
 import { ref } from 'vue'
 
-const STORAGE_KEY = "postes";
+const STORAGE_KEY = "datas";
 const ZONE_FALLBACK = "SANS_ZONE"; // au cas où zone serait vide
 
-const postesRef = ref(lireStorage())
+function lireStorage() {
+  const brut = localStorage.getItem(STORAGE_KEY);
+  if (!brut) return { plans: [], passageId: null, postes: [] };
+  try {
+    const parsed = JSON.parse(brut);
 
-export { postesRef }
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+      console.error("Format de storage invalide, réinitialisation.");
+      return { plans: [], passageId: null, postes: [] };
+    }
+
+    return {
+      plans: parsed.plans ?? [],
+      passageId: parsed.passageId ?? null,
+      postes: parsed.postes ?? [],
+    };
+  } catch (e) {
+    console.error("Données corrompues dans localStorage, réinitialisation.", e);
+    return { plans: [], passageId: null, postes: [] };
+  }
+}
+
+const datasRef = ref(lireStorage())
+const postesRef = ref(datasRef.value.postes)
+
+export { postesRef, datasRef }
 
 // les valeurs de start et end sont incluses
 export const range = (start, end, step = 1) => {
@@ -23,47 +46,33 @@ export const range = (start, end, step = 1) => {
   return output;
 };
 
-function lireStorage() {
-  const brut = localStorage.getItem(STORAGE_KEY);
-  if (!brut) return [];
-  try {
-    const parsed = JSON.parse(brut);
-
-    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
-      console.error("Format de storage invalide, réinitialisation.");
-      return [];
-    }
-
-    return Object.values(parsed).flatMap((groupe) =>
-      groupe && typeof groupe === "object" ? Object.values(groupe) : []
-    );
-  } catch (e) {
-    console.error("Données corrompues dans localStorage, réinitialisation.", e);
-    return [];
-  }
+export function ecrireStorage(postes) {
+  datasRef.value.postes = postes;
+  postesRef.value = postes;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(datasRef.value));
 }
 
-export function ecrireStorage(postes) {
-  const structure = {};
+export function ecrirePlans(plans) {
+  datasRef.value.plans = plans;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(datasRef.value));
+}
 
-  for (const poste of postes) {
-    const zone = poste.zone || ZONE_FALLBACK;
-    if (!structure[zone]) {
-      structure[zone] = {};
-    }
-    structure[zone][poste.id] = poste;
-  }
-
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(structure));
-  postesRef.value = postes;
+export function ecrirePassageId(passageId) {
+  datasRef.value.passageId = passageId;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(datasRef.value));
 }
 
 export function fetchPostes() {
   return postesRef.value;
 }
 
+export function fetchDatas() {
+  return datasRef.value;
+}
+
 export function refreshPostes() {
-  postesRef.value = lireStorage()
+  datasRef.value = lireStorage();
+  postesRef.value = datasRef.value.postes;
 }
 
 export function createPoste(poste) {

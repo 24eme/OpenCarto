@@ -1,7 +1,7 @@
 <script setup>
 import UploadPlan from "../components/uploadPlan.vue";
 import { etagesConfig } from "@/store/etages";
-import { fetchPostes } from "@/store/postes";
+import { fetchDatas, fetchPostes } from "@/store/postes";
 import { NomPoste, getNomPoste } from "@/store/posteData";
 import { ref, computed, onMounted } from "vue";
 import AnnexesPDF from "@/components/AnnexesPDF.vue";
@@ -12,6 +12,7 @@ let clientName = ref("Potel & Chabot");
 let url = null;
 const etages = ref(etagesConfig);
 const modaleOuverte = ref(false);
+const datas = ref(fetchDatas());
 const postes = ref(fetchPostes());
 
 
