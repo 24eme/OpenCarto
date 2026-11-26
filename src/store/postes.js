@@ -1,7 +1,13 @@
 import { ref } from 'vue'
 
 const STORAGE_KEY = "datas";
-const ZONE_FALLBACK = "SANS_ZONE"; // au cas où zone serait vide
+const urlReceiveApi = "";
+
+let enModif = false;
+
+function marquerEnModif() {
+  enModif = true;
+}
 
 function lireStorage() {
   const brut = localStorage.getItem(STORAGE_KEY);
@@ -30,6 +36,32 @@ const postesRef = ref(datasRef.value.postes)
 
 export { postesRef, datasRef }
 
+export async function hydrateFromServer() {
+    if (enModif) {
+        console.warn("hydrateFromServer ignorée : modifications locales en cours");
+        return;
+    }
+
+    try {
+        const res = await fetch(urlReceiveApi, { method: 'GET' });
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}`);
+        }
+        const datas = await res.json();
+
+        datasRef.value = {
+            plans: datas.plans ?? [],
+            passageId: datas.passageId ?? null,
+            postes: datas.postes ?? [],
+        };
+        postesRef.value = datasRef.value.postes;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(datasRef.value));
+    } catch (e) {
+        console.error('mauvaise réception des données : ', e);
+        return;
+    }
+}
+
 // les valeurs de start et end sont incluses
 export const range = (start, end, step = 1) => {
   let output = [];
@@ -47,12 +79,14 @@ export const range = (start, end, step = 1) => {
 };
 
 export function ecrirePostes(postes) {
+  marquerEnModif();
   datasRef.value.postes = postes;
   postesRef.value = postes;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(datasRef.value));
 }
 
 export function ecrirePlans(plans) {
+  marquerEnModif();
   datasRef.value.plans = plans;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(datasRef.value));
 }
